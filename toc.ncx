@@ -1,0 +1,2169 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="en">
+  <head>
+    <meta content="38ab4c06-4ea4-49e3-b112-979f21761813" name="dtb:uid"/>
+    <meta content="3" name="dtb:depth"/>
+    <meta content="calibre (3.34.0)" name="dtb:generator"/>
+    <meta content="0" name="dtb:totalPageCount"/>
+    <meta content="0" name="dtb:maxPageNumber"/>
+  </head>
+  <docTitle>
+    <text>Work Journal 2019</text>
+  </docTitle>
+  <navMap>
+    <navPoint id="num_1" playOrder="1">
+      <navLabel>
+        <text>January</text>
+      </navLabel>
+      <content src="2019-01.xhtml"/>
+      <navPoint id="num_2" playOrder="2">
+        <navLabel>
+          <text>Monday, January 1</text>
+        </navLabel>
+        <content src="2019-01.xhtml#uxX57XaqOLMQjM7NqbxvKB3"/>
+      </navPoint>
+      <navPoint id="num_3" playOrder="3">
+        <navLabel>
+          <text>Wednesday, January 3</text>
+        </navLabel>
+        <content src="2019-01.xhtml#ungAhwzfBlDJCBMoGi9PMOH"/>
+      </navPoint>
+      <navPoint id="num_4" playOrder="4">
+        <navLabel>
+          <text>Monday, January 28</text>
+        </navLabel>
+        <content src="2019-01.xhtml#toc_1"/>
+      </navPoint>
+      <navPoint id="num_5" playOrder="5">
+        <navLabel>
+          <text>Tuesday, January 29</text>
+        </navLabel>
+        <content src="2019-01.xhtml#toc_2"/>
+      </navPoint>
+      <navPoint id="num_6" playOrder="6">
+        <navLabel>
+          <text>Wednesday, January 30</text>
+        </navLabel>
+        <content src="2019-01.xhtml#toc_3"/>
+      </navPoint>
+      <navPoint id="num_7" playOrder="7">
+        <navLabel>
+          <text>Thursday, January 31</text>
+        </navLabel>
+        <content src="2019-01.xhtml#toc_4"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="num_8" playOrder="8">
+      <navLabel>
+        <text>February</text>
+      </navLabel>
+      <content src="2019-02.xhtml"/>
+      <navPoint id="num_9" playOrder="9">
+        <navLabel>
+          <text>Friday, February 1</text>
+        </navLabel>
+        <content src="2019-02.xhtml#toc_1"/>
+      </navPoint>
+      <navPoint id="num_10" playOrder="10">
+        <navLabel>
+          <text>Monday, February 4</text>
+        </navLabel>
+        <content src="2019-02.xhtml#toc_2"/>
+      </navPoint>
+      <navPoint id="num_11" playOrder="11">
+        <navLabel>
+          <text>Wednesday, February 6</text>
+        </navLabel>
+        <content src="2019-02.xhtml#toc_3"/>
+      </navPoint>
+      <navPoint id="num_12" playOrder="12">
+        <navLabel>
+          <text>Thursday, February 7</text>
+        </navLabel>
+        <content src="2019-02.xhtml#toc_4"/>
+      </navPoint>
+      <navPoint id="num_13" playOrder="13">
+        <navLabel>
+          <text>Friday, February 8</text>
+        </navLabel>
+        <content src="2019-02.xhtml#toc_5"/>
+      </navPoint>
+      <navPoint id="num_14" playOrder="14">
+        <navLabel>
+          <text>Saturday, February 9</text>
+        </navLabel>
+        <content src="2019-02.xhtml#toc_6"/>
+      </navPoint>
+      <navPoint id="num_15" playOrder="15">
+        <navLabel>
+          <text>Monday, February 11</text>
+        </navLabel>
+        <content src="2019-02.xhtml#toc_7"/>
+      </navPoint>
+      <navPoint id="num_16" playOrder="16">
+        <navLabel>
+          <text>Tuesday, February 12</text>
+        </navLabel>
+        <content src="2019-02.xhtml#toc_8"/>
+      </navPoint>
+      <navPoint id="num_17" playOrder="17">
+        <navLabel>
+          <text>Wednesday, February 13</text>
+        </navLabel>
+        <content src="2019-02.xhtml#toc_9"/>
+      </navPoint>
+      <navPoint id="num_18" playOrder="18">
+        <navLabel>
+          <text>Thursday, February 14</text>
+        </navLabel>
+        <content src="2019-02.xhtml#toc_10"/>
+      </navPoint>
+      <navPoint id="num_19" playOrder="19">
+        <navLabel>
+          <text>Friday, February 15</text>
+        </navLabel>
+        <content src="2019-02.xhtml#toc_11"/>
+      </navPoint>
+      <navPoint id="num_20" playOrder="20">
+        <navLabel>
+          <text>Monday, February 18</text>
+        </navLabel>
+        <content src="2019-02.xhtml#toc_12"/>
+      </navPoint>
+      <navPoint id="num_21" playOrder="21">
+        <navLabel>
+          <text>Tuesday, February 19</text>
+        </navLabel>
+        <content src="2019-02.xhtml#toc_13"/>
+      </navPoint>
+      <navPoint id="num_22" playOrder="22">
+        <navLabel>
+          <text>Wednesday, February 20</text>
+        </navLabel>
+        <content src="2019-02.xhtml#toc_14"/>
+      </navPoint>
+      <navPoint id="num_23" playOrder="23">
+        <navLabel>
+          <text>Thursday, February 21</text>
+        </navLabel>
+        <content src="2019-02.xhtml#toc_15"/>
+      </navPoint>
+      <navPoint id="num_24" playOrder="24">
+        <navLabel>
+          <text>Friday, February 22</text>
+        </navLabel>
+        <content src="2019-02.xhtml#toc_16"/>
+      </navPoint>
+      <navPoint id="num_25" playOrder="25">
+        <navLabel>
+          <text>Monday, February 25</text>
+        </navLabel>
+        <content src="2019-02.xhtml#toc_17"/>
+      </navPoint>
+      <navPoint id="num_26" playOrder="26">
+        <navLabel>
+          <text>Tuesday, February 26</text>
+        </navLabel>
+        <content src="2019-02.xhtml#toc_18"/>
+      </navPoint>
+      <navPoint id="num_27" playOrder="27">
+        <navLabel>
+          <text>Wednesday, February 27</text>
+        </navLabel>
+        <content src="2019-02.xhtml#toc_19"/>
+      </navPoint>
+      <navPoint id="num_28" playOrder="28">
+        <navLabel>
+          <text>Friday, February 28</text>
+        </navLabel>
+        <content src="2019-02.xhtml#toc_20"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="num_29" playOrder="29">
+      <navLabel>
+        <text>March</text>
+      </navLabel>
+      <content src="2019-03.xhtml"/>
+      <navPoint id="num_30" playOrder="30">
+        <navLabel>
+          <text>Friday, March 1</text>
+        </navLabel>
+        <content src="2019-03.xhtml#toc_1"/>
+      </navPoint>
+      <navPoint id="num_31" playOrder="31">
+        <navLabel>
+          <text>Sunday, March 3</text>
+        </navLabel>
+        <content src="2019-03.xhtml#toc_2"/>
+      </navPoint>
+      <navPoint id="num_32" playOrder="32">
+        <navLabel>
+          <text>Monday, March 4</text>
+        </navLabel>
+        <content src="2019-03.xhtml#toc_3"/>
+      </navPoint>
+      <navPoint id="num_33" playOrder="33">
+        <navLabel>
+          <text>Tuesday, March 5</text>
+        </navLabel>
+        <content src="2019-03.xhtml#toc_4"/>
+      </navPoint>
+      <navPoint id="num_34" playOrder="34">
+        <navLabel>
+          <text>Wednesday, March 6</text>
+        </navLabel>
+        <content src="2019-03.xhtml#toc_5"/>
+      </navPoint>
+      <navPoint id="num_35" playOrder="35">
+        <navLabel>
+          <text>Thursday, March 7</text>
+        </navLabel>
+        <content src="2019-03.xhtml#toc_6"/>
+      </navPoint>
+      <navPoint id="num_36" playOrder="36">
+        <navLabel>
+          <text>Friday, March 8</text>
+        </navLabel>
+        <content src="2019-03.xhtml#toc_7"/>
+      </navPoint>
+      <navPoint id="num_37" playOrder="37">
+        <navLabel>
+          <text>Sunday, March 10</text>
+        </navLabel>
+        <content src="2019-03.xhtml#toc_8"/>
+      </navPoint>
+      <navPoint id="num_38" playOrder="38">
+        <navLabel>
+          <text>Monday, March 11</text>
+        </navLabel>
+        <content src="2019-03.xhtml#toc_9"/>
+      </navPoint>
+      <navPoint id="num_39" playOrder="39">
+        <navLabel>
+          <text>Tuesday, March 12</text>
+        </navLabel>
+        <content src="2019-03.xhtml#toc_10"/>
+      </navPoint>
+      <navPoint id="num_40" playOrder="40">
+        <navLabel>
+          <text>Wednesday, March 13</text>
+        </navLabel>
+        <content src="2019-03.xhtml#toc_11"/>
+      </navPoint>
+      <navPoint id="num_41" playOrder="41">
+        <navLabel>
+          <text>Thursday, March 14</text>
+        </navLabel>
+        <content src="2019-03.xhtml#toc_12"/>
+      </navPoint>
+      <navPoint id="num_42" playOrder="42">
+        <navLabel>
+          <text>Friday, March 15</text>
+        </navLabel>
+        <content src="2019-03.xhtml#toc_13"/>
+      </navPoint>
+      <navPoint id="num_43" playOrder="43">
+        <navLabel>
+          <text>Monday, March 18</text>
+        </navLabel>
+        <content src="2019-03.xhtml#toc_14"/>
+      </navPoint>
+      <navPoint id="num_44" playOrder="44">
+        <navLabel>
+          <text>Wednesday, March 20</text>
+        </navLabel>
+        <content src="2019-03.xhtml#toc_15"/>
+      </navPoint>
+      <navPoint id="num_45" playOrder="45">
+        <navLabel>
+          <text>Thursday, March 21</text>
+        </navLabel>
+        <content src="2019-03.xhtml#toc_16"/>
+      </navPoint>
+      <navPoint id="num_46" playOrder="46">
+        <navLabel>
+          <text>Friday, March 22</text>
+        </navLabel>
+        <content src="2019-03.xhtml#toc_17"/>
+      </navPoint>
+      <navPoint id="num_47" playOrder="47">
+        <navLabel>
+          <text>Monday, March 25</text>
+        </navLabel>
+        <content src="2019-03.xhtml#toc_18"/>
+      </navPoint>
+      <navPoint id="num_48" playOrder="48">
+        <navLabel>
+          <text>Tuesday, March 26</text>
+        </navLabel>
+        <content src="2019-03.xhtml#toc_19"/>
+      </navPoint>
+      <navPoint id="num_49" playOrder="49">
+        <navLabel>
+          <text>Wednesday, March 27</text>
+        </navLabel>
+        <content src="2019-03.xhtml#toc_20"/>
+      </navPoint>
+      <navPoint id="num_50" playOrder="50">
+        <navLabel>
+          <text>Thursday, March 28</text>
+        </navLabel>
+        <content src="2019-03.xhtml#toc_21"/>
+      </navPoint>
+      <navPoint id="num_51" playOrder="51">
+        <navLabel>
+          <text>Friday, March 29</text>
+        </navLabel>
+        <content src="2019-03.xhtml#toc_22"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="num_52" playOrder="52">
+      <navLabel>
+        <text>April</text>
+      </navLabel>
+      <content src="2019-04.xhtml"/>
+      <navPoint id="num_53" playOrder="53">
+        <navLabel>
+          <text>Monday, April 1</text>
+        </navLabel>
+        <content src="2019-04.xhtml#toc_1"/>
+      </navPoint>
+      <navPoint id="num_54" playOrder="54">
+        <navLabel>
+          <text>Tuesday, April 2</text>
+        </navLabel>
+        <content src="2019-04.xhtml#toc_2"/>
+      </navPoint>
+      <navPoint id="num_55" playOrder="55">
+        <navLabel>
+          <text>Wednesday, April 3</text>
+        </navLabel>
+        <content src="2019-04.xhtml#toc_3"/>
+      </navPoint>
+      <navPoint id="num_56" playOrder="56">
+        <navLabel>
+          <text>Thursday, April 4</text>
+        </navLabel>
+        <content src="2019-04.xhtml#toc_4"/>
+      </navPoint>
+      <navPoint id="num_57" playOrder="57">
+        <navLabel>
+          <text>Friday, April 5</text>
+        </navLabel>
+        <content src="2019-04.xhtml#toc_5"/>
+      </navPoint>
+      <navPoint id="num_58" playOrder="58">
+        <navLabel>
+          <text>Saturday-Sunday, April 6-7</text>
+        </navLabel>
+        <content src="2019-04.xhtml#toc_6"/>
+      </navPoint>
+      <navPoint id="num_59" playOrder="59">
+        <navLabel>
+          <text>Monday, April 8</text>
+        </navLabel>
+        <content src="2019-04.xhtml#toc_7"/>
+      </navPoint>
+      <navPoint id="num_60" playOrder="60">
+        <navLabel>
+          <text>Tuesday, April 9</text>
+        </navLabel>
+        <content src="2019-04.xhtml#toc_8"/>
+      </navPoint>
+      <navPoint id="num_61" playOrder="61">
+        <navLabel>
+          <text>Wednesday, April 10</text>
+        </navLabel>
+        <content src="2019-04.xhtml#toc_9"/>
+      </navPoint>
+      <navPoint id="num_62" playOrder="62">
+        <navLabel>
+          <text>Thursday, April 11</text>
+        </navLabel>
+        <content src="2019-04.xhtml#toc_10"/>
+      </navPoint>
+      <navPoint id="num_63" playOrder="63">
+        <navLabel>
+          <text>Friday, April 12</text>
+        </navLabel>
+        <content src="2019-04.xhtml#toc_11"/>
+      </navPoint>
+      <navPoint id="num_64" playOrder="64">
+        <navLabel>
+          <text>Monday, April 15</text>
+        </navLabel>
+        <content src="2019-04.xhtml#toc_12"/>
+      </navPoint>
+      <navPoint id="num_65" playOrder="65">
+        <navLabel>
+          <text>Tuesday, April 16</text>
+        </navLabel>
+        <content src="2019-04.xhtml#toc_13"/>
+      </navPoint>
+      <navPoint id="num_66" playOrder="66">
+        <navLabel>
+          <text>Wednesday, April 17</text>
+        </navLabel>
+        <content src="2019-04.xhtml#toc_14"/>
+      </navPoint>
+      <navPoint id="num_67" playOrder="67">
+        <navLabel>
+          <text>Thursday, April 18</text>
+        </navLabel>
+        <content src="2019-04.xhtml#toc_15"/>
+      </navPoint>
+      <navPoint id="num_68" playOrder="68">
+        <navLabel>
+          <text>Friday, April 19</text>
+        </navLabel>
+        <content src="2019-04.xhtml#toc_16"/>
+      </navPoint>
+      <navPoint id="num_69" playOrder="69">
+        <navLabel>
+          <text>Monday, April 22</text>
+        </navLabel>
+        <content src="2019-04.xhtml#toc_17"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="num_70" playOrder="70">
+      <navLabel>
+        <text>May</text>
+      </navLabel>
+      <content src="2019-05.xhtml"/>
+      <navPoint id="num_71" playOrder="71">
+        <navLabel>
+          <text>Friday, May 10</text>
+        </navLabel>
+        <content src="2019-05.xhtml#toc_1"/>
+      </navPoint>
+      <navPoint id="num_72" playOrder="72">
+        <navLabel>
+          <text>Monday, May 13</text>
+        </navLabel>
+        <content src="2019-05.xhtml#toc_2"/>
+      </navPoint>
+      <navPoint id="num_73" playOrder="73">
+        <navLabel>
+          <text>Tuesday, May 14</text>
+        </navLabel>
+        <content src="2019-05.xhtml#toc_3"/>
+      </navPoint>
+      <navPoint id="num_74" playOrder="74">
+        <navLabel>
+          <text>Wednesday, May 15</text>
+        </navLabel>
+        <content src="2019-05.xhtml#toc_4"/>
+      </navPoint>
+      <navPoint id="num_75" playOrder="75">
+        <navLabel>
+          <text>Thursday, May 16</text>
+        </navLabel>
+        <content src="2019-05.xhtml#toc_6"/>
+      </navPoint>
+      <navPoint id="num_76" playOrder="76">
+        <navLabel>
+          <text>Friday, May 17</text>
+        </navLabel>
+        <content src="2019-05.xhtml#toc_5"/>
+      </navPoint>
+      <navPoint id="num_77" playOrder="77">
+        <navLabel>
+          <text>Monday, May 20</text>
+        </navLabel>
+        <content src="2019-05.xhtml#toc_7"/>
+      </navPoint>
+      <navPoint id="num_78" playOrder="78">
+        <navLabel>
+          <text>Tuesday, May 21</text>
+        </navLabel>
+        <content src="2019-05.xhtml#toc_8"/>
+      </navPoint>
+      <navPoint id="num_79" playOrder="79">
+        <navLabel>
+          <text>Wednesday, May 22</text>
+        </navLabel>
+        <content src="2019-05.xhtml#toc_9"/>
+      </navPoint>
+      <navPoint id="num_80" playOrder="80">
+        <navLabel>
+          <text>Thursday, May 23</text>
+        </navLabel>
+        <content src="2019-05.xhtml#toc_10"/>
+      </navPoint>
+      <navPoint id="num_81" playOrder="81">
+        <navLabel>
+          <text>Monday, May 28</text>
+        </navLabel>
+        <content src="2019-05.xhtml#toc_11"/>
+      </navPoint>
+      <navPoint id="num_82" playOrder="82">
+        <navLabel>
+          <text>Tuesday, May 29</text>
+        </navLabel>
+        <content src="2019-05.xhtml#toc_12"/>
+      </navPoint>
+      <navPoint id="num_83" playOrder="83">
+        <navLabel>
+          <text>Thursday, May 30</text>
+        </navLabel>
+        <content src="2019-05.xhtml#toc_13"/>
+      </navPoint>
+      <navPoint id="num_84" playOrder="84">
+        <navLabel>
+          <text>Friday, May 31</text>
+        </navLabel>
+        <content src="2019-05.xhtml#toc_14"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="num_85" playOrder="85">
+      <navLabel>
+        <text>June</text>
+      </navLabel>
+      <content src="2019-06.xhtml"/>
+      <navPoint id="num_86" playOrder="86">
+        <navLabel>
+          <text>Monday, June 3</text>
+        </navLabel>
+        <content src="2019-06.xhtml#toc_1"/>
+      </navPoint>
+      <navPoint id="num_87" playOrder="87">
+        <navLabel>
+          <text>Tuesday, June 4</text>
+        </navLabel>
+        <content src="2019-06.xhtml#toc_2"/>
+      </navPoint>
+      <navPoint id="num_88" playOrder="88">
+        <navLabel>
+          <text>Wednesday, June 5</text>
+        </navLabel>
+        <content src="2019-06.xhtml#toc_3"/>
+      </navPoint>
+      <navPoint id="num_89" playOrder="89">
+        <navLabel>
+          <text>Thursday, June 6</text>
+        </navLabel>
+        <content src="2019-06.xhtml#toc_4"/>
+      </navPoint>
+      <navPoint id="num_90" playOrder="90">
+        <navLabel>
+          <text>Friday, June 7</text>
+        </navLabel>
+        <content src="2019-06.xhtml#toc_5"/>
+      </navPoint>
+      <navPoint id="num_91" playOrder="91">
+        <navLabel>
+          <text>Monday, June 10</text>
+        </navLabel>
+        <content src="2019-06.xhtml#toc_7"/>
+      </navPoint>
+      <navPoint id="num_92" playOrder="92">
+        <navLabel>
+          <text>Tuesday, June 11</text>
+        </navLabel>
+        <content src="2019-06.xhtml#toc_8"/>
+      </navPoint>
+      <navPoint id="num_93" playOrder="93">
+        <navLabel>
+          <text>Wednesday, June 12</text>
+        </navLabel>
+        <content src="2019-06.xhtml#toc_9"/>
+      </navPoint>
+      <navPoint id="num_94" playOrder="94">
+        <navLabel>
+          <text>Thursday, June 13</text>
+        </navLabel>
+        <content src="2019-06.xhtml#toc_10"/>
+      </navPoint>
+      <navPoint id="num_95" playOrder="95">
+        <navLabel>
+          <text>Friday, June 14</text>
+        </navLabel>
+        <content src="2019-06.xhtml#toc_11"/>
+      </navPoint>
+      <navPoint id="num_96" playOrder="96">
+        <navLabel>
+          <text>Monday, June 17</text>
+        </navLabel>
+        <content src="2019-06.xhtml#toc_12"/>
+      </navPoint>
+      <navPoint id="num_97" playOrder="97">
+        <navLabel>
+          <text>Tuesday, June 18</text>
+        </navLabel>
+        <content src="2019-06.xhtml#toc_13"/>
+      </navPoint>
+      <navPoint id="num_98" playOrder="98">
+        <navLabel>
+          <text>Wednesday, June 19</text>
+        </navLabel>
+        <content src="2019-06.xhtml#toc_14"/>
+      </navPoint>
+      <navPoint id="num_99" playOrder="99">
+        <navLabel>
+          <text>Thursday, June 20</text>
+        </navLabel>
+        <content src="2019-06.xhtml#toc_15"/>
+      </navPoint>
+      <navPoint id="num_100" playOrder="100">
+        <navLabel>
+          <text>Friday, June 21, the summer solstice</text>
+        </navLabel>
+        <content src="2019-06.xhtml#toc_16"/>
+      </navPoint>
+      <navPoint id="num_101" playOrder="101">
+        <navLabel>
+          <text>Tuesday, June 25</text>
+        </navLabel>
+        <content src="2019-06.xhtml#toc_17"/>
+      </navPoint>
+      <navPoint id="num_102" playOrder="102">
+        <navLabel>
+          <text>Thursday, June 27</text>
+        </navLabel>
+        <content src="2019-06.xhtml#toc_18"/>
+      </navPoint>
+      <navPoint id="num_103" playOrder="103">
+        <navLabel>
+          <text>Friday, June 28</text>
+        </navLabel>
+        <content src="2019-06.xhtml#toc_19"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="num_104" playOrder="104">
+      <navLabel>
+        <text>July</text>
+      </navLabel>
+      <content src="2019-07.xhtml"/>
+      <navPoint id="num_105" playOrder="105">
+        <navLabel>
+          <text>Monday, July 1</text>
+        </navLabel>
+        <content src="2019-07.xhtml#toc_1"/>
+      </navPoint>
+      <navPoint id="num_106" playOrder="106">
+        <navLabel>
+          <text>Tuesday, July 2</text>
+        </navLabel>
+        <content src="2019-07.xhtml#toc_2"/>
+      </navPoint>
+      <navPoint id="num_107" playOrder="107">
+        <navLabel>
+          <text>Wednesday, July 3</text>
+        </navLabel>
+        <content src="2019-07.xhtml#toc_3"/>
+      </navPoint>
+      <navPoint id="num_108" playOrder="108">
+        <navLabel>
+          <text>Friday, July 5</text>
+        </navLabel>
+        <content src="2019-07.xhtml#toc_4"/>
+      </navPoint>
+      <navPoint id="num_109" playOrder="109">
+        <navLabel>
+          <text>Monday, July 8</text>
+        </navLabel>
+        <content src="2019-07.xhtml#toc_5"/>
+      </navPoint>
+      <navPoint id="num_110" playOrder="110">
+        <navLabel>
+          <text>Tuesday, July 9</text>
+        </navLabel>
+        <content src="2019-07.xhtml#toc_6"/>
+      </navPoint>
+      <navPoint id="num_111" playOrder="111">
+        <navLabel>
+          <text>Wednesday, July 10</text>
+        </navLabel>
+        <content src="2019-07.xhtml#toc_7"/>
+      </navPoint>
+      <navPoint id="num_112" playOrder="112">
+        <navLabel>
+          <text>Thursday, July 11</text>
+        </navLabel>
+        <content src="2019-07.xhtml#toc_8"/>
+      </navPoint>
+      <navPoint id="num_113" playOrder="113">
+        <navLabel>
+          <text>Friday, July 12</text>
+        </navLabel>
+        <content src="2019-07.xhtml#toc_9"/>
+      </navPoint>
+      <navPoint id="num_114" playOrder="114">
+        <navLabel>
+          <text>Sunday, July 14</text>
+        </navLabel>
+        <content src="2019-07.xhtml#toc_10"/>
+      </navPoint>
+      <navPoint id="num_115" playOrder="115">
+        <navLabel>
+          <text>Monday, July 15</text>
+        </navLabel>
+        <content src="2019-07.xhtml#toc_11"/>
+      </navPoint>
+      <navPoint id="num_116" playOrder="116">
+        <navLabel>
+          <text>Tuesday, July 16</text>
+        </navLabel>
+        <content src="2019-07.xhtml#toc_12"/>
+      </navPoint>
+      <navPoint id="num_117" playOrder="117">
+        <navLabel>
+          <text>Wednesday, July 17</text>
+        </navLabel>
+        <content src="2019-07.xhtml#toc_13"/>
+      </navPoint>
+      <navPoint id="num_118" playOrder="118">
+        <navLabel>
+          <text>Thursday, July 18</text>
+        </navLabel>
+        <content src="2019-07.xhtml#toc_14"/>
+      </navPoint>
+      <navPoint id="num_119" playOrder="119">
+        <navLabel>
+          <text>Monday, July 22</text>
+        </navLabel>
+        <content src="2019-07.xhtml#toc_15"/>
+      </navPoint>
+      <navPoint id="num_120" playOrder="120">
+        <navLabel>
+          <text>Tuesday, July 23</text>
+        </navLabel>
+        <content src="2019-07.xhtml#toc_16"/>
+      </navPoint>
+      <navPoint id="num_121" playOrder="121">
+        <navLabel>
+          <text>Wednesday, July 24</text>
+        </navLabel>
+        <content src="2019-07.xhtml#toc_17"/>
+      </navPoint>
+      <navPoint id="num_122" playOrder="122">
+        <navLabel>
+          <text>Thursday, July 25</text>
+        </navLabel>
+        <content src="2019-07.xhtml#toc_18"/>
+      </navPoint>
+      <navPoint id="num_123" playOrder="123">
+        <navLabel>
+          <text>Friday, July 26</text>
+        </navLabel>
+        <content src="2019-07.xhtml#toc_19"/>
+      </navPoint>
+      <navPoint id="num_124" playOrder="124">
+        <navLabel>
+          <text>Monday, July 29</text>
+        </navLabel>
+        <content src="2019-07.xhtml#toc_20"/>
+      </navPoint>
+      <navPoint id="num_125" playOrder="125">
+        <navLabel>
+          <text>Tuesday, July 30</text>
+        </navLabel>
+        <content src="2019-07.xhtml#toc_21"/>
+      </navPoint>
+      <navPoint id="num_126" playOrder="126">
+        <navLabel>
+          <text>Wednesday, July 31</text>
+        </navLabel>
+        <content src="2019-07.xhtml#toc_22"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="num_127" playOrder="127">
+      <navLabel>
+        <text>August</text>
+      </navLabel>
+      <content src="2019-08.xhtml"/>
+      <navPoint id="num_128" playOrder="128">
+        <navLabel>
+          <text>Thursday, August 1</text>
+        </navLabel>
+        <content src="2019-08.xhtml#toc_1"/>
+      </navPoint>
+      <navPoint id="num_129" playOrder="129">
+        <navLabel>
+          <text>Friday, August 2</text>
+        </navLabel>
+        <content src="2019-08.xhtml#toc_2"/>
+      </navPoint>
+      <navPoint id="num_130" playOrder="130">
+        <navLabel>
+          <text>Monday, August 5</text>
+        </navLabel>
+        <content src="2019-08.xhtml#toc_3"/>
+      </navPoint>
+      <navPoint id="num_131" playOrder="131">
+        <navLabel>
+          <text>Tuesday, August 6</text>
+        </navLabel>
+        <content src="2019-08.xhtml#toc_4"/>
+      </navPoint>
+      <navPoint id="num_132" playOrder="132">
+        <navLabel>
+          <text>Wednesday, August 7</text>
+        </navLabel>
+        <content src="2019-08.xhtml#toc_5"/>
+      </navPoint>
+      <navPoint id="num_133" playOrder="133">
+        <navLabel>
+          <text>Thursday, August 8</text>
+        </navLabel>
+        <content src="2019-08.xhtml#toc_6"/>
+      </navPoint>
+      <navPoint id="num_134" playOrder="134">
+        <navLabel>
+          <text>Monday, August 12</text>
+        </navLabel>
+        <content src="2019-08.xhtml#toc_7"/>
+      </navPoint>
+      <navPoint id="num_135" playOrder="135">
+        <navLabel>
+          <text>Tuesday, August 13</text>
+        </navLabel>
+        <content src="2019-08.xhtml#toc_8"/>
+      </navPoint>
+      <navPoint id="num_136" playOrder="136">
+        <navLabel>
+          <text>Wednesday, August 14</text>
+        </navLabel>
+        <content src="2019-08.xhtml#toc_9"/>
+      </navPoint>
+      <navPoint id="num_137" playOrder="137">
+        <navLabel>
+          <text>Monday, August 19</text>
+        </navLabel>
+        <content src="2019-08.xhtml#toc_10"/>
+      </navPoint>
+      <navPoint id="num_138" playOrder="138">
+        <navLabel>
+          <text>Tuesday, August 20</text>
+        </navLabel>
+        <content src="2019-08.xhtml#toc_11"/>
+      </navPoint>
+      <navPoint id="num_139" playOrder="139">
+        <navLabel>
+          <text>Wednesday, August 21</text>
+        </navLabel>
+        <content src="2019-08.xhtml#toc_12"/>
+      </navPoint>
+      <navPoint id="num_140" playOrder="140">
+        <navLabel>
+          <text>Thursday, August 22</text>
+        </navLabel>
+        <content src="2019-08.xhtml#toc_13"/>
+      </navPoint>
+      <navPoint id="num_141" playOrder="141">
+        <navLabel>
+          <text>Friday, August 23</text>
+        </navLabel>
+        <content src="2019-08.xhtml#toc_14"/>
+      </navPoint>
+      <navPoint id="num_142" playOrder="142">
+        <navLabel>
+          <text>Monday, August 26</text>
+        </navLabel>
+        <content src="2019-08.xhtml#toc_15"/>
+      </navPoint>
+      <navPoint id="num_143" playOrder="143">
+        <navLabel>
+          <text>Tuesday, August 27</text>
+        </navLabel>
+        <content src="2019-08.xhtml#toc_16"/>
+      </navPoint>
+      <navPoint id="num_144" playOrder="144">
+        <navLabel>
+          <text>Wednesday, August 28</text>
+        </navLabel>
+        <content src="2019-08.xhtml#toc_17"/>
+      </navPoint>
+      <navPoint id="num_145" playOrder="145">
+        <navLabel>
+          <text>Thursday, August 29</text>
+        </navLabel>
+        <content src="2019-08.xhtml#toc_18"/>
+      </navPoint>
+      <navPoint id="num_146" playOrder="146">
+        <navLabel>
+          <text>Friday, August 30</text>
+        </navLabel>
+        <content src="2019-08.xhtml#toc_19"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="num_147" playOrder="147">
+      <navLabel>
+        <text>September</text>
+      </navLabel>
+      <content src="2019-09.xhtml"/>
+      <navPoint id="num_148" playOrder="148">
+        <navLabel>
+          <text>Tuesday, September 3</text>
+        </navLabel>
+        <content src="2019-09.xhtml#toc_1"/>
+      </navPoint>
+      <navPoint id="num_149" playOrder="149">
+        <navLabel>
+          <text>Wednesday, September 4</text>
+        </navLabel>
+        <content src="2019-09.xhtml#toc_2"/>
+      </navPoint>
+      <navPoint id="num_150" playOrder="150">
+        <navLabel>
+          <text>Thursday, September 5</text>
+        </navLabel>
+        <content src="2019-09.xhtml#toc_3"/>
+      </navPoint>
+      <navPoint id="num_151" playOrder="151">
+        <navLabel>
+          <text>Friday, September 6</text>
+        </navLabel>
+        <content src="2019-09.xhtml#toc_4"/>
+      </navPoint>
+      <navPoint id="num_152" playOrder="152">
+        <navLabel>
+          <text>Monday, September 9</text>
+        </navLabel>
+        <content src="2019-09.xhtml#toc_5"/>
+      </navPoint>
+      <navPoint id="num_153" playOrder="153">
+        <navLabel>
+          <text>Tuesday, September 10</text>
+        </navLabel>
+        <content src="2019-09.xhtml#toc_6"/>
+      </navPoint>
+      <navPoint id="num_154" playOrder="154">
+        <navLabel>
+          <text>Wednesday, September 11</text>
+        </navLabel>
+        <content src="2019-09.xhtml#toc_7"/>
+      </navPoint>
+      <navPoint id="num_155" playOrder="155">
+        <navLabel>
+          <text>Thursday, September 12</text>
+        </navLabel>
+        <content src="2019-09.xhtml#toc_8"/>
+      </navPoint>
+      <navPoint id="num_156" playOrder="156">
+        <navLabel>
+          <text>Friday, September 13</text>
+        </navLabel>
+        <content src="2019-09.xhtml#toc_9"/>
+      </navPoint>
+      <navPoint id="num_157" playOrder="157">
+        <navLabel>
+          <text>Monday, September 16</text>
+        </navLabel>
+        <content src="2019-09.xhtml#toc_10"/>
+      </navPoint>
+      <navPoint id="num_158" playOrder="158">
+        <navLabel>
+          <text>Tuesday, September 17</text>
+        </navLabel>
+        <content src="2019-09.xhtml#toc_11"/>
+      </navPoint>
+      <navPoint id="num_159" playOrder="159">
+        <navLabel>
+          <text>Wednesday, September 18</text>
+        </navLabel>
+        <content src="2019-09.xhtml#toc_12"/>
+      </navPoint>
+      <navPoint id="num_160" playOrder="160">
+        <navLabel>
+          <text>Thursday, September 19</text>
+        </navLabel>
+        <content src="2019-09.xhtml#toc_13"/>
+      </navPoint>
+      <navPoint id="num_161" playOrder="161">
+        <navLabel>
+          <text>Friday, September 20</text>
+        </navLabel>
+        <content src="2019-09.xhtml#toc_14"/>
+      </navPoint>
+      <navPoint id="num_162" playOrder="162">
+        <navLabel>
+          <text>Monday, September 23</text>
+        </navLabel>
+        <content src="2019-09.xhtml#toc_15"/>
+      </navPoint>
+      <navPoint id="num_163" playOrder="163">
+        <navLabel>
+          <text>Tuesday, September 24</text>
+        </navLabel>
+        <content src="2019-09.xhtml#toc_16"/>
+      </navPoint>
+      <navPoint id="num_164" playOrder="164">
+        <navLabel>
+          <text>Wednesday, September 25</text>
+        </navLabel>
+        <content src="2019-09.xhtml#toc_17"/>
+      </navPoint>
+      <navPoint id="num_165" playOrder="165">
+        <navLabel>
+          <text>Thursday, September 26</text>
+        </navLabel>
+        <content src="2019-09.xhtml#toc_18"/>
+      </navPoint>
+      <navPoint id="num_166" playOrder="166">
+        <navLabel>
+          <text>Friday, September 27</text>
+        </navLabel>
+        <content src="2019-09.xhtml#toc_19"/>
+      </navPoint>
+      <navPoint id="num_167" playOrder="167">
+        <navLabel>
+          <text>Monday, September 30</text>
+        </navLabel>
+        <content src="2019-09.xhtml#toc_20"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="num_168" playOrder="168">
+      <navLabel>
+        <text>October</text>
+      </navLabel>
+      <content src="2019-10.xhtml"/>
+      <navPoint id="num_169" playOrder="169">
+        <navLabel>
+          <text>Tuesday, October 1</text>
+        </navLabel>
+        <content src="2019-10.xhtml#toc_1"/>
+      </navPoint>
+      <navPoint id="num_170" playOrder="170">
+        <navLabel>
+          <text>Wednesday, October 2</text>
+        </navLabel>
+        <content src="2019-10.xhtml#toc_2"/>
+      </navPoint>
+      <navPoint id="num_171" playOrder="171">
+        <navLabel>
+          <text>Tuesday, October 15</text>
+        </navLabel>
+        <content src="2019-10.xhtml#toc_3"/>
+      </navPoint>
+      <navPoint id="num_172" playOrder="172">
+        <navLabel>
+          <text>Wesdnesday, October 16</text>
+        </navLabel>
+        <content src="2019-10.xhtml#toc_4"/>
+      </navPoint>
+      <navPoint id="num_173" playOrder="173">
+        <navLabel>
+          <text>Thursday, October 17</text>
+        </navLabel>
+        <content src="2019-10.xhtml#toc_5"/>
+      </navPoint>
+      <navPoint id="num_174" playOrder="174">
+        <navLabel>
+          <text>Friday, October 18</text>
+        </navLabel>
+        <content src="2019-10.xhtml#toc_6"/>
+      </navPoint>
+      <navPoint id="num_175" playOrder="175">
+        <navLabel>
+          <text>Monday, October 21</text>
+        </navLabel>
+        <content src="2019-10.xhtml#toc_7"/>
+      </navPoint>
+      <navPoint id="num_176" playOrder="176">
+        <navLabel>
+          <text>Tuesday, October 22</text>
+        </navLabel>
+        <content src="2019-10.xhtml#toc_8"/>
+      </navPoint>
+      <navPoint id="num_177" playOrder="177">
+        <navLabel>
+          <text>Wednesday, October 23</text>
+        </navLabel>
+        <content src="2019-10.xhtml#toc_9"/>
+      </navPoint>
+      <navPoint id="num_178" playOrder="178">
+        <navLabel>
+          <text>Thursday, October 24</text>
+        </navLabel>
+        <content src="2019-10.xhtml#toc_10"/>
+      </navPoint>
+      <navPoint id="num_179" playOrder="179">
+        <navLabel>
+          <text>Friday, October 25</text>
+        </navLabel>
+        <content src="2019-10.xhtml#toc_11"/>
+      </navPoint>
+      <navPoint id="num_180" playOrder="180">
+        <navLabel>
+          <text>Monday, October 28</text>
+        </navLabel>
+        <content src="2019-10.xhtml#toc_12"/>
+      </navPoint>
+      <navPoint id="num_181" playOrder="181">
+        <navLabel>
+          <text>Tuesday, October 29</text>
+        </navLabel>
+        <content src="2019-10.xhtml#toc_13"/>
+      </navPoint>
+      <navPoint id="num_182" playOrder="182">
+        <navLabel>
+          <text>Wednesday, October 30</text>
+        </navLabel>
+        <content src="2019-10.xhtml#toc_14"/>
+      </navPoint>
+      <navPoint id="num_183" playOrder="183">
+        <navLabel>
+          <text>Thursday, October 31</text>
+        </navLabel>
+        <content src="2019-10.xhtml#toc_15"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="num_184" playOrder="184">
+      <navLabel>
+        <text>November</text>
+      </navLabel>
+      <content src="2019-11.xhtml"/>
+      <navPoint id="num_185" playOrder="185">
+        <navLabel>
+          <text>Friday, November 1</text>
+        </navLabel>
+        <content src="2019-11.xhtml#toc_1"/>
+      </navPoint>
+      <navPoint id="num_186" playOrder="186">
+        <navLabel>
+          <text>Saturday, November 2</text>
+        </navLabel>
+        <content src="2019-11.xhtml#toc_2"/>
+      </navPoint>
+      <navPoint id="num_187" playOrder="187">
+        <navLabel>
+          <text>Monday, November 4</text>
+        </navLabel>
+        <content src="2019-11.xhtml#toc_3"/>
+      </navPoint>
+      <navPoint id="num_188" playOrder="188">
+        <navLabel>
+          <text>Tuesday, November 5</text>
+        </navLabel>
+        <content src="2019-11.xhtml#toc_4"/>
+      </navPoint>
+      <navPoint id="num_189" playOrder="189">
+        <navLabel>
+          <text>Wednesday, November 6</text>
+        </navLabel>
+        <content src="2019-11.xhtml#toc_5"/>
+      </navPoint>
+      <navPoint id="num_190" playOrder="190">
+        <navLabel>
+          <text>Thursday, November 7</text>
+        </navLabel>
+        <content src="2019-11.xhtml#toc_6"/>
+      </navPoint>
+      <navPoint id="num_191" playOrder="191">
+        <navLabel>
+          <text>Friday, November 8</text>
+        </navLabel>
+        <content src="2019-11.xhtml#toc_7"/>
+      </navPoint>
+      <navPoint id="num_192" playOrder="192">
+        <navLabel>
+          <text>Monday, November 11</text>
+        </navLabel>
+        <content src="2019-11.xhtml#toc_8"/>
+      </navPoint>
+      <navPoint id="num_193" playOrder="193">
+        <navLabel>
+          <text>Tuesday, November 12</text>
+        </navLabel>
+        <content src="2019-11.xhtml#toc_9"/>
+      </navPoint>
+      <navPoint id="num_194" playOrder="194">
+        <navLabel>
+          <text>Wednesday, November 13</text>
+        </navLabel>
+        <content src="2019-11.xhtml#toc_10"/>
+      </navPoint>
+      <navPoint id="num_195" playOrder="195">
+        <navLabel>
+          <text>Thursday, Nobember 14</text>
+        </navLabel>
+        <content src="2019-11.xhtml#toc_11"/>
+      </navPoint>
+      <navPoint id="num_196" playOrder="196">
+        <navLabel>
+          <text>Friday, November 15</text>
+        </navLabel>
+        <content src="2019-11.xhtml#toc_12"/>
+      </navPoint>
+      <navPoint id="num_197" playOrder="197">
+        <navLabel>
+          <text>Monday, November 18</text>
+        </navLabel>
+        <content src="2019-11.xhtml#toc_13"/>
+      </navPoint>
+      <navPoint id="num_198" playOrder="198">
+        <navLabel>
+          <text>Tuesday, November 19</text>
+        </navLabel>
+        <content src="2019-11.xhtml#toc_14"/>
+      </navPoint>
+      <navPoint id="num_199" playOrder="199">
+        <navLabel>
+          <text>Wednesday, November 20</text>
+        </navLabel>
+        <content src="2019-11.xhtml#toc_15"/>
+      </navPoint>
+      <navPoint id="num_200" playOrder="200">
+        <navLabel>
+          <text>Thursday, November 21</text>
+        </navLabel>
+        <content src="2019-11.xhtml#toc_16"/>
+      </navPoint>
+      <navPoint id="num_201" playOrder="201">
+        <navLabel>
+          <text>Friday, November 22</text>
+        </navLabel>
+        <content src="2019-11.xhtml#toc_17"/>
+      </navPoint>
+      <navPoint id="num_202" playOrder="202">
+        <navLabel>
+          <text>Monday, November 25</text>
+        </navLabel>
+        <content src="2019-11.xhtml#toc_18"/>
+      </navPoint>
+      <navPoint id="num_203" playOrder="203">
+        <navLabel>
+          <text>Tuesday, November 26</text>
+        </navLabel>
+        <content src="2019-11.xhtml#toc_19"/>
+      </navPoint>
+      <navPoint id="num_204" playOrder="204">
+        <navLabel>
+          <text>Wednesday, November 27</text>
+        </navLabel>
+        <content src="2019-11.xhtml#toc_20"/>
+      </navPoint>
+      <navPoint id="num_205" playOrder="205">
+        <navLabel>
+          <text>Friday, November 29</text>
+        </navLabel>
+        <content src="2019-11.xhtml#toc_21"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="num_206" playOrder="206">
+      <navLabel>
+        <text>References</text>
+      </navLabel>
+      <content src="references.xhtml"/>
+    </navPoint>
+    <navPoint id="num_207" playOrder="207">
+      <navLabel>
+        <text>Appendices</text>
+      </navLabel>
+      <content src="appendices_January-March.xhtml"/>
+      <navPoint id="num_208" playOrder="208">
+        <navLabel>
+          <text>2019-01-29-1116_work_on_yeti.txt</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_1"/>
+      </navPoint>
+      <navPoint id="num_209" playOrder="209">
+        <navLabel>
+          <text>2019-01-30-1509_looking_at_results.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_2"/>
+      </navPoint>
+      <navPoint id="num_210" playOrder="210">
+        <navLabel>
+          <text>2019-01-31-1116_looking_at_results.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_3"/>
+      </navPoint>
+      <navPoint id="num_211" playOrder="211">
+        <navLabel>
+          <text>2019-02-01-1024_looking_at_results.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_4"/>
+      </navPoint>
+      <navPoint id="num_212" playOrder="212">
+        <navLabel>
+          <text>2019-02-01-1128_guilds.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_5"/>
+      </navPoint>
+      <navPoint id="num_213" playOrder="213">
+        <navLabel>
+          <text>2019-02-11-1324_yeti_script.txt</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_6"/>
+      </navPoint>
+      <navPoint id="num_214" playOrder="214">
+        <navLabel>
+          <text>2019-02-11-1303_AWCCfungi_1-5.slurm</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_7"/>
+      </navPoint>
+      <navPoint id="num_215" playOrder="215">
+        <navLabel>
+          <text>2019-02-12-0925_yeti_script.txt</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_8"/>
+      </navPoint>
+      <navPoint id="num_216" playOrder="216">
+        <navLabel>
+          <text>2019-02-12-0940_AWCCfungi_2.slurm</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_9"/>
+      </navPoint>
+      <navPoint id="num_217" playOrder="217">
+        <navLabel>
+          <text>2019-02-12-1055_AWCCfungi_10.slurm</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_10"/>
+      </navPoint>
+      <navPoint id="num_218" playOrder="218">
+        <navLabel>
+          <text>2019-02-13-1006_soil_fungi_map.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_11"/>
+      </navPoint>
+      <navPoint id="num_219" playOrder="219">
+        <navLabel>
+          <text>2019-02-13-1244_yeti_stuff.txt</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_12"/>
+      </navPoint>
+      <navPoint id="num_220" playOrder="220">
+        <navLabel>
+          <text>2019-02-13-1226_AWCCfungi_finish.slurm</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_13"/>
+      </navPoint>
+      <navPoint id="num_221" playOrder="221">
+        <navLabel>
+          <text>2019-02-14-0939_yeti_stuff.txt</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_14"/>
+      </navPoint>
+      <navPoint id="num_222" playOrder="222">
+        <navLabel>
+          <text>2019-02-14-1530_seqprep.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_15"/>
+      </navPoint>
+      <navPoint id="num_223" playOrder="223">
+        <navLabel>
+          <text>2019-02-14-1603_funits.slurm</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_16"/>
+      </navPoint>
+      <navPoint id="num_224" playOrder="224">
+        <navLabel>
+          <text>2019-02-15-0753_seqprep.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_17"/>
+      </navPoint>
+      <navPoint id="num_225" playOrder="225">
+        <navLabel>
+          <text>2019-02-15-0806_ITSx_AWCC1.slurm</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_18"/>
+      </navPoint>
+      <navPoint id="num_226" playOrder="226">
+        <navLabel>
+          <text>2019-02-15-1308_difference_testing.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_19"/>
+      </navPoint>
+      <navPoint id="num_227" playOrder="227">
+        <navLabel>
+          <text>2019-02-18-0741_demux.txt</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_20"/>
+      </navPoint>
+      <navPoint id="num_228" playOrder="228">
+        <navLabel>
+          <text>2019-02-20-1433_making_R2_fastq_files.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_21"/>
+      </navPoint>
+      <navPoint id="num_229" playOrder="229">
+        <navLabel>
+          <text>2019-02-20-1510_pispino.slurm</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_22"/>
+      </navPoint>
+      <navPoint id="num_230" playOrder="230">
+        <navLabel>
+          <text>2019-02-21-0816_making_R2_fastq_files.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_23"/>
+      </navPoint>
+      <navPoint id="num_231" playOrder="231">
+        <navLabel>
+          <text>2019-02-21-0958_Yeti_IO.txt</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_24"/>
+      </navPoint>
+      <navPoint id="num_232" playOrder="232">
+        <navLabel>
+          <text>2019-02-21-1208_pipits_funits_001.slurm</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_25"/>
+      </navPoint>
+      <navPoint id="num_233" playOrder="233">
+        <navLabel>
+          <text>2019-02-22-0849_splitting.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_26"/>
+      </navPoint>
+      <navPoint id="num_234" playOrder="234">
+        <navLabel>
+          <text>2019-02-22-0846_split_script.sh</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_27"/>
+      </navPoint>
+      <navPoint id="num_235" playOrder="235">
+        <navLabel>
+          <text>2019-02-22-0850_pipits_funits_001.slurm</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_28"/>
+      </navPoint>
+      <navPoint id="num_236" playOrder="236">
+        <navLabel>
+          <text>2019-02-22-0851_split_script.sh</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_29"/>
+      </navPoint>
+      <navPoint id="num_237" playOrder="237">
+        <navLabel>
+          <text>2019-02-20-1531_funits-3956207.out</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_30"/>
+      </navPoint>
+      <navPoint id="num_238" playOrder="238">
+        <navLabel>
+          <text>2019-02-25-1233_pipits_process.slurm</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_31"/>
+      </navPoint>
+      <navPoint id="num_239" playOrder="239">
+        <navLabel>
+          <text>2019-02-22-0850_pipits_funits_011.slurm-3956517.out</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_32"/>
+      </navPoint>
+      <navPoint id="num_240" playOrder="240">
+        <navLabel>
+          <text>2019-02-25-1636_LULU_prep.slurm</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_33"/>
+      </navPoint>
+      <navPoint id="num_241" playOrder="241">
+        <navLabel>
+          <text>2019-02-25-1725_lulu.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_34"/>
+      </navPoint>
+      <navPoint id="num_242" playOrder="242">
+        <navLabel>
+          <text>2019-02-26-0945_diveristy.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_35"/>
+      </navPoint>
+      <navPoint id="num_243" playOrder="243">
+        <navLabel>
+          <text>2019-02-27-0951_lifescanner_uploads.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_36"/>
+      </navPoint>
+      <navPoint id="num_244" playOrder="244">
+        <navLabel>
+          <text>2019-02-27-2253_difference_testing.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_37"/>
+      </navPoint>
+      <navPoint id="num_245" playOrder="245">
+        <navLabel>
+          <text>2019-02-28-1016_difference_testing.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_38"/>
+      </navPoint>
+      <navPoint id="num_246" playOrder="246">
+        <navLabel>
+          <text>2019-02-28-1619_difference_testing.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_39"/>
+      </navPoint>
+      <navPoint id="num_247" playOrder="247">
+        <navLabel>
+          <text>2019-02-28-2045_guild_pie_chart.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_40"/>
+      </navPoint>
+      <navPoint id="num_248" playOrder="248">
+        <navLabel>
+          <text>2019-03-01-1007_improving_graphs.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_41"/>
+      </navPoint>
+      <navPoint id="num_249" playOrder="249">
+        <navLabel>
+          <text>2019-03-01-2111_scrutinizing_some_OTUs.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_42"/>
+      </navPoint>
+      <navPoint id="num_250" playOrder="250">
+        <navLabel>
+          <text>2019-03-05-0807_PlutoF_upload_prep.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_43"/>
+      </navPoint>
+      <navPoint id="num_251" playOrder="251">
+        <navLabel>
+          <text>2019-03-05-1803_soil_fungi_map.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_44"/>
+      </navPoint>
+      <navPoint id="num_252" playOrder="252">
+        <navLabel>
+          <text>2019-03-06-1627_PlutoF_upload_prep.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_45"/>
+      </navPoint>
+      <navPoint id="num_253" playOrder="253">
+        <navLabel>
+          <text>2019-03-07-0741_PlutoF_uploads.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_46"/>
+      </navPoint>
+      <navPoint id="num_254" playOrder="254">
+        <navLabel>
+          <text>2019-03-12-1547_importing.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_47"/>
+      </navPoint>
+      <navPoint id="num_255" playOrder="255">
+        <navLabel>
+          <text>2019-03-14-0828_importing.txt</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_48"/>
+      </navPoint>
+      <navPoint id="num_256" playOrder="256">
+        <navLabel>
+          <text>2019-03-15-0908_library_construction.txt</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_49"/>
+      </navPoint>
+      <navPoint id="num_257" playOrder="257">
+        <navLabel>
+          <text>2019-03-18-0933_library_work.txt</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_50"/>
+      </navPoint>
+      <navPoint id="num_258" playOrder="258">
+        <navLabel>
+          <text>2019-03-20-0830_library_work.txt</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_51"/>
+      </navPoint>
+      <navPoint id="num_259" playOrder="259">
+        <navLabel>
+          <text>2019-03-21-0830_library_work.txt</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_52"/>
+      </navPoint>
+      <navPoint id="num_260" playOrder="260">
+        <navLabel>
+          <text>2019-03-22_identifications_etc.txt</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_53"/>
+      </navPoint>
+      <navPoint id="num_261" playOrder="261">
+        <navLabel>
+          <text>2019-03-22-0923_choose_dereps.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_54"/>
+      </navPoint>
+      <navPoint id="num_262" playOrder="262">
+        <navLabel>
+          <text>2019-03-22-0935_choose_dereps.slurm</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_55"/>
+      </navPoint>
+      <navPoint id="num_263" playOrder="263">
+        <navLabel>
+          <text>2019-03-22-1203_library_work.txt</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_56"/>
+      </navPoint>
+      <navPoint id="num_264" playOrder="264">
+        <navLabel>
+          <text>2019-03-22-1219_choose_dereps.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_57"/>
+      </navPoint>
+      <navPoint id="num_265" playOrder="265">
+        <navLabel>
+          <text>2019-03-22-1219_choose_dereps.slurm</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_58"/>
+      </navPoint>
+      <navPoint id="num_266" playOrder="266">
+        <navLabel>
+          <text>2019-03-22-1526_library_work.txt</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_59"/>
+      </navPoint>
+      <navPoint id="num_267" playOrder="267">
+        <navLabel>
+          <text>2019-03-25-0726_library_prep.txt</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_60"/>
+      </navPoint>
+      <navPoint id="num_268" playOrder="268">
+        <navLabel>
+          <text>2019-03-25-0840_extract-reads.slurm</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_61"/>
+      </navPoint>
+      <navPoint id="num_269" playOrder="269">
+        <navLabel>
+          <text>2019-03-26-1444_library_work.txt</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_62"/>
+      </navPoint>
+      <navPoint id="num_270" playOrder="270">
+        <navLabel>
+          <text>2019-03-26-1437_train_classifier.slurm</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_63"/>
+      </navPoint>
+      <navPoint id="num_271" playOrder="271">
+        <navLabel>
+          <text>2019-03-26-1602_classify.slurm</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_64"/>
+      </navPoint>
+      <navPoint id="num_272" playOrder="272">
+        <navLabel>
+          <text>2019-03-27-1332_bold_ids.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_65"/>
+      </navPoint>
+      <navPoint id="num_273" playOrder="273">
+        <navLabel>
+          <text>2019-03-28-0724_examing_results.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_66"/>
+      </navPoint>
+      <navPoint id="num_274" playOrder="274">
+        <navLabel>
+          <text>2019-03-28-1227_assembling_results.R</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_67"/>
+      </navPoint>
+      <navPoint id="num_275" playOrder="275">
+        <navLabel>
+          <text>2019-03-28-1339_trees.txt</text>
+        </navLabel>
+        <content src="appendices_January-March.xhtml#toc_68"/>
+      </navPoint>
+      <navPoint id="num_276" playOrder="276">
+        <navLabel>
+          <text>2019-04-01-0942_filtering_occurrences.R</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml"/>
+      </navPoint>
+      <navPoint id="num_277" playOrder="277">
+        <navLabel>
+          <text>2019-04-05-0958_comparison.R</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_70"/>
+      </navPoint>
+      <navPoint id="num_278" playOrder="278">
+        <navLabel>
+          <text>2019-04-08-1440_comparison.R</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_71"/>
+      </navPoint>
+      <navPoint id="num_279" playOrder="279">
+        <navLabel>
+          <text>2019-04-10-1353_comparison.R</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_72"/>
+      </navPoint>
+      <navPoint id="num_280" playOrder="280">
+        <navLabel>
+          <text>2019-04-11-0800_comparison.R</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_73"/>
+      </navPoint>
+      <navPoint id="num_281" playOrder="281">
+        <navLabel>
+          <text>2019-04-12-1313_tree.txt</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_74"/>
+      </navPoint>
+      <navPoint id="num_282" playOrder="282">
+        <navLabel>
+          <text>2019-05-15-1104_SRA_data.csv</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_75"/>
+      </navPoint>
+      <navPoint id="num_283" playOrder="283">
+        <navLabel>
+          <text>2019-05-16-0956_Arctos_data_prep.R</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_76"/>
+      </navPoint>
+      <navPoint id="num_284" playOrder="284">
+        <navLabel>
+          <text>2019-05-21-1129_sample_frame.R</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_77"/>
+      </navPoint>
+      <navPoint id="num_285" playOrder="285">
+        <navLabel>
+          <text>2019-05-22-0836_sample_frame.R</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_78"/>
+      </navPoint>
+      <navPoint id="num_286" playOrder="286">
+        <navLabel>
+          <text>2019-05-23-1031_adding_relationships.R</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_79"/>
+      </navPoint>
+      <navPoint id="num_287" playOrder="287">
+        <navLabel>
+          <text>2019-05-28-0647_adding_reciprocal_relationships.R</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_1"/>
+      </navPoint>
+      <navPoint id="num_288" playOrder="288">
+        <navLabel>
+          <text>2019-05-30-1127_visualizations.R</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_2"/>
+      </navPoint>
+      <navPoint id="num_289" playOrder="289">
+        <navLabel>
+          <text>2019-06-05-0823_sample_frame.R</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_3"/>
+      </navPoint>
+      <navPoint id="num_290" playOrder="290">
+        <navLabel>
+          <text>2019-06-06-0838_sample_frame.R</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_4"/>
+      </navPoint>
+      <navPoint id="num_291" playOrder="291">
+        <navLabel>
+          <text>2019-06-07-0850_sample_frame.R</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_5"/>
+      </navPoint>
+      <navPoint id="num_292" playOrder="292">
+        <navLabel>
+          <text>2019-06-10-1104_map_stuff.R</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_6"/>
+      </navPoint>
+      <navPoint id="num_293" playOrder="293">
+        <navLabel>
+          <text>2019-06-11-1337_comparison.R</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_7"/>
+      </navPoint>
+      <navPoint id="num_294" playOrder="294">
+        <navLabel>
+          <text>2019-06-14-0951_updating_occurrence_plot.R</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_8"/>
+      </navPoint>
+      <navPoint id="num_295" playOrder="295">
+        <navLabel>
+          <text>2019-06-18-0720_starting_on_Yeti.txt</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_9"/>
+      </navPoint>
+      <navPoint id="num_296" playOrder="296">
+        <navLabel>
+          <text>2019-06-18-0847_stats.slurm</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_11"/>
+      </navPoint>
+      <navPoint id="num_297" playOrder="297">
+        <navLabel>
+          <text>2019-06-18-1056_SeqPrep.slurm</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_12"/>
+      </navPoint>
+      <navPoint id="num_298" playOrder="298">
+        <navLabel>
+          <text>2019-06-18-1233_cutadapt.slurm</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_13"/>
+      </navPoint>
+      <navPoint id="num_299" playOrder="299">
+        <navLabel>
+          <text>2019-06-19-1015_more_on_Yeti.txt</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_14"/>
+      </navPoint>
+      <navPoint id="num_300" playOrder="300">
+        <navLabel>
+          <text>2019-06-19-1040_derep.slurm</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_15"/>
+      </navPoint>
+      <navPoint id="num_301" playOrder="301">
+        <navLabel>
+          <text>2019-06-19-1101_denoise.slurm</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_16"/>
+      </navPoint>
+      <navPoint id="num_302" playOrder="302">
+        <navLabel>
+          <text>2019-06-19-1528_rdp_classifier.slurm</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_17"/>
+      </navPoint>
+      <navPoint id="num_303" playOrder="303">
+        <navLabel>
+          <text>2019-06-20-0942_more_on_Yeti.txt</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_18"/>
+      </navPoint>
+      <navPoint id="num_304" playOrder="304">
+        <navLabel>
+          <text>2019-06-20-1039_lulu_prep.slurm</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_19"/>
+      </navPoint>
+      <navPoint id="num_305" playOrder="305">
+        <navLabel>
+          <text>2019-06-20-1126_vsearch_taxonomy.slurm</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_20"/>
+      </navPoint>
+      <navPoint id="num_306" playOrder="306">
+        <navLabel>
+          <text>2019-06-20-1241_bold_0001-0500.R</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_21"/>
+      </navPoint>
+      <navPoint id="num_307" playOrder="307">
+        <navLabel>
+          <text>2019-06-20-1241_bold_0001-0500.slurm</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_22"/>
+      </navPoint>
+      <navPoint id="num_308" playOrder="308">
+        <navLabel>
+          <text>2019-06-21-0845_more_on_Yeti.txt</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_23"/>
+      </navPoint>
+      <navPoint id="num_309" playOrder="309">
+        <navLabel>
+          <text>2019-06-21-0941_bold_1001-1250.R</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_24"/>
+      </navPoint>
+      <navPoint id="num_310" playOrder="310">
+        <navLabel>
+          <text>2019-06-21-0944_bold_1001-1250.slurm</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_25"/>
+      </navPoint>
+      <navPoint id="num_311" playOrder="311">
+        <navLabel>
+          <text>2019-06-28-1020_examining_identifications.R</text>
+        </navLabel>
+        <content src="appendices_April-June.xhtml#toc_26"/>
+      </navPoint>
+      <navPoint id="num_312" playOrder="312">
+        <navLabel>
+          <text>2019-07-01-0743_rdp_classifier.slurm</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml"/>
+      </navPoint>
+      <navPoint id="num_313" playOrder="313">
+        <navLabel>
+          <text>2019-07-01-0746_rdp_test.txt</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_1"/>
+      </navPoint>
+      <navPoint id="num_314" playOrder="314">
+        <navLabel>
+          <text>2019-07-01-0748_improving_identifications.R</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_2"/>
+      </navPoint>
+      <navPoint id="num_315" playOrder="315">
+        <navLabel>
+          <text>2019-07-18-0834_tree_making.R</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_3"/>
+      </navPoint>
+      <navPoint id="num_316" playOrder="316">
+        <navLabel>
+          <text>2019-07-18-1249_qiime_tree.slurm</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_4"/>
+      </navPoint>
+      <navPoint id="num_317" playOrder="317">
+        <navLabel>
+          <text>2019-07-18-0848_yeti_io.sh</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_5"/>
+      </navPoint>
+      <navPoint id="num_318" playOrder="318">
+        <navLabel>
+          <text>2019-07-25-1055_fasta_for_remaining_unidentified_otus.R</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_6"/>
+      </navPoint>
+      <navPoint id="num_319" playOrder="319">
+        <navLabel>
+          <text>2019-07-25-1439_looking_at_IDs.R</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_7"/>
+      </navPoint>
+      <navPoint id="num_320" playOrder="320">
+        <navLabel>
+          <text>2019-07-25-1511_qiime_tree.slurm</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_8"/>
+      </navPoint>
+      <navPoint id="num_321" playOrder="321">
+        <navLabel>
+          <text>2019-08-02-1333_Melvin_stand_data.R</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_9"/>
+      </navPoint>
+      <navPoint id="num_322" playOrder="322">
+        <navLabel>
+          <text>2019-08-07-0931_LTEMP_plot_data.R</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_10"/>
+      </navPoint>
+      <navPoint id="num_323" playOrder="323">
+        <navLabel>
+          <text>2019-08-07-1122_FMH_coords.R</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_11"/>
+      </navPoint>
+      <navPoint id="num_324" playOrder="324">
+        <navLabel>
+          <text>2019-08-06-1535_cryptogam_Arctos_upload.R</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_12"/>
+      </navPoint>
+      <navPoint id="num_325" playOrder="325">
+        <navLabel>
+          <text>2019-08-14-1705_cryptogam_Arctos_upload.R</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_13"/>
+      </navPoint>
+      <navPoint id="num_326" playOrder="326">
+        <navLabel>
+          <text>2019-08-19-1032_cryptogam_Arctos_upload.R</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_14"/>
+      </navPoint>
+      <navPoint id="num_327" playOrder="327">
+        <navLabel>
+          <text>2019-08-21-1056_Melvin_birch_specimens.R</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_15"/>
+      </navPoint>
+      <navPoint id="num_328" playOrder="328">
+        <navLabel>
+          <text>2019-08-22-0909_eurofins_submission_data.R</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_16"/>
+      </navPoint>
+      <navPoint id="num_329" playOrder="329">
+        <navLabel>
+          <text>2019-08-22-1049_RADseq_specimen_map.R</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_17"/>
+      </navPoint>
+      <navPoint id="num_330" playOrder="330">
+        <navLabel>
+          <text>2019-08-28-1136_Melvin_samples.R</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_18"/>
+      </navPoint>
+      <navPoint id="num_331" playOrder="331">
+        <navLabel>
+          <text>2019-08-29-1231_sample_submission.R</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_19"/>
+      </navPoint>
+      <navPoint id="num_332" playOrder="332">
+        <navLabel>
+          <text>2019-08-29-1527_Arctos_upload.R</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_20"/>
+      </navPoint>
+      <navPoint id="num_333" playOrder="333">
+        <navLabel>
+          <text>2019-09-05-1136_Arctos_upload.R</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_21"/>
+      </navPoint>
+      <navPoint id="num_334" playOrder="334">
+        <navLabel>
+          <text>2019-09-05-2210_Arctos_upload.R</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_22"/>
+      </navPoint>
+      <navPoint id="num_335" playOrder="335">
+        <navLabel>
+          <text>2019-09-06-1153_Arctos_upload.R</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_23"/>
+      </navPoint>
+      <navPoint id="num_336" playOrder="336">
+        <navLabel>
+          <text>2019-09-09-0954_Arctos_upload.R</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_24"/>
+      </navPoint>
+      <navPoint id="num_337" playOrder="337">
+        <navLabel>
+          <text>2019-09-10-0639_adding_relationships.R</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_25"/>
+      </navPoint>
+      <navPoint id="num_338" playOrder="338">
+        <navLabel>
+          <text>2019-09-10-0920_uploading_media.R</text>
+        </navLabel>
+        <content src="appendices_July-September.xhtml#toc_26"/>
+      </navPoint>
+      <navPoint id="num_339" playOrder="339">
+        <navLabel>
+          <text>2019-10-24_external_links_upload_prep.R</text>
+        </navLabel>
+        <content src="appendices_October-December.xhtml"/>
+      </navPoint>
+      <navPoint id="num_340" playOrder="340">
+        <navLabel>
+          <text>2019-11-01-1341_merging_datasets.R</text>
+        </navLabel>
+        <content src="appendices_October-December.xhtml#toc_1"/>
+      </navPoint>
+      <navPoint id="num_341" playOrder="341">
+        <navLabel>
+          <text>2019-11-04-1334_records_summary.R</text>
+        </navLabel>
+        <content src="appendices_October-December.xhtml#toc_2"/>
+      </navPoint>
+      <navPoint id="num_342" playOrder="342">
+        <navLabel>
+          <text>2019-11-04-1459_new_records_table.R</text>
+        </navLabel>
+        <content src="appendices_October-December.xhtml#toc_3"/>
+      </navPoint>
+      <navPoint id="num_343" playOrder="343">
+        <navLabel>
+          <text>2019-11-05-0923_graphic_for_John.R</text>
+        </navLabel>
+        <content src="appendices_October-December.xhtml#toc_4"/>
+      </navPoint>
+      <navPoint id="num_344" playOrder="344">
+        <navLabel>
+          <text>2019-11-06-0742_graphic_for_John.R</text>
+        </navLabel>
+        <content src="appendices_October-December.xhtml#toc_5"/>
+      </navPoint>
+      <navPoint id="num_345" playOrder="345">
+        <navLabel>
+          <text>2019-11-08-0806_checking_samples.R</text>
+        </navLabel>
+        <content src="appendices_October-December.xhtml#toc_6"/>
+      </navPoint>
+      <navPoint id="num_346" playOrder="346">
+        <navLabel>
+          <text>2019-11-11-2232_Arctos_upload.R</text>
+        </navLabel>
+        <content src="appendices_October-December.xhtml#toc_7"/>
+      </navPoint>
+      <navPoint id="num_347" playOrder="347">
+        <navLabel>
+          <text>2019-11-12-0755_Arctos_upload.R</text>
+        </navLabel>
+        <content src="appendices_October-December.xhtml#toc_8"/>
+      </navPoint>
+      <navPoint id="num_348" playOrder="348">
+        <navLabel>
+          <text>2019-11-14-1137_summarizing.R</text>
+        </navLabel>
+        <content src="appendices_October-December.xhtml#toc_27"/>
+      </navPoint>
+      <navPoint id="num_349" playOrder="349">
+        <navLabel>
+          <text>2019-11-15-0837_GenBank_SRA_submission_pre.R</text>
+        </navLabel>
+        <content src="appendices_October-December.xhtml#toc_9"/>
+      </navPoint>
+      <navPoint id="num_350" playOrder="350">
+        <navLabel>
+          <text>2019-11-18-0942_Arctos_other_ids.R</text>
+        </navLabel>
+        <content src="appendices_October-December.xhtml#toc_10"/>
+      </navPoint>
+      <navPoint id="num_351" playOrder="351">
+        <navLabel>
+          <text>2019-11-19-0931_summaries.R</text>
+        </navLabel>
+        <content src="appendices_October-December.xhtml#toc_11"/>
+      </navPoint>
+      <navPoint id="num_352" playOrder="352">
+        <navLabel>
+          <text>2019-11-20-1441_clustering.R</text>
+        </navLabel>
+        <content src="appendices_October-December.xhtml#toc_12"/>
+      </navPoint>
+      <navPoint id="num_353" playOrder="353">
+        <navLabel>
+          <text>2019-11-21-0750_clustering.R</text>
+        </navLabel>
+        <content src="appendices_October-December.xhtml#toc_13"/>
+      </navPoint>
+      <navPoint id="num_354" playOrder="354">
+        <navLabel>
+          <text>2019-11-22-0942_reclustering.R</text>
+        </navLabel>
+        <content src="appendices_October-December.xhtml#toc_14"/>
+      </navPoint>
+      <navPoint id="num_355" playOrder="355">
+        <navLabel>
+          <text>2019-11-25-0611_species_accum.R</text>
+        </navLabel>
+        <content src="appendices_October-December.xhtml#toc_15"/>
+      </navPoint>
+      <navPoint id="num_356" playOrder="356">
+        <navLabel>
+          <text>2019-11-25-new_exotics_map.R</text>
+        </navLabel>
+        <content src="appendices_October-December.xhtml#toc_16"/>
+      </navPoint>
+      <navPoint id="num_357" playOrder="357">
+        <navLabel>
+          <text>2019-11-26-1317_community_data.R</text>
+        </navLabel>
+        <content src="appendices_October-December.xhtml#toc_17"/>
+      </navPoint>
+      <navPoint id="num_358" playOrder="358">
+        <navLabel>
+          <text>2019-11-27-0632_community_data.R</text>
+        </navLabel>
+        <content src="appendices_October-December.xhtml#toc_18"/>
+      </navPoint>
+      <navPoint id="num_359" playOrder="359">
+        <navLabel>
+          <text>2019-11-29-0926_fungal_summaries.R</text>
+        </navLabel>
+        <content src="appendices_October-December.xhtml#toc_19"/>
+      </navPoint>
+    </navPoint>
+  </navMap>
+</ncx>

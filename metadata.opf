@@ -1,0 +1,260 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="uuid_id" version="2.0">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+    <dc:identifier opf:scheme="calibre" id="calibre_id">5198627e-882d-42f7-8b57-7644d849a8d6</dc:identifier>
+    <dc:identifier opf:scheme="uuid" id="uuid_id">38ab4c06-4ea4-49e3-b112-979f21761813</dc:identifier>
+    <dc:title>Work Journal 2019</dc:title>
+    <dc:creator opf:file-as="Unknown" opf:role="aut">Matthew L. Bowser</dc:creator>
+    <dc:contributor opf:file-as="calibre" opf:role="bkp">calibre (3.34.0) [https://calibre-ebook.com]</dc:contributor>
+    <dc:language>eng</dc:language>
+    <meta name="cover" content="cover"/>
+  </metadata>
+  <manifest>
+    <item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml"/>
+    <item href="2019-01.xhtml" id="id" media-type="application/xhtml+xml"/>
+    <item href="style.css" id="id1" media-type="text/css"/>
+    <item href="img/2019-01-29_KNWR-Ento-11301_label.jpg" id="id2" media-type="image/jpeg"/>
+    <item href="img/2019-01-29_KNWR-Ento-11301_face.jpg" id="id3" media-type="image/jpeg"/>
+    <item href="img/2019-01-30_KNWR-Crawford_Archaeognatha.jpg" id="id4" media-type="image/jpeg"/>
+    <item href="appendices_January-March.xhtml" id="id5" media-type="application/xhtml+xml"/>
+    <item href="img/2019-01-30_Stormy_biplot.jpg" id="id6" media-type="image/jpeg"/>
+    <item href="img/2019-01-30_Stormy_hist_freq.jpg" id="id7" media-type="image/jpeg"/>
+    <item href="img/2019-01-31_MOBIL6660-18.jpg" id="id8" media-type="image/jpeg"/>
+    <item href="references.xhtml" id="id9" media-type="application/xhtml+xml"/>
+    <item href="img/2019-01-31_spring_sample.jpg" id="id10" media-type="image/jpeg"/>
+    <item href="img/2019-01-31_stream_sample.jpg" id="id11" media-type="image/jpeg"/>
+    <item href="2019-02.xhtml" id="id12" media-type="application/xhtml+xml"/>
+    <item href="img/2019-02-01-1438_site_guilds.png" id="id16" media-type="image/png"/>
+    <item href="img/2019-02-01-1454_guilds_comparison.png" id="id17" media-type="image/png"/>
+    <item href="img/2019-02-04_KNWR-Inv-35_habitus_live.jpg" id="id13" media-type="image/jpeg"/>
+    <item href="img/2019-02-07_Lumbricus_spp_comparison.png" id="id14" media-type="image/png"/>
+    <item href="img/2019-02-09_AKES_meeting.jpg" id="id15" media-type="image/jpeg"/>
+    <item href="img/2019-02-12_KNWR-Inv-37.jpg" id="id18" media-type="image/jpeg"/>
+    <item href="img/2019-02-13_Lumbricus_map.jpg" id="id19" media-type="image/jpeg"/>
+    <item href="img/2019-02-15-1432_ef.png" id="id20" media-type="image/png"/>
+    <item href="img/2019-02-19_eagles.jpg" id="id21" media-type="image/jpeg"/>
+    <item href="img/2019-02-25-1212_checklist_boundary.jpg" id="id22" media-type="image/jpeg"/>
+    <item href="img/2019-02-25-2131_guilds_comparison.png" id="id23" media-type="image/png"/>
+    <item href="img/2019-02-26-1003_plot_OTU_sums.png" id="id24" media-type="image/png"/>
+    <item href="img/2019-02-27_01.jpg" id="id25" media-type="image/jpeg"/>
+    <item href="img/2019-02-27_KNWR-Ento-11306_habitus.jpg" id="id27" media-type="image/jpeg"/>
+    <item href="img/2019-02-27_Eisenia_andrei.jpg" id="id26" media-type="image/jpeg"/>
+    <item href="img/2019-02-27-2351_CCA_w_factor_plot.png" id="id28" media-type="image/png"/>
+    <item href="img/2019-02-28-1748_gradient_plot.jpg" id="id29" media-type="image/jpeg"/>
+    <item href="img/2019-02-28-1759_constrained_plot.jpg" id="id30" media-type="image/jpeg"/>
+    <item href="2019-03.xhtml" id="id31" media-type="application/xhtml+xml"/>
+    <item href="img/2019-03-14-1405_demux_summary.png" id="id32" media-type="image/png"/>
+    <item href="img/2019-03-14-1422forward_read_quality.png" id="id33" media-type="image/png"/>
+    <item href="img/2019-03-14-1422_reverse_read_quality.png" id="id34" media-type="image/png"/>
+    <item href="img/cover_v2019-03-15-0741.jpg" id="cover" media-type="image/jpeg"/>
+    <item href="titlepage.xhtml" id="titlepage" media-type="application/xhtml+xml"/>
+    <item href="img/2019-03-20_Collet_Mesopolobus.jpg" id="id35" media-type="image/jpeg"/>
+    <item href="img/2019-03-22_Erebidae.jpg" id="id36" media-type="image/jpeg"/>
+    <item href="img/2019-03-25_KNWR-Ento-11317.jpg" id="id37" media-type="image/jpeg"/>
+    <item href="img/2019-03-25_KNWR-Ento-11317_genitalia.jpg" id="id38" media-type="image/jpeg"/>
+    <item href="img/2019-03-26_nb_01.jpg" id="id39" media-type="image/jpeg"/>
+    <item href="img/2019-03-25_KNWR-Ento-11318.jpg" id="id40" media-type="image/jpeg"/>
+    <item href="img/2019-03-27_traps.jpg" id="id41" media-type="image/jpeg"/>
+    <item href="2019-04.xhtml" id="id42" media-type="application/xhtml+xml"/>
+    <item href="img/2019-04-01_STDP_tree.jpg" id="id43" media-type="image/jpeg"/>
+    <item href="img/2019-04-08_BOLD-GO8.jpg" id="id44" media-type="image/jpeg"/>
+    <item href="img/2019-04-09_Eisenia_BOLD-MZ2.jpg" id="id45" media-type="image/jpeg"/>
+    <item href="img/2019-04-10-1548_occurrence_plot.png" id="id46" media-type="image/png"/>
+    <item href="img/2019-04-12-1431_tree.png" id="id47" media-type="image/png"/>
+    <item href="img/2019-04-08_nb_01.jpg" id="id48" media-type="image/jpeg"/>
+    <item href="img/2019-04-12_nb_01.jpg" id="id49" media-type="image/jpeg"/>
+    <item href="img/2019-04-15_nb_01.jpg" id="id50" media-type="image/jpeg"/>
+    <item href="img/2019-04-15_UAM-Ento-377285_habitus.jpg" id="id51" media-type="image/jpeg"/>
+    <item href="img/2019-04-15_nb_02.jpg" id="id52" media-type="image/jpeg"/>
+    <item href="img/2019-04-15_UAM-Ento-362380.jpg" id="id53" media-type="image/jpeg"/>
+    <item href="img/2019-04-16_nb_01.jpg" id="id54" media-type="image/jpeg"/>
+    <item href="img/2019-04-16_nb_02.jpg" id="id55" media-type="image/jpeg"/>
+    <item href="img/2019-04-16_nb_03.jpg" id="id56" media-type="image/jpeg"/>
+    <item href="2019-05.xhtml" id="id57" media-type="application/xhtml+xml"/>
+    <item href="img/2019-05-17_elodea.jpg" id="id58" media-type="image/jpeg"/>
+    <item href="img/2019-05-16_Sports_Lake.jpg" id="id59" media-type="image/jpeg"/>
+    <item href="img/2019-05-23_Betula_male_catkins.jpg" id="id60" media-type="image/jpeg"/>
+    <item href="img/2019-05-29_Rachel_Stormy_rake.jpg" id="id61" media-type="image/jpeg"/>
+    <item href="img/2019-05-23_at_Headquarters_Lake.jpg" id="id62" media-type="image/jpeg"/>
+    <item href="appendices_April-June.xhtml" id="id63" media-type="application/xhtml+xml"/>
+    <item href="img/2019-05-30_nb_01.jpg" id="id64" media-type="image/jpeg"/>
+    <item href="img/2019-05-30_nb_02.jpg" id="id65" media-type="image/jpeg"/>
+    <item href="img/2019-05-30-1205_hist_microSats_white.png" id="id66" media-type="image/png"/>
+    <item href="2019-06.xhtml" id="id67" media-type="application/xhtml+xml"/>
+    <item href="img/2019-06-03_rakethrow.jpg" id="id68" media-type="image/jpeg"/>
+    <item href="img/2019-06-05-1327_barplot_categories_by_sites.jpg" id="id69" media-type="image/jpeg"/>
+    <item href="img/2019-06-06-1131_barplot_Slikok_categories.jpg" id="id70" media-type="image/jpeg"/>
+    <item href="img/2019-06-06-1148_barplot_categories_by_sites.jpg" id="id71" media-type="image/jpeg"/>
+    <item href="img/2019-06-06_Walmart_stream.jpg" id="id72" media-type="image/jpeg"/>
+    <item href="img/2019-06-06_Lawton_stream.jpg" id="id73" media-type="image/jpeg"/>
+    <item href="img/2019-06-07-1002_plot_clusters.jpg" id="id74" media-type="image/jpeg"/>
+    <item href="img/2019-06-10-1319_2019_LTEMP_flight_map.jpg" id="id75" media-type="image/jpeg"/>
+    <item href="img/2019-06-12_Mark_drone.jpg" id="id76" media-type="image/jpeg"/>
+    <item href="img/2019-06-13_loon.jpg" id="id77" media-type="image/jpeg"/>
+    <item href="img/2019-06-14_ROV.jpg" id="id78" media-type="image/jpeg"/>
+    <item href="img/2019-06-17_landcover_error_training.jpg" id="id79" media-type="image/jpeg"/>
+    <item href="img/2019-06-18_nb.jpg" id="id80" media-type="image/jpeg"/>
+    <item href="img/2019-06-19_nb.jpg" id="id81" media-type="image/jpeg"/>
+    <item href="img/2019-06-27_nb01.jpg" id="id82" media-type="image/jpeg"/>
+    <item href="img/2019-06-27_nb02.jpg" id="id83" media-type="image/jpeg"/>
+    <item href="img/2019-06-27_pond.jpg" id="id84" media-type="image/jpeg"/>
+    <item href="img/2019-06-27_drainage.jpg" id="id85" media-type="image/jpeg"/>
+    <item href="img/2019-06-27_blackfish.jpg" id="id86" media-type="image/jpeg"/>
+    <item href="img/2019-06-27_culvert.jpg" id="id87" media-type="image/jpeg"/>
+    <item href="2019-07.xhtml" id="id88" media-type="application/xhtml+xml"/>
+    <item href="appendices_July-September.xhtml" id="id89" media-type="application/xhtml+xml"/>
+    <item href="img/2019-07-03-1229_2019_LTEMP_flight_map.jpg" id="id90" media-type="image/jpeg"/>
+    <item href="img/2019-07-05-0924_Slikok_sites.jpg" id="id91" media-type="image/jpeg"/>
+    <item href="img/2019-07-09_LTEMP_site_5555.jpg" id="id92" media-type="image/jpeg"/>
+    <item href="img/2019-07-09_LTEMP_site_3288.jpg" id="id93" media-type="image/jpeg"/>
+    <item href="img/2019-07-09_LTEMP_site_3202.jpg" id="id94" media-type="image/jpeg"/>
+    <item href="img/2019-07-09_LTEMP_site_3140.jpg" id="id95" media-type="image/jpeg"/>
+    <item href="img/2019-07-08_Slikok_site_MG07.jpg" id="id96" media-type="image/jpeg"/>
+    <item href="img/2019-07-08_nb01.jpg" id="id97" media-type="image/jpeg"/>
+    <item href="img/2019-07-09_nb01.jpg" id="id98" media-type="image/jpeg"/>
+    <item href="img/2019-07-09_nb02.jpg" id="id99" media-type="image/jpeg"/>
+    <item href="img/2019-07-09_nb03.jpg" id="id100" media-type="image/jpeg"/>
+    <item href="img/2019-07-09_nb04.jpg" id="id101" media-type="image/jpeg"/>
+    <item href="img/2019-07-11_nb01.jpg" id="id102" media-type="image/jpeg"/>
+    <item href="img/2019-07-12_nb01.jpg" id="id103" media-type="image/jpeg"/>
+    <item href="img/2019-07-12_nb02.jpg" id="id104" media-type="image/jpeg"/>
+    <item href="img/2019-07-12_nb03.jpg" id="id105" media-type="image/jpeg"/>
+    <item href="img/2019-07-15_nb01.jpg" id="id106" media-type="image/jpeg"/>
+    <item href="img/2019-07-08_nb02.jpg" id="id107" media-type="image/jpeg"/>
+    <item href="img/2019-07-09_nb05.jpg" id="id108" media-type="image/jpeg"/>
+    <item href="img/2019-07-11_nb02.jpg" id="id109" media-type="image/jpeg"/>
+    <item href="img/2019-07-11_nb03.jpg" id="id110" media-type="image/jpeg"/>
+    <item href="img/2019-07-11_nb04.jpg" id="id111" media-type="image/jpeg"/>
+    <item href="img/2019-07-12_nb04.jpg" id="id112" media-type="image/jpeg"/>
+    <item href="img/2019-07-12_nb05.jpg" id="id113" media-type="image/jpeg"/>
+    <item href="img/2019-07-14_nb01.jpg" id="id114" media-type="image/jpeg"/>
+    <item href="img/2019-07-15_nb02.jpg" id="id115" media-type="image/jpeg"/>
+    <item href="img/2019-07-11_MG19.jpg" id="id116" media-type="image/jpeg"/>
+    <item href="img/2019-07-11_MG24.jpg" id="id117" media-type="image/jpeg"/>
+    <item href="img/2019-07-12_site_3074.jpg" id="id118" media-type="image/jpeg"/>
+    <item href="img/2019-07-12_site_3072.jpg" id="id119" media-type="image/jpeg"/>
+    <item href="img/2019-07-12_site_3069.jpg" id="id120" media-type="image/jpeg"/>
+    <item href="img/2019-07-12_site_3092.jpg" id="id121" media-type="image/jpeg"/>
+    <item href="img/2019-07-15_Slikok_site_SK22.jpg" id="id122" media-type="image/jpeg"/>
+    <item href="img/2019-07-15_Slikok_site_MG39.jpg" id="id123" media-type="image/jpeg"/>
+    <item href="img/2019-07-08_Slikok_site_MG07_worm_sampling.jpg" id="id124" media-type="image/jpeg"/>
+    <item href="img/2019-07-12_site_3069_LZ.jpg" id="id125" media-type="image/jpeg"/>
+    <item href="img/2019-07-17_nb01.jpg" id="id126" media-type="image/jpeg"/>
+    <item href="img/2019-07-17_nb02.jpg" id="id127" media-type="image/jpeg"/>
+    <item href="img/2019-07-23_nb01.jpg" id="id128" media-type="image/jpeg"/>
+    <item href="img/2019-07-29_North_South_Lakes.jpg" id="id129" media-type="image/jpeg"/>
+    <item href="2019-08.xhtml" id="id130" media-type="application/xhtml+xml"/>
+    <item href="img/2019-07-24_nb01.jpg" id="id131" media-type="image/jpeg"/>
+    <item href="img/2019-08-01_nb01.jpg" id="id132" media-type="image/jpeg"/>
+    <item href="img/2019-08-02_nb01.jpg" id="id133" media-type="image/jpeg"/>
+    <item href="img/2019-08-02_nb02.jpg" id="id134" media-type="image/jpeg"/>
+    <item href="img/2019-08-02_nb03.jpg" id="id135" media-type="image/jpeg"/>
+    <item href="img/2019-08-02-1345_birch_stand_map.jpg" id="id136" media-type="image/jpeg"/>
+    <item href="img/2019-08-02_pan_trap.jpg" id="id137" media-type="image/jpeg"/>
+    <item href="img/2019-08-05_nb01.jpg" id="id138" media-type="image/jpeg"/>
+    <item href="img/2019-08-05_nb02.jpg" id="id139" media-type="image/jpeg"/>
+    <item href="img/2019-08-05_nb03.jpg" id="id140" media-type="image/jpeg"/>
+    <item href="img/2019-08-07-1016_Swan_Lake_Fire_LTEMP.jpg" id="id141" media-type="image/jpeg"/>
+    <item href="img/2019-08-07-1142_Swan_Lake_Fire_FMH.jpg" id="id142" media-type="image/jpeg"/>
+    <item href="img/2019-08-12-1424_Kenai_min_temps.jpg" id="id143" media-type="image/jpeg"/>
+    <item href="img/2019-08-19_nb01.jpg" id="id144" media-type="image/jpeg"/>
+    <item href="fonts/SourceCodePro-Bold.otf" id="id145" media-type="application/vnd.ms-opentype"/>
+    <item href="fonts/SourceCodePro-BoldIt.otf" id="id146" media-type="application/vnd.ms-opentype"/>
+    <item href="fonts/SourceCodePro-It.otf" id="id147" media-type="application/vnd.ms-opentype"/>
+    <item href="fonts/SourceCodePro-Regular.otf" id="id148" media-type="application/vnd.ms-opentype"/>
+    <item href="img/2019-08-21-1120_Melvin_birch_sample_map.jpg" id="id149" media-type="image/jpeg"/>
+    <item href="img/2019-08-22-1418_birch_specimen_map.png" id="id150" media-type="image/png"/>
+    <item href="img/2019-08-22_nb01.jpg" id="id151" media-type="image/jpeg"/>
+    <item href="img/2019-08-21_birch_samples.jpg" id="id152" media-type="image/jpeg"/>
+    <item href="img/2019-08-22_fungi.jpg" id="id153" media-type="image/jpeg"/>
+    <item href="img/2019-08-22_blackfish_locality.jpg" id="id154" media-type="image/jpeg"/>
+    <item href="img/2019-08-22_blackfish.jpg" id="id155" media-type="image/jpeg"/>
+    <item href="img/2019-08-23_nb01.jpg" id="id156" media-type="image/jpeg"/>
+    <item href="img/2019-08-23_nb02.jpg" id="id157" media-type="image/jpeg"/>
+    <item href="img/2019-08-27_nb01.jpg" id="id158" media-type="image/jpeg"/>
+    <item href="img/2019-08-30_nb01.jpg" id="id159" media-type="image/jpeg"/>
+    <item href="img/2019-08-30_Mus.jpg" id="id160" media-type="image/jpeg"/>
+    <item href="2019-09.xhtml" id="id161" media-type="application/xhtml+xml"/>
+    <item href="img/2019-09-03_nb01.jpg" id="id162" media-type="image/jpeg"/>
+    <item href="img/2019-09-04_nb01.jpg" id="id163" media-type="image/jpeg"/>
+    <item href="img/2019-09-04_nb02.jpg" id="id164" media-type="image/jpeg"/>
+    <item href="img/2019-09-04_nb03.jpg" id="id165" media-type="image/jpeg"/>
+    <item href="img/2019-09-05_nb01.jpg" id="id166" media-type="image/jpeg"/>
+    <item href="img/2019-09-06_nb01.jpg" id="id167" media-type="image/jpeg"/>
+    <item href="img/2019-09-12_nematode.jpg" id="id168" media-type="image/jpeg"/>
+    <item href="img/2019-09-13_Nordby_Ave_site.jpg" id="id169" media-type="image/jpeg"/>
+    <item href="img/2019-09-13_nb01.jpg" id="id170" media-type="image/jpeg"/>
+    <item href="img/2019-09-13_nb02.jpg" id="id171" media-type="image/jpeg"/>
+    <item href="img/2019-09-13_nb03.jpg" id="id172" media-type="image/jpeg"/>
+    <item href="img/2019-09-17_nb01.jpg" id="id173" media-type="image/jpeg"/>
+    <item href="img/2019-09-13_China_Poot_site_1.jpg" id="id174" media-type="image/jpeg"/>
+    <item href="img/2019-09-13_China_Poot_site_2.jpg" id="id175" media-type="image/jpeg"/>
+    <item href="img/2019-09-17_Deep_Creek.jpg" id="id176" media-type="image/jpeg"/>
+    <item href="img/2019-09-17_Caribou_Hills_site_1.jpg" id="id177" media-type="image/jpeg"/>
+    <item href="img/2019-09-17_adult_mayflies.jpg" id="id178" media-type="image/jpeg"/>
+    <item href="img/2019-09-17_granite.jpg" id="id179" media-type="image/jpeg"/>
+    <item href="img/2019-09-17_Caribou_Hills_site_2.jpg" id="id180" media-type="image/jpeg"/>
+    <item href="img/2019-09-19_fluridone.jpg" id="id181" media-type="image/jpeg"/>
+    <item href="img/2019-09-26_Sandpiper_Lake_ownership.jpg" id="id182" media-type="image/jpeg"/>
+    <item href="img/2019-09-26-1038_Vogel_Lakes_survey_points.jpg" id="id183" media-type="image/jpeg"/>
+    <item href="img/2019-09-25_rake_throw.jpg" id="id184" media-type="image/jpeg"/>
+    <item href="img/2019-09-23_nb01.jpg" id="id185" media-type="image/jpeg"/>
+    <item href="img/2019-09-24_nb01.jpg" id="id186" media-type="image/jpeg"/>
+    <item href="img/2019-09-24_nb02.jpg" id="id187" media-type="image/jpeg"/>
+    <item href="img/2019-09-23_netting.jpg" id="id188" media-type="image/jpeg"/>
+    <item href="img/2019-09-23_aspirator.jpg" id="id189" media-type="image/jpeg"/>
+    <item href="img/2019-09-23_catch.jpg" id="id190" media-type="image/jpeg"/>
+    <item href="img/2019-09-24_Sagittaria.jpg" id="id191" media-type="image/jpeg"/>
+    <item href="img/2019-09-24_netting.jpg" id="id192" media-type="image/jpeg"/>
+    <item href="2019-10.xhtml" id="id193" media-type="application/xhtml+xml"/>
+    <item href="img/2019-09-27_nb01.jpg" id="id194" media-type="image/jpeg"/>
+    <item href="img/2019-09-30_nb01.jpg" id="id195" media-type="image/jpeg"/>
+    <item href="img/2019-09-30_nb02.jpg" id="id196" media-type="image/jpeg"/>
+    <item href="img/2019-10-01_nb01.jpg" id="id197" media-type="image/jpeg"/>
+    <item href="img/2019-10-02_nb01.jpg" id="id198" media-type="image/jpeg"/>
+    <item href="img/2019-10-02_nb02.jpg" id="id199" media-type="image/jpeg"/>
+    <item href="appendices_October-December.xhtml" id="id200" media-type="application/xhtml+xml"/>
+    <item href="img/2019-10-29_nb01.jpg" id="id201" media-type="image/jpeg"/>
+    <item href="img/2019-10-29_nb02.jpg" id="id202" media-type="image/jpeg"/>
+    <item href="img/2019-10-29_nb03.jpg" id="id203" media-type="image/jpeg"/>
+    <item href="img/2019-10-30_nb01.jpg" id="id204" media-type="image/jpeg"/>
+    <item href="2019-11.xhtml" id="id205" media-type="application/xhtml+xml"/>
+    <item href="img/2019-11-01-1526_venn.jpg" id="id206" media-type="image/jpeg"/>
+    <item href="img/2019-11-06-1137_Slikok_breakdown_map.jpg" id="id207" media-type="image/jpeg"/>
+    <item href="img/2019-11-08-1403_iToL_Slikok_tree.png" id="id208" media-type="image/png"/>
+    <item href="img/2019-11-15_nb01.jpg" id="id209" media-type="image/jpeg"/>
+    <item href="img/2019-11-15_nb02.jpg" id="id210" media-type="image/jpeg"/>
+    <item href="img/2019-11-18_nb01.jpg" id="id211" media-type="image/jpeg"/>
+    <item href="img/2019-11-18_nb02.jpg" id="id212" media-type="image/jpeg"/>
+    <item href="img/2019-11-19-1251_Slikok_exotics_map.png" id="id213" media-type="image/png"/>
+    <item href="img/2019-11-19-1522_breakdown.png" id="id214" media-type="image/png"/>
+    <item href="img/2019-11-22-1307_cophylo_tree.png" id="id215" media-type="image/png"/>
+    <item href="img/2019-11-25-0639_spac.png" id="id216" media-type="image/png"/>
+    <item href="img/2019-11-25-0815_analysis_breakdown.png" id="id217" media-type="image/png"/>
+    <item href="img/2019-11-26-0648_Slikok_exotics_map.png" id="id218" media-type="image/png"/>
+    <item href="img/2019-11-26-1504_phylo_tree.png" id="id219" media-type="image/png"/>
+    <item href="img/2019-11-27-0647_ca_1-2.png" id="id220" media-type="image/png"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="titlepage"/>
+    <itemref idref="id"/>
+    <itemref idref="id12"/>
+    <itemref idref="id31"/>
+    <itemref idref="id42"/>
+    <itemref idref="id57"/>
+    <itemref idref="id67"/>
+    <itemref idref="id88"/>
+    <itemref idref="id130"/>
+    <itemref idref="id161"/>
+    <itemref idref="id193"/>
+    <itemref idref="id205"/>
+    <itemref idref="id9"/>
+    <itemref idref="id5"/>
+    <itemref idref="id63"/>
+    <itemref idref="id89"/>
+    <itemref idref="id200"/>
+  </spine>
+  <guide>
+    <reference href="titlepage.xhtml" title="Cover" type="cover"/>
+  </guide>
+</package>

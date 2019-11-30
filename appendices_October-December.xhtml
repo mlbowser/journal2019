@@ -1,0 +1,4606 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+    <title>Appendices</title>
+
+
+</head>
+
+<body>
+
+<h2 id="whatisgoingonhere">2019-10-24_external_links_upload_prep.R</h2>
+
+<pre>## Today I am attempting to import external references documenting species occurrences from Kenai NWR into FWSpecies.
+
+wd &lt;- "D:/projects/Kenai_NWR_checklist/FWSpecies/2019-10-23_references_export"
+dd &lt;- "D:/projects/Kenai_NWR_checklist/current_draft/data"
+
+setwd(wd)
+
+## Load data.
+cl1 &lt;- read.csv(paste0(dd, "/", "KenaiNationalWildlifeRefuge_v2019-10-15-0944.csv"))
+rl1 &lt;- read.csv(paste0(dd, "/", "reference_list.csv"))
+rf1 &lt;- read.csv(paste0(dd, "/", "reference_format.csv"))
+fs1 &lt;- read.csv("FWSpecies_FullListWithDetails_FF07RKNA00_20191024091349.csv")
+
+## First join the two datasets on scientific names.
+names(fs1) &lt;- gsub("\\.", "_", names(fs1))
+library(sqldf)
+fs2 &lt;- sqldf('
+select
+ fs1.Refuge_Code,
+ fs1.Taxon_Code,
+ fs1.TSN,
+ fs1.Scientific_Name,
+ cl1.tsn
+from
+ fs1 left outer join
+ cl1
+on
+ fs1.Scientific_Name = cl1.latin
+')
+
+dim(fs1)
+[1] 2619   26
+dim(cl1)
+[1] 2403   29
+dim(fs2)
+[1] 2619    5
+
+## Now formatting external links.
+rl2 &lt;- sqldf('
+select
+ rl1.tsn,
+ rl1.latin,
+ rl1.ref_type,
+ rf1.prefix,
+ rl1.ref_string,
+ rf1.evidenceType
+from
+ rl1 left outer join
+ rf1
+on
+ rl1.ref_type = rf1.ref_type 
+')
+dim(rl1)
+[1] 21383     9
+dim(rl2)
+[1] 21383     6
+
+rl2$ExternalLinks &lt;- paste0(rl2$prefix, rl2$ref_string)
+
+levels(as.factor(rl2$ref_string))
+
+rl2$evidenceType[grepl("KNWR:Ento", rl2$ref_string)] &lt;- "Specimen"
+rl2$evidenceType[grepl("KNWR:Herb", rl2$ref_string)] &lt;- "Specimen"
+rl2$evidenceType[grepl("KNWR:Inv", rl2$ref_string)] &lt;- "Specimen"
+rl2$evidenceType[grepl("KWP:Ento", rl2$ref_string)] &lt;- "Specimen"
+rl2$evidenceType[grepl("UAM:Ento", rl2$ref_string)] &lt;- "Specimen"
+rl2$evidenceType[grepl("UAM:Herb", rl2$ref_string)] &lt;- "Specimen"
+rl2$evidenceType[grepl("UAM:Mamm", rl2$ref_string)] &lt;- "Specimen"
+
+## Now the literature records are harder.
+library(bib2df)
+bdf &lt;- bib2df("C:/Users/mattbowser/Documents/Literature/Kenai_NWR_Literature.bib")
+bdf &lt;- as.data.frame(bdf)
+
+names(bdf)
+bdf2 &lt;- bdf[,c("BIBTEXKEY", "URL", "DOI")]
+
+rl3 &lt;- sqldf('
+select
+ rl2.*,
+ bdf2.URL as url
+from
+ rl2 left outer join
+ bdf2
+on
+ rl2.ref_string = bdf2.BIBTEXKEY 
+')
+
+rl4 &lt;- sqldf('
+select
+ rl3.*,
+ bdf2.DOI as doi
+from
+ rl3 left outer join
+ bdf2
+on
+ rl3.ref_string = bdf2.BIBTEXKEY 
+')
+
+## I want to remove a couple of reference that are not really direct links.
+
+rl4[grepl("akepic", rl4$url),]
+rl4 &lt;- rl4[!grepl("akepic", rl4$url),]
+
+dim(rl4)
+[1] 18718     9
+
+rl4[grepl("Mortonetal2017", rl4$ref_string),]
+rl4 &lt;- rl4[!grepl("Mortonetal2017", rl4$ref_string),]
+dim(rl4)
+[1] 12827     9
+
+rl4 &lt;- unique(rl4)
+dim(rl4)
+[1] 12800     9
+
+sl &lt;- !is.na(rl4$url)
+rl4$ExternalLinks[sl] &lt;- rl4$url[sl]
+
+sl &lt;- !is.na(rl4$doi)
+rl4$ExternalLinks[sl] &lt;- paste0("https://doi.org/", rl4$doi[sl])
+rl4[sl,]
+
+## Now putting things together.
+names(fs2)[5] &lt;- "tsnknwr"
+
+el &lt;- sqldf('
+select
+ fs2.Refuge_Code as UnitCode,
+ fs2.Taxon_Code as TaxonCode,
+ rl4.ExternalLinks,
+ rl4.evidenceType
+from
+ fs2 left outer join
+ rl4
+on
+ fs2.Scientific_Name = rl4.latin
+')
+
+el &lt;- unique(el)
+dim(el)
+[1] 12399     4
+
+el &lt;- el[!is.na(el$ExternalLinks),]
+dim(el)
+[1] 10590     4
+
+## Saving here.
+write.csv(el, "2019-10-24-0847_Kenai_NWR_external_links.csv", row.names=FALSE)
+
+## I forgot to check whether or not any of those already exist in FWSpecies.
+
+levels(fs1$ExternalLinks)
+
+exl &lt;- strsplit(as.character(fs1$ExternalLinks), ", ")
+ex1 &lt;- sapply(exl, "[", 1)
+ex2 &lt;- sapply(exl, "[", 2)
+ex3 &lt;- sapply(exl, "[", 3)
+ex4 &lt;- sapply(exl, "[", 4)
+
+## First check whether or not any of these exist in the dataset I am preparing to submit.
+
+ex &lt;- c(ex1, ex2, ex3)
+ex &lt;- ex[!is.na(ex)]
+ex
+
+sum(ex %in% el$ExternalLinks)
+[1] 0
+## Ok, I can submit that file I saved.
+
+## Oh, I just saw that the file I saved still contains literature citations without URLs.  Have to remove those for now.
+
+slhttp &lt;- grepl("http://", el$ExternalLinks)
+slhttps &lt;- grepl("https://", el$ExternalLinks)
+
+sl &lt;- slhttp | slhttps
+el2 &lt;- el[sl,]
+dim(el2)
+[1] 10550     4
+
+write.csv(el2, "2019-10-24-0933_Kenai_NWR_external_links.csv", row.names=FALSE)
+
+## Saving references that I was not able to use...
+elnourl &lt;- el[!sl,]
+dim(elnourl)
+[1] 40  4
+
+## Let's add the species names just to make this a little clearer.
+nourl2 &lt;- sqldf('
+select 
+ fs1.Scientific_Name,
+ elnourl.*
+from
+ elnourl left outer join
+ fs1
+on
+ fs1.Taxon_Code = elnourl.TaxonCode
+')
+
+## Saving this for manual editing.
+write.csv(nourl2, "2019-10-24-0954_refs_no_url.csv", row.names=FALSE)
+
+bdf[bdf$BIBTEXKEY == "StewartOswood2006",] ## That is a book. No URL.
+bdf[bdf$BIBTEXKEY == "Johnson2016",] ## https://pdfs.semanticscholar.org/12ba/260657901785a37579fc1dbf1e4691c33342.pdf
+bdf[bdf$BIBTEXKEY == "Wizik2018",] ## https://www.ciaanet.org/Projects/2017%20HIDDEN%20LAKE%20RPT.pdf
+## I think the other references are only available as books with no URLs.</pre>
+    
+<h2 id="toc_1">2019-11-01-1341_merging_datasets.R</h2>
+
+<pre>wd &lt;- "D:/projects/Kenai_NWR_checklist/FWSpecies/2019-11-01_merging_datasets"
+setwd(wd)
+
+fs1 &lt;- read.csv("D:/projects/Kenai_NWR_checklist/KenaiNWRspecies/data/FWSpecies_FullListWithDetails.csv")
+
+cl1 &lt;- read.csv("D:/projects/Kenai_NWR_checklist/current_draft/data/KenaiNationalWildlifeRefuge_v2019-10-15-0944.csv")
+
+names(fs1) &lt;- gsub("\\.", "_", names(fs1))
+
+dim(fs1)
+[1] 2623   26
+
+dim(cl1)
+[1] 2403   29
+
+## Wow, there are no ranks provided in the FWSpecies file. I will have to recognize species just by the white space.
+
+sl &lt;- grepl(" ", fs1$Scientific_Name)
+sum(sl)
+[1] 1673
+
+fs1$Scientific_Name[sl]
+## This includes subspecies, etc., so it will be difficult to get a species list from this.
+
+sn &lt;- strsplit(as.character(fs1$Scientific_Name), " ")
+n1 &lt;- sapply(sn, "[", 1)
+n2 &lt;- sapply(sn, "[", 2)
+fs1$sciname2 &lt;- n1
+fs1$sciname2[sl] &lt;- paste(n1[sl], n2[sl])
+
+spnames &lt;- levels(as.factor(fs1$sciname2[sl]))
+length(spnames)
+[1] 1620
+
+fs1$rank &lt;- ""
+fs1$rank[sl] &lt;- "species or finer taxonomic resolution"
+
+slsp &lt;- (fs1$Scientific_Name == fs1$sciname2) &amp; (fs1$rank == "species or finer taxonomic resolution")
+
+sum(slsp)
+[1] 1607
+
+fs1$rank[slsp] &lt;- "species"
+fs1$rank[fs1$rank == "species or finer taxonomic resolution"] &lt;- "finer than species taxonomic resolution"
+
+fs1[fs1$rank == "finer than species taxonomic resolution",]
+## I see that hybrids are a problem here.
+
+slh &lt;- grepl(" X ", fs1$Scientific_Name)
+fs1[slh,]
+
+fs1$sciname2[slh] &lt;- as.character(fs1$Scientific_Name[slh])
+fs1$rank[slh] &lt;- "hybrid"
+
+## Now trying to get a number of species (including hybrids)
+spnames &lt;- levels(as.factor(fs1$sciname2[!(fs1$rank == "")]))
+length(spnames)
+[1] 1620 ## Ok, still get 1620.
+
+## Now to see about merging/separating.
+cl1$latin &lt;- as.character(cl1$latin)
+cl1$accepted_latin &lt;- as.character(cl1$accepted_latin)
+slsyn &lt;- !(cl1$accepted_latin == "")
+[1] 218
+cl1$latin[slsyn] &lt;- cl1$accepted_latin[slsyn]
+
+slsp &lt;- (cl1$rank == "Species") 
+
+levels(cl1$rank)
+[1] "species"         "Species"         "Species        " "variety"         "Variety"
+## Need to fix some of this inconsictency.
+cl1$rank[cl1$rank=="species"] &lt;- "Species"
+cl1$rank[cl1$rank=="Species        "] &lt;- "Species"
+cl1$rank[cl1$rank=="variety"] &lt;- "Variety"
+cl1$rank &lt;- as.character(cl1$rank)
+levels(as.factor(cl1$rank))
+[1] "Species" "Variety" ## That is less messy.
+
+## Now trying to deal with varieties.
+sn &lt;- strsplit(as.character(cl1$latin), " ")
+n1 &lt;- sapply(sn, "[", 1)
+n2 &lt;- sapply(sn, "[", 2)
+cl1$sciname2 &lt;- paste(n1, n2)
+
+## Dealing with hybrids.
+slh &lt;- grepl(" X ", cl1$latin)
+cl1[slh,]
+cl1$sciname2[slh] &lt;- cl1$latin[slh]
+cl1$rank[slh] &lt;- "Hybrid"
+
+## Ok, let's do the Venn diagram.
+spfs &lt;- levels(as.factor(tolower(fs1$sciname2[!(fs1$rank == "")])))
+spcl &lt;- levels(as.factor(tolower(cl1$sciname2)))
+
+length(spfs)
+[1] 1620
+length(spcl)
+[1] 2217
+
+sum(spcl %in% spfs)
+[1] 1609
+
+sum(spfs %in% spcl)
+[1] 1609
+
+library("VennDiagram")
+venn.diagram(
+  x = list(spfs, spcl),
+  category.names = c("FWSpecies" , "Kenai NWR checklist"),
+  height = 3000, 
+  width = 4000,
+  imagetype = "png",
+  filename = "2019-11-01-1526_venn.png",
+  output=TRUE,
+  fill=c("red", "blue")
+)
+
+spall &lt;- union(spfs, spcl)
+length(spall)
+[1] 2228
+
+## Saving here.
+write.csv(fs1, "2019-11-01-1536_FWSpecies_list.csv", row.names=FALSE)
+write.csv(cl1, "2019-11-01-1536_KenaiNWR_list.csv", row.names=FALSE)
+
+## And saving a list of additions for our repository.
+spadd &lt;- cl1[!(tolower(cl1$sciname2) %in% tolower(fs1$sciname2[!(fs1$rank == "")])),]
+
+write.csv(spadd, "2019-11-01-1547_to_add.csv", row.names=FALSE)</pre>
+
+<h2 id="toc_2">2019-11-04-1334_records_summary.R</h2>
+
+<pre>wd &lt;- "D:/projects/Slikok_watershed/data/2016_arthropod_samples/NGS_data/work_space/2019-11-04_new_records_summary"
+setwd(wd)
+
+d1 &lt;- read.csv("2019-09-10-1517_possible_AK_additions_2019-09-10-1517_possible_AK_additions.csv")
+
+ag1 &lt;- aggregate(d1$scientific_name, by=list(d1$new_NA_record, d1$ new_ak_record), FUN=length)
+
+names(ag1) &lt;- c("new_NA_record", "new_AK_record", "count")
+
+ag1
+  new_NA_record new_AK_record count
+1            no         maybe     1
+2            no            no    32
+3            no           yes     1
+4            no          yes?   101
+5          yes?          yes?     5</pre>
+
+<h2 id="toc_3">2019-11-04-1459_new_records_table.R</h2>
+
+<pre>## Making a table of apparent new records.
+wd &lt;- "D:/projects/Slikok_watershed/data/2016_arthropod_samples/NGS_data/work_space/2019-11-04_new_records_summary"
+setwd(wd)
+
+d1 &lt;- read.csv("2019-09-10-1517_possible_AK_additions_2019-09-10-1517_possible_AK_additions.csv")
+
+sl &lt;- d1$new_ak_record == "yes?"
+
+dn &lt;- d1[sl,]
+
+ids1 &lt;- read.csv("D:/projects/Slikok_watershed/data/2016_arthropod_samples/NGS_data/work_space/2019-06-17_Yeti/2019-09-05-1603_ids.csv")
+
+library(sqldf)
+
+iag &lt;- unique(ids1[,c("class_name", "order_name", "family_name", "species_name")])
+
+dn2 &lt;- sqldf('
+select
+ iag.class_name,
+ iag.order_name,
+ iag.family_name,
+ dn2.scientific_name,
+ dn2.new_ak_record,
+ dn2.new_NA_record,
+ dn2.provenance,
+ dn2.notes
+from
+ dn2 left outer join
+ iag
+on
+ dn2.scientific_name = iag.species_name
+')
+
+## Saving here.
+write.csv(dn2, "2019-11-04-1511_possible_AK_additions.csv", row.names=FALSE)</pre>
+
+<h2 id="toc_4">2019-11-05-0923_graphic_for_John.R</h2>
+
+<pre>## John asked me to generate a graphic showing data from the Slikok project.
+## First I must compile the bird data, which has not yet been uploaded to Arctos.
+
+wd &lt;- "D:/projects/Slikok_watershed/data/work_space/2019-11-05_graphic_for_John"
+setwd(wd)
+
+bd1 &lt;- read.csv("D:/projects/Slikok_watershed/data/2016_bird_data/VCP_data_tde_edits.csv")
+
+cd1 &lt;- read.csv("D:/projects/Slikok_watershed/data/2016_bird_data/IBPAOU/list19p.csv")
+
+summary(bd1)
+dim(bd1)
+[1] 518   7
+
+## Filter out records with NAs.
+bd2 &lt;- bd1[!is.na(bd1$time),]
+ dim(bd2)
+[1] 511   7
+
+library(sqldf)
+
+bd3 &lt;- sqldf('
+select
+ bd2.*,
+ cd1.SCINAME
+from
+ bd2 left outer join
+ cd1
+on
+ bd2.species = cd1.SPEC
+')
+
+dim(bd3)
+[1] 511   8
+
+levels(as.factor(bd3$SCINAME))
+ [1] "Acanthis flammea"            
+ [2] "Actitis macularius"          
+ [3] "Anas platyrhynchos"          
+ [4] "Calidris minutilla"          
+ [5] "Catharus ustulatus"          
+ [6] "Certhia americana"           
+ [7] "Chroicocephalus philadelphia"
+ [8] "Contopus cooperi"            
+ [9] "Contopus sordidulus"         
+[10] "Corvus corax"                
+[11] "Dryobates pubescens"         
+[12] "Dryobates villosus"          
+[13] "Empidonax alnorum"           
+[14] "Falco columbarius"           
+[15] "Gavia immer"                 
+[16] "Haliaeetus leucocephalus"    
+[17] "Hirundinidae (gen, sp)"      
+[18] "Ixoreus naevius"             
+[19] "Junco hyemalis  hyemalis"    
+[20] "Larus canus"                 
+[21] "Leiothlypis celata"          
+[22] "Limnodromus griseus"         
+[23] "Loxia leucoptera"            
+[24] "Melanitta perspicillata"     
+[25] "Melospiza lincolnii"         
+[26] "Mergus merganser"            
+[27] "Onychoprion aleuticus"       
+[28] "Passerculus sandwichensis"   
+[29] "Passerella iliaca"           
+[30] "Perisoreus canadensis"       
+[31] "Pica hudsonia"               
+[32] "Picinae (gen, sp)"           
+[33] "Picoides dorsalis"           
+[34] "Pinicola enucleator"         
+[35] "Poecile atricapillus"        
+[36] "Poecile hudsonicus"          
+[37] "Regulus calendula"           
+[38] "Regulus satrapa"             
+[39] "Setophaga coronata"          
+[40] "Sitta canadensis"            
+[41] "Sterna paradisaea"           
+[42] "Tachycineta bicolor"         
+[43] "Tringa melanoleuca"          
+[44] "Turdus migratorius"          
+[45] "Tyrannidae (gen, sp)"        
+[46] "Zonotrichia leucophrys"  
+
+## Removing taxa coarser than species.
+sl &lt;- !grepl("(gen, sp)", bd3$SCINAME)
+
+bd4 &lt;- bd3[sl,]
+dim(bd4)
+[1] 508   8
+
+## Now collapsing for species by plot.
+bd5 &lt;- unique(bd4[,c("point_id", "SCINAME")])
+dim(bd5)
+[1] 376   2
+
+agb &lt;- aggregate(bd5$SCINAME, by=list(bd5$point_id), FUN=length)
+names(agb) &lt;- c("point_id", "n_bird_spp")
+write.csv(agb, "2019-11-05-0939_n_bird_spp_by_plot.csv", row.names=FALSE)
+
+summary(agb)
+    point_id    n_bird_spp  
+ MG02   : 1   Min.   : 5.0  
+ MG04   : 1   1st Qu.: 8.0  
+ MG05   : 1   Median : 9.0  
+ MG06   : 1   Mean   : 9.4  
+ MG07   : 1   3rd Qu.:11.0  
+ MG08   : 1   Max.   :14.0  
+
+
+## How many bird species were there total?
+length(levels(as.factor(as.character(bd5$SCINAME))))
+[1] 43
+
+## Ok, now for the rest of the data, downloaded from Arctos.
+d1 &lt;- read.csv("2019-11-05-1208_ArctosData_9C89CBDD87.csv")
+dim(d1)
+
+## Getting the plot names.
+s1 &lt;- strsplit(as.character(d1$SPEC_LOCALITY), "site ")
+s2 &lt;- sapply(s1, "[", 2)
+s3 &lt;- strsplit(s2, ",")
+s4 &lt;- sapply(s3, "[", 1)
+levels(as.factor(s4))
+d1$point_id &lt;- s4
+
+## Now for summaries.
+## First need a plot by taxon dataset.
+d2 &lt;- unique(d1[,c("point_id", "KINGDOM", "PHYLUM", "SPECIES", "SCIENTIFIC_NAME")])
+dim(d2)
+
+## Selection for only described species.
+slsp &lt;- !(d2$SPECIES == "")
+## How many species * plot occurrence records?
+sum(slsp)
+[1] 2521
+
+## Now for aggregates.
+## How many species?
+length(unique(d2$SCIENTIFIC_NAME[slsp]))
+[1] 660 
+
+length(unique(d2$SCIENTIFIC_NAME[slsp])) + 43 ## Adding the birds from above.
+[1] 703
+
+## Breakdown by plot
+agp &lt;- aggregate(d2$SCIENTIFIC_NAME[slsp], by=list(d2$PHYLUM[slsp], d2$KINGDOM[slsp], d2$point_id[slsp]), FUN=length)
+agp
+## Hmmm. For which taxa do we have SPECIES values but not higher ranks?
+
+sp1 &lt;- unique(d1[,c("KINGDOM", "PHYLUM", "SPECIES", "SCIENTIFIC_NAME")])
+dim(sp1)
+sp1 &lt;- sp1[order(sp1$KINGDOM, sp1$PHYLUM, sp1$SPECIES, sp1$SCIENTIFIC_NAME),]
+sp1
+## That is a pretty big mess.
+## Selecting only those that lack higher taxonomy.
+slm &lt;- sp1$PHYLUM == ""
+spm &lt;- sp1[slm,]
+spm
+dim(spm)
+[1] 65  4
+
+## Saving this.
+write.csv(spm, "2019-11-05-1224_missing_taxonomy.csv", row.names=FALSE)
+dim(spm)
+[1] 65  4
+## I worked on fixing these classifications in Arctos, which took the rest of the day.</pre>
+
+<h2 id="toc_5">2019-11-06-0742_graphic_for_John.R</h2>
+
+<pre>## John asked me to generate a graphic showing data from the Slikok project.
+## First I must compile the bird data, which has not yet been uploaded to Arctos.
+
+wd &lt;- "D:/projects/Slikok_watershed/data/work_space/2019-11-05_graphic_for_John"
+setwd(wd)
+
+agb &lt;- read.csv("2019-11-05-0939_n_bird_spp_by_plot.csv")
+
+## Ok, now for the rest of the data, downloaded from Arctos.
+d1 &lt;- read.csv("2019-11-06-0742_ArctosData_F9092681A2.csv")
+dim(d1)
+
+## Getting the plot names.
+s1 &lt;- strsplit(as.character(d1$SPEC_LOCALITY), "site ")
+s2 &lt;- sapply(s1, "[", 2)
+s3 &lt;- strsplit(s2, ",")
+s4 &lt;- sapply(s3, "[", 1)
+levels(as.factor(s4))
+d1$point_id &lt;- s4
+
+## Now for summaries.
+## First need a plot by taxon dataset.
+d2 &lt;- unique(d1[,c("point_id", "KINGDOM", "PHYLUM", "SPECIES", "SCIENTIFIC_NAME")])
+dim(d2)
+
+## Selection for only described species.
+slsp &lt;- !(d2$SPECIES == "")
+## How many species * plot occurrence records?
+sum(slsp)
+[1] 2567
+
+## Now for aggregates.
+## How many species?
+length(unique(d2$SCIENTIFIC_NAME[slsp]))
+[1] 667 
+
+length(unique(d2$SCIENTIFIC_NAME[slsp])) + 43 ## Adding the birds from above.
+[1] 710
+
+## Breakdown by plot
+agp &lt;- aggregate(d2$SCIENTIFIC_NAME[slsp], by=list(d2$PHYLUM[slsp], d2$KINGDOM[slsp], d2$point_id[slsp]), FUN=length)
+agp
+
+## Hmmm. For which taxa do we have SPECIES values but not higher ranks?
+sp1 &lt;- unique(d1[,c("KINGDOM", "PHYLUM", "SPECIES", "SCIENTIFIC_NAME")])
+dim(sp1)
+sp1 &lt;- sp1[order(sp1$KINGDOM, sp1$PHYLUM, sp1$SPECIES, sp1$SCIENTIFIC_NAME),]
+sp1
+## That is a pretty big mess.
+## Selecting only those that lack higher taxonomy.
+slm &lt;- sp1$PHYLUM == ""
+spm &lt;- sp1[slm,]
+spm
+           KINGDOM PHYLUM            SPECIES    SCIENTIFIC_NAME
+590                       Lophozia longidens Lophozia longidens
+31  Plantae, Fungi                             Fungi or Plantae
+
+## Fixed Lophozia longidens taxonomy on Arctos.
+## Fixing local data for now, also.
+sl &lt;- d1$SCIENTIFIC_NAME == "Lophozia longidens"
+d1$KINGDOM[sl] &lt;- "Plantae"
+d1$PHYLUM[sl] &lt;- "Marchantiophyta"
+
+## Also fixing a taxonomic inconsistency.
+sl &lt;- d1$KINGDOM == "Plantae, Viridiplantae"
+d1$KINGDOM[sl] &lt;- "Plantae"
+
+sl &lt;- d1$PHYLUM == "Streptophyta"
+d1$PHYLUM[sl] &lt;- "Tracheophyta"
+
+## Saving this here.
+write.csv(d1, "2019-11-06-0804_ArctosData_F9092681A2.csv", row.names=FALSE)
+
+d2 &lt;- unique(d1[,c("point_id", "KINGDOM", "PHYLUM", "SPECIES", "SCIENTIFIC_NAME")])
+dim(d2)
+
+slsp &lt;- !(d2$SPECIES == "")
+
+## Breakdown by plot
+agp &lt;- aggregate(d2$SCIENTIFIC_NAME[slsp], by=list(d2$PHYLUM[slsp], d2$KINGDOM[slsp], d2$point_id[slsp]), FUN=length)
+agp
+
+## One more aggregate before we go on...
+ts1 &lt;- unique(d1[,c("KINGDOM", "PHYLUM", "SPECIES", "SCIENTIFIC_NAME")])
+ts1 &lt;- ts1[!(ts1$SPECIES == ""),]
+dim(ts1)
+[1] 667   4
+
+agg &lt;- aggregate(ts1$SCIENTIFIC_NAME, by=list(ts1$PHYLUM, ts1$KINGDOM), FUN=length)
+agg
+          Group.1  Group.2   x
+1        Annelida Animalia   3
+2      Arthropoda Animalia 397
+3        Mollusca Animalia   6
+4      Ascomycota    Fungi 111
+5       Bryophyta  Plantae  51
+6 Marchantiophyta  Plantae  12
+7    Tracheophyta  Plantae  87
+
+
+## Now, what if we were to do the same thing, but this time also include BOLD BINs as a proxy for species?
+slb &lt;- grepl("BOLD:", d1$SCIENTIFIC_NAME)
+d1[slb,][1:10,]
+d1$SPECIES &lt;- as.character(d1$SPECIES)
+d1$SCIENTIFIC_NAME &lt;- as.character(d1$SCIENTIFIC_NAME)
+d1$SPECIES[slb] &lt;- d1$SCIENTIFIC_NAME[slb]
+
+## Now for summaries.
+## First need a plot by taxon dataset.
+d2 &lt;- unique(d1[,c("point_id", "KINGDOM", "PHYLUM", "SPECIES", "SCIENTIFIC_NAME")])
+dim(d2)
+
+slsp &lt;- !(d2$SPECIES == "")
+## How many species * plot occurrence records?
+sum(slsp)
+[1] 3173
+
+## Now for aggregates.
+## How many species?
+length(unique(d2$SCIENTIFIC_NAME[slsp]))
+[1] 936
+
+length(unique(d2$SCIENTIFIC_NAME[slsp])) + 43 ## Adding the birds 
+[1] 979
+
+## Breakdown by plot
+agp &lt;- aggregate(d2$SCIENTIFIC_NAME[slsp], by=list(d2$PHYLUM[slsp], d2$KINGDOM[slsp], d2$point_id[slsp]), FUN=length)
+agp
+
+## One more aggregate before we go on...
+ts1 &lt;- unique(d1[,c("KINGDOM", "PHYLUM", "SPECIES", "SCIENTIFIC_NAME")])
+ts1 &lt;- ts1[!(ts1$SPECIES == ""),]
+dim(ts1)
+[1] 936   4
+
+agg &lt;- aggregate(ts1$SCIENTIFIC_NAME, by=list(ts1$PHYLUM, ts1$KINGDOM), FUN=length)
+agg
+          Group.1  Group.2   x
+1        Annelida Animalia   3
+2      Arthropoda Animalia 663
+3        Mollusca Animalia   9
+4      Ascomycota    Fungi 111
+5       Bryophyta  Plantae  51
+6 Marchantiophyta  Plantae  12
+7    Tracheophyta  Plantae  87
+## I thought there would be more worms.
+
+## I updated enchytraeid identifications in Arctos, assigning BOLD BINs.
+
+## Updated data.
+d1 &lt;- read.csv("2019-11-06-0854_ArctosData_F9092681A2.csv")
+dim(d1)
+
+## Getting the plot names.
+s1 &lt;- strsplit(as.character(d1$SPEC_LOCALITY), "site ")
+s2 &lt;- sapply(s1, "[", 2)
+s3 &lt;- strsplit(s2, ",")
+s4 &lt;- sapply(s3, "[", 1)
+levels(as.factor(s4))
+d1$point_id &lt;- s4
+
+## Also fixing a taxonomic inconsistency.
+sl &lt;- d1$KINGDOM == "Plantae, Viridiplantae"
+d1$KINGDOM[sl] &lt;- "Plantae"
+sl &lt;- d1$PHYLUM == "Streptophyta"
+d1$PHYLUM[sl] &lt;- "Tracheophyta"
+sl &lt;- d1$PHYLUM == "Tracheophyta, Streptophyta"
+d1$PHYLUM[sl] &lt;- "Tracheophyta"
+d1$PHYLUM &lt;- str_trim(d1$PHYLUM)
+d1$PHYLUM[d1$PHYLUM == "Marchantiophyta "] &lt;- "Marchantiophyta"
+
+## Now for summaries.
+## First need a plot by taxon dataset.
+d2 &lt;- unique(d1[,c("point_id", "KINGDOM", "PHYLUM", "SPECIES", "SCIENTIFIC_NAME")])
+dim(d2)
+
+## Now, what if we were to do the same thing, but this time also include BOLD BINs as a proxy for species?
+slb &lt;- grepl("BOLD:", d1$SCIENTIFIC_NAME)
+d1[slb,][1:10,]
+d1$SPECIES &lt;- as.character(d1$SPECIES)
+d1$SCIENTIFIC_NAME &lt;- as.character(d1$SCIENTIFIC_NAME)
+d1$SPECIES[slb] &lt;- d1$SCIENTIFIC_NAME[slb]
+
+## Now for summaries.
+## First need a plot by taxon dataset.
+d2 &lt;- unique(d1[,c("point_id", "KINGDOM", "PHYLUM", "SPECIES", "SCIENTIFIC_NAME")])
+dim(d2)
+
+slsp &lt;- !(d2$SPECIES == "")
+## How many species * plot occurrence records?
+sum(slsp)
+[1] 3184
+
+## Now for aggregates.
+## How many species?
+length(unique(d2$SCIENTIFIC_NAME[slsp]))
+[1] 941
+
+length(unique(d2$SCIENTIFIC_NAME[slsp])) + 43 ## Adding the birds 
+[1] 984
+
+## Breakdown by plot
+agp &lt;- aggregate(d2$SCIENTIFIC_NAME[slsp], by=list(d2$PHYLUM[slsp], d2$KINGDOM[slsp], d2$point_id[slsp]), FUN=length)
+agp
+
+## One more aggregate before we go on...
+ts1 &lt;- unique(d1[,c("KINGDOM", "PHYLUM", "SPECIES", "SCIENTIFIC_NAME")])
+ts1 &lt;- ts1[!(ts1$SPECIES == ""),]
+dim(ts1)
+[1] 941   4
+
+agg &lt;- aggregate(ts1$SCIENTIFIC_NAME, by=list(ts1$PHYLUM, ts1$KINGDOM), FUN=length)
+agg
+           Group.1  Group.2   x
+1         Annelida Animalia   8
+2       Arthropoda Animalia 663
+3         Mollusca Animalia   9
+4       Ascomycota    Fungi 111
+5        Bryophyta  Plantae  51
+6  Marchantiophyta  Plantae  11
+7 Marchantiophyta   Plantae   1
+8     Tracheophyta  Plantae  87
+
+## That is a lot of arthropods. Looking at this.
+ts1[ts1$PHYLUM == "Arthropoda",]
+
+## Doing some saving.
+write.csv(d1, "2019-11-06-0917_ArctosData_F9092681A2.csv", row.names=FALSE)
+
+## Now combining bird and Arctos datasets.
+names(agp) &lt;- c("phylum", "kingdom", "point_id", "n_spp")
+names(agb) &lt;- c("point_id", "n_spp")
+agb$phylum &lt;- "Chordata"
+agb$kingdom &lt;- "Animalia"
+agb &lt;- agb[,c("phylum", "kingdom", "point_id", "n_spp")]
+
+ag &lt;- rbind(agb, agp)
+## Saving this.
+write.csv(ag, "2019-11-06-0942_point_breakdown.csv", row.names=FALSE)
+
+## Ok, now need to make a map.
+
+## First I need to organize my data.
+library(reshape2)
+ag2 &lt;- melt(ag, measure.vars = "n_spp")
+ag3 &lt;- dcast(ag2, point_id ~ phylum, fun.aggregate=sum)
+## Renaming and re-ordering.
+names(ag3) &lt;- c("point_id",
+ "annelid worms",
+ "arthropods",
+ "lichens",
+ "mosses",
+ "birds",
+ "liverworts",
+ "molluscs",
+ "vascular plants"
+ )
+ag3 &lt;- ag3[,c("point_id",
+ "mosses",
+ "liverworts",
+ "vascular plants",
+ "lichens",
+ "annelid worms",
+ "arthropods",
+ "molluscs",
+ "birds"
+ )]
+
+## Now setting some parameters for plotting bar plots.
+maxh &lt;- 400 ## 500 m plot spacing.
+ncats &lt;- ncol(ag3) -1 ## Number of categories.
+bw &lt;- 50 ## bar width.
+lw &lt;- 1 ## line width for boxes.
+maxn &lt;- max(ag3[,2:ncol(ag3)]) ## max number of species in any box.
+cf &lt;- maxh/maxn ## Conversion factor for boxes.
+ll &lt;- (1:ncats)*bw - ncats*bw/2 - bw ## lower left
+lr &lt;- ll + bw ## lower right
+bcol &lt;- ## bar colors:
+c("#006600",
+ "#00cc66",
+ "#33cc33",
+ "#999966",
+ "#9B7653", ## Crayola Dirt
+ "#1A1110", ## Crayola Licorice
+ "#8B8680", ## Crayola Gray
+ "#C32148" ## Crayola Maroon
+ )
+ 
+md &lt;- "I:/BIOLOGY/Data/ProjectData/Slikok_watershed/geodata/work_space/2018-12-06_manuscript_map"
+
+knwr = "J:/Goedata/Boundaries/KNWR/knwr.shp"
+lakes = "J:/Goedata/Hydro/KP_lakes/lakes.shp"
+streams = "J:/Goedata/Hydro/KP_streams/streams.shp"
+roads = "J:/Goedata/Transportation/Roads/roads.shp"
+
+library(maptools)
+library(rgdal)
+library(raster)
+library(GISTools)
+library(rgeos)
+ 
+albers &lt;- "+proj=aea +lat_1=55 +lat_2=65 +lat_0=50 +lon_0=-154 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
+wgs84 &lt;- "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
+ 
+## Load shape files.
+knwr &lt;- readShapeSpatial(knwr)
+lakes &lt;- readShapeSpatial(lakes)
+streams &lt;- readShapeSpatial(streams)
+roads &lt;- readOGR(dsn=roads, layer="roads")
+
+proj4string(knwr) &lt;- CRS(albers)
+proj4string(lakes) &lt;- CRS(albers)
+
+setwd(md)
+slikokw &lt;- readShapeSpatial("HUC12_Slikok.shp")
+proj4string(slikokw) &lt;- CRS(wgs84)
+slikoka &lt;- spTransform(slikokw, CRS(albers))
+setwd(wd)
+
+## Want to clip this to 60.44 N...
+bb &lt;- extent(slikokw)
+bb2 &lt;- bb
+bb2@ymin &lt;- 60.44
+slikok2 &lt;- crop(slikokw, bb2)
+slikok2a &lt;- spTransform(slikok2, CRS(albers))
+
+## Need to clip this to KNWR...
+slikok3 &lt;- gIntersection(slikok2a, knwr)
+
+## Now for the minigrid...
+sites &lt;- "I:/BIOLOGY/Data/ProjectData/Slikok_watershed/geodata/kml/Slikok_500m_minigrid.kml"
+sitesw = readOGR(sites) 
+#proj4string(sitesw) &lt;- CRS(wgs84)
+sitesa &lt;- spTransform(sitesw, CRS(albers))
+
+water &lt;- "#93CCEA" ## #76D7EA = Crayola Sky Blue "#BEBEBE" #93CCEA is Crayola cornflower
+land &lt;- "#E8E8E8" 
+lab &lt;- c("study area", "plot locations", "Slikok Creek watershed", "KNWR boundary", "water", "roads")
+ldf &lt;- as.data.frame(lab)
+ldf$fill &lt;- c("#C2E0D1", NA, "#E8E8E8", "#E8E8E8", "#93CCEA", NA)
+ldf$border &lt;- c("#33664d", NA, "blue", "red", "#1d6b95", NA)
+ldf$lwd &lt;- c(NA, NA, NA, NA, 1, 2)
+ldf$pch &lt;- c(NA, 1, NA, NA, NA, NA)
+ldf$ptcex &lt;- c(NA, 1.2, NA, NA, NA, NA)
+ldf$ptlwd  &lt;- c(NA, 2, NA, NA, NA, NA)
+ldf$col &lt;- c(NA, "black", NA, NA, "#1d6b95", "#888888")
+
+pdf(file="2019-11-06-1023_Slikok_breakdown_map.pdf",
+ width=8,
+ height=8
+ )
+ par(mar=c(0.1, 0.1, 0.1, 0.1)) 
+ plot(slikok3,
+  col="#C2E0D1",
+  bg=land,
+  border="#33664d",
+  lwd=2,
+  xlim = c(slikok3@bbox[1,1] - 500, slikok3@bbox[1,2])
+  )
+ plot(slikoka,
+  col=NA,
+  add=TRUE,
+  border="blue",
+  lwd=2
+  )
+ plot(knwr,
+  col=NA,
+  border="red",
+  lwd=2,
+  add=TRUE
+  )
+ plot(slikok3,
+  col="#C2E0D1",
+  bg=land,
+  border="#33664d",
+  lwd=2,
+  add=TRUE
+  )
+ plot(slikoka,
+  col=NA,
+  add=TRUE,
+  border="blue",
+  lwd=2,
+  lty="dashed"
+  )
+ plot(knwr,
+  col=NA,
+  border="red",
+  lwd=2,
+  add=TRUE,
+  lty="dashed"
+  )
+ plot(streams,
+  add=TRUE,
+  col="#1d6b95",
+  lwd=1
+  )
+ plot(lakes,
+  add=TRUE,
+  col=water,
+  border="#1d6b95",
+  lwd=1
+  )
+ plot(roads,
+  col="#888888",
+  lwd=2,
+  add=TRUE
+  )
+ points(
+  sitesa,
+  lwd=2,
+  cex=1.2
+  )
+  
+ ## Now add those bar plots.
+ for (this_site in 1:nrow(sitesa)) #nrow(sitesa)
+  {
+  agt &lt;- ag3[as.character(ag3$point_id) == sitesa$Name[this_site],]
+  print(agt)
+  print(nrow(agt))
+  if (nrow(agt) &gt; 0)
+   {
+   for (this_cat in 1:ncats)
+    {
+	 rect(xleft=coordinates(sitesa[this_site,])[1] + ll[this_cat], 
+	  ybottom=coordinates(sitesa[this_site,])[2],
+	  xright=coordinates(sitesa[this_site,])[1] + ll[this_cat] + bw,
+	  ytop=coordinates(sitesa[this_site,])[2] + agt[,this_cat+1]*cf,
+	  col=bcol[this_cat]
+	  )
+	 text(coordinates(sitesa[this_site,])[1] + ll[this_cat] + bw/2,
+	  coordinates(sitesa[this_site,])[2] + agt[,this_cat+1]*cf + bw,
+	  agt[,this_cat+1],
+	  cex=0.4,
+	  srt=90
+	  )
+    }	
+   }
+  }   
+  
+ legend("topleft",
+  bg="white",
+  legend=ldf$lab,
+  fill=ldf$fill,
+  border=ldf$border,
+  lwd=ldf$lwd,
+  pch=ldf$pch,
+  pt.cex=ldf$ptcex,
+  pt.lwd=ldf$ptlwd,
+  col=ldf$col
+  )
+ map.scale(x=160681.6+250, y=1164800, len=3500, ndivs=7, units="km", subdiv=0.5)
+ north.arrow(xb=158681.6, yb=1164800, len=100, lab="N")
+dev.off()
+
+
+pdf(file="2019-11-06-1121_Slikok_breakdown_map.pdf",
+ width=8,
+ height=7
+ )
+ par(mar=c(0.1, 0.1, 0.1, 0.1)) 
+ plot(slikok3,
+  col="#C2E0D1",
+  bg=land,
+  border="#33664d",
+  lwd=2,
+  xlim = c(slikok3@bbox[1,1], slikok3@bbox[1,2] + 800)
+  )
+ plot(slikoka,
+  col=NA,
+  add=TRUE,
+  border="blue",
+  lwd=2
+  )
+ plot(knwr,
+  col=NA,
+  border="red",
+  lwd=2,
+  add=TRUE
+  )
+ plot(slikok3,
+  col="#C2E0D1",
+  bg=land,
+  border="#33664d",
+  lwd=2,
+  add=TRUE
+  )
+ plot(slikoka,
+  col=NA,
+  add=TRUE,
+  border="blue",
+  lwd=2,
+  lty="dashed"
+  )
+ plot(knwr,
+  col=NA,
+  border="red",
+  lwd=2,
+  add=TRUE,
+  lty="dashed"
+  )
+ plot(streams,
+  add=TRUE,
+  col="#1d6b95",
+  lwd=1
+  )
+ plot(lakes,
+  add=TRUE,
+  col=water,
+  border="#1d6b95",
+  lwd=1
+  )
+ plot(roads,
+  col="#888888",
+  lwd=2,
+  add=TRUE
+  )
+ points(
+  sitesa,
+  lwd=2,
+  cex=1.2
+  )
+  
+ ## Now add those bar plots.
+ for (this_site in 1:nrow(sitesa)) #nrow(sitesa)
+  {
+  agt &lt;- ag3[as.character(ag3$point_id) == sitesa$Name[this_site],]
+  print(agt)
+  print(nrow(agt))
+  if (nrow(agt) &gt; 0)
+   {
+   for (this_cat in 1:ncats)
+    {
+	 rect(xleft=coordinates(sitesa[this_site,])[1] + ll[this_cat], 
+	  ybottom=coordinates(sitesa[this_site,])[2],
+	  xright=coordinates(sitesa[this_site,])[1] + ll[this_cat] + bw,
+	  ytop=coordinates(sitesa[this_site,])[2] + agt[,this_cat+1]*cf,
+	  col=bcol[this_cat]
+	  )
+	 text(coordinates(sitesa[this_site,])[1] + ll[this_cat] + bw/2,
+	  coordinates(sitesa[this_site,])[2] + agt[,this_cat+1]*cf + bw,
+	  agt[,this_cat+1],
+	  cex=0.4,
+	  srt=90
+	  )
+    }	
+   }
+  }   
+  
+ legend("topright",
+  bg="white",
+  legend=ldf$lab,
+  fill=ldf$fill,
+  border=ldf$border,
+  lwd=ldf$lwd,
+  pch=ldf$pch,
+  pt.cex=ldf$ptcex,
+  pt.lwd=ldf$ptlwd,
+  col=ldf$col
+  )
+ map.scale(x=160681.6+250, y=1164800, len=3500, ndivs=7, units="km", subdiv=0.5)
+ north.arrow(xb=158681.6+4700, yb=1164800, len=100, lab="N")
+dev.off()
+
+## Now updating the legend.
+lab &lt;- c("study area", "plot locations", "Slikok Creek watershed", "KNWR boundary", "water", "roads", names(ag3)[2:ncol(ag3)])
+ldf &lt;- as.data.frame(lab)
+ldf$fill &lt;- c("#C2E0D1", NA, "#E8E8E8", "#E8E8E8", "#93CCEA", NA, bcol)
+ldf$border &lt;- c("#33664d", NA, "blue", "red", "#1d6b95", NA, rep("#000000", length(bcol)))
+ldf$lwd &lt;- c(NA, NA, NA, 2, 1, 2, rep(1, length(bcol)))
+ldf$pch &lt;- c(NA, 1, NA, NA, NA, NA, rep(NA, length(bcol)))
+ldf$ptcex &lt;- c(NA, 1.2, NA, NA, NA, NA, rep(NA, length(bcol)))
+ldf$ptlwd  &lt;- c(NA, 2, NA, 2, NA, NA, rep(NA, length(bcol)))
+ldf$col &lt;- c(NA, "black", NA, NA, "#1d6b95", "#888888", rep(NA, length(bcol)))
+
+pdf(file="2019-11-06-1137_Slikok_breakdown_map.pdf",
+ width=8,
+ height=7
+ )
+ par(mar=c(0.1, 0.1, 0.1, 0.1)) 
+ plot(slikok3,
+  col="#C2E0D1",
+  bg=land,
+  border="#33664d",
+  lwd=2,
+  xlim = c(slikok3@bbox[1,1], slikok3@bbox[1,2] + 800)
+  )
+ plot(slikoka,
+  col=NA,
+  add=TRUE,
+  border="blue",
+  lwd=2
+  )
+ plot(knwr,
+  col=NA,
+  border="red",
+  lwd=2,
+  add=TRUE
+  )
+ plot(slikok3,
+  col="#C2E0D1",
+  bg=land,
+  border="#33664d",
+  lwd=2,
+  add=TRUE
+  )
+ plot(slikoka,
+  col=NA,
+  add=TRUE,
+  border="blue",
+  lwd=2,
+  lty="dashed"
+  )
+ plot(knwr,
+  col=NA,
+  border="red",
+  lwd=2,
+  add=TRUE,
+  lty="dashed"
+  )
+ plot(streams,
+  add=TRUE,
+  col="#1d6b95",
+  lwd=1
+  )
+ plot(lakes,
+  add=TRUE,
+  col=water,
+  border="#1d6b95",
+  lwd=1
+  )
+ plot(roads,
+  col="#888888",
+  lwd=2,
+  add=TRUE
+  )
+ points(
+  sitesa,
+  lwd=2,
+  cex=1.2
+  )
+  
+ ## Now add those bar plots.
+ for (this_site in 1:nrow(sitesa)) #nrow(sitesa)
+  {
+  agt &lt;- ag3[as.character(ag3$point_id) == sitesa$Name[this_site],]
+  print(agt)
+  print(nrow(agt))
+  if (nrow(agt) &gt; 0)
+   {
+   for (this_cat in 1:ncats)
+    {
+	 rect(xleft=coordinates(sitesa[this_site,])[1] + ll[this_cat], 
+	  ybottom=coordinates(sitesa[this_site,])[2],
+	  xright=coordinates(sitesa[this_site,])[1] + ll[this_cat] + bw,
+	  ytop=coordinates(sitesa[this_site,])[2] + agt[,this_cat+1]*cf,
+	  col=bcol[this_cat]
+	  )
+	 text(coordinates(sitesa[this_site,])[1] + ll[this_cat] + bw/2,
+	  coordinates(sitesa[this_site,])[2] + agt[,this_cat+1]*cf + bw,
+	  agt[,this_cat+1],
+	  cex=0.4,
+	  srt=90
+	  )
+    }	
+   }
+  }   
+  
+ legend("topright",
+  bg="white",
+  legend=ldf$lab,
+  fill=ldf$fill,
+  border=ldf$border,
+  lwd=ldf$lwd,
+  pch=ldf$pch,
+  pt.cex=ldf$ptcex,
+  pt.lwd=ldf$ptlwd,
+  col=ldf$col
+  )
+ map.scale(x=160681.6+250, y=1164800, len=3500, ndivs=7, units="km", subdiv=0.5)
+ north.arrow(xb=158681.6+4700, yb=1164800, len=100, lab="N")
+dev.off()</pre>
+
+<h2 id="toc_6">2019-11-08-0806_checking_samples.R</h2>
+
+<pre>## Looking at data received yesterday afternoon.
+## Checking the first read from the first file of each dataset.
+
+First read from Tracy's soil sample 6202-soiart35-mlCOIint-jgHCO2198_R1.fastq
+@M02696:73:000000000-CLJJT:1:1101:15521:1421 1:N:0:163
+GGAACTGGTTGAACAGTTTACCCTCCTCTTGCAAGAAACTTGGCTCATGCTGGGCCATTAGTAGACTTAGCTATTTTCTCCCTTCACTTAGCTGGAGCCTCTTCAATTTTAGGTGCAATTAATTTTATTACTACAGTTATCAATATACGATGATCGGGACTACGACTAGAGCGAATTCCCCTATTTGTCTGAGCTGTACTAATTACAGTTATTCTCCTTCTCCTGTCACTGCCTGTACTAGCGGGGGCAATTACTATACTTTTAACAGACCGAAATTTAAATACATCATTTTTTGATC
++
+CCCCCGGGGGGGGGGGGGGGGGGGGGGGGGGFGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGFGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGCGGGGGGGGGGGGGGGGFGGGGGGGGGGGGFGGGGGFGGGGGGGGGGFGGGFFFFFGGFFGGFFGFCGAF9GA&gt;D&gt;EDFFFEEFFFFFFFFFF;CEADFDFFF&gt;?<a bold_s="" id="" engine_="" that="" is="" dendrobaena="" octaedra.="" thatlooks="" good.="" first="" read="" from="" tracy_s="" soil="" sample="" _202-soifun31-kyo2-kyo3b_r1.fastq="" natgaagaacgcagtgaaatgcgataagtaatgtgaattgcagaattcagtgaatcatcgaatctttgaacgcacattgcgccccctggtattccggggggcatgcctgttcgagcgtcattacaaccctcaagctctgcttggtattgggccccgccggttccggcgggccctaaagtcagtggcggtgccatccggccccgagcgtagtaattcttctcgctctggagacccggctgtgtgcttgccagcaacccccaatcttttaaggttgaccttggatcaggtagggatacccgcg="" _="" _8_bccffgfgggegggfgcfgecffccggg9fgffffffgggfffggdfgggfffgffafe__fggg__aefggeffef___fcfcfeeefgccfcedgeccgffgggaf="F,8FFGFGGGGG:FGGGGGDBEFEFGFG9FF@GG9FFACEFGEFGGG*BF" _m02696_73_000000000-cljjt_1_1101_15145_1209="" __n_0_32="">FEGECCEEE8:8;&lt;@9E:9CFFGG8CEGGFG0***C*:9C/8CEG=5;&gt;C*CFG*8*:DG:.57C*793C&gt;./04C0/-*6:D,7967&gt;01)4&gt;09977(6&lt;4&lt;2:F26&lt;,8&lt;7)).4.4:(5)6))4(4(2,:2(4(
+
+NCBI BLASTn: Pseudeurotium sp. T5_10 (98.66% ident.)
+
+First read from 6202-soifun3069-1-ITS3mix-ITS4ngs_R1.fastq
+
+@M02696:73:000000000-CLJJT:1:1101:17874:1151 1:N:0:67
+NACCGATGAAGAACGTGGCGAAATGCGATAACTAATGTGAATTGCAGAATTCAGTGAATCATCGAGTCTTTGAACGCACATTGCGCCCCCTGGTATTCCGGGGGGCATGCCTGTCCGAGCGTCATTGCTGCCCTCAAGCACGGCTTGTGTGTTGGGCTCCGTCCCCCCGGGGACGGGTCCGAAAGGCAGCGGCGGCACCGAGTCCGGTCCTCGAGCGTATGGGGCTTTGTCACCCGCTCTGTAGGCCCGGCCGGCGCTTGCCGATCAACCAAACTTTTTTCCAGGTTGCCCTCGGATCAGG
++
+#8BCCGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGFFGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGFGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGDGGFGCFGGGGGGCFCEGFGGGEGGGGG:CEEE8CFGDCCCFGGGGEDC?CCDEGG8DGGGDG*193:CDDCD15107CEEDF<FFFGFFFGD6>3?A&lt;:DF2&gt;D98396)-7&gt;(4&gt;B&gt;0,3<FB__8_4_AA>?6:-.6?8&lt;1()53?2&lt;3(,,2:
+
+NCBI BLASTn: 96.35% ident. to Penicillium thomii isolate Pt7W-19Pu.
+
+First read from 6202-sweart31-mlCOIint-jgHCO2198_R1.fastq
+
+@M02696:73:000000000-CLJJT:1:1101:18279:1169 1:N:0:173
+NGAACAGGTTGAACAGTTTATCCCCCTTATCTTCAAACATCGCCCATGGTGGAGCTTCTGTAGATTTAGCTATTTTTTCTTTACATTTAGCAGGAATTTCCTCTATTTTAGGAGCTGTAAATTTTATTACTACTGTAATTAACATACGATCAACAGGAATTACCTTTGACCGAATACCTTTATTTGTATGATCTGTAGTAATTACAGCTTTATTACTCCTTTTATCTTTACCAGTTTTAGCTGGAGCCATTACTATACTTTTAACAGATCGAAATTTAAATACCTCATTTTTTGATCCAG
++
+#8BCCGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG9FGGGGGGGGFGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGFGGFGGGGGGGGGGGGEGGGGGGGGGGGGGGGGGBFEGGGGGGGGGGGGGGGGGGGGGGGGGFGGGGFFFFGGFF+EAFFFFGFFFGFDGBFFFFFFFFFFFFFFFFFFFFBBFFDBADFFEFFFEFEEBB@@EEFFB1?C)7=
+
+BOLD ID engine: Alliopsis silvestris (98.97% similarity)
+
+## Those all looked pretty good.
+## Now using R.
+
+wd &lt;- "I:/BIOLOGY/Data/ProjectData/Melvin_thesis_project/NGS_samples_2019/data/arthropod_data/Bowser_6202Raw11042019"
+setwd(wd)
+
+fn &lt;- dir()
+length(fn)
+
+## How many sweep net arthropod samples?
+sweart &lt;- grepl("sweart", fn)
+nsweart &lt;- sum(sweart)/2
+nsweart
+[1] 32
+
+soiart &lt;- grepl("soiart", fn)
+nsoiart &lt;- sum(soiart)/2
+nsoiart
+[1] 20
+
+sft &lt;- grepl("KYO2-KYO3B", fn)
+nsft &lt;- sum(sft)/2
+nsft 
+[1] 32
+
+sfb &lt;- grepl("ITS3mix-ITS4ngs", fn)
+nsfb &lt;- sum(sfb)/2
+nsfb 
+[1] 26</FB__8_4_AA></FFFGFFFGD6></a></pre>
+
+<h2 id="toc_7">2019-11-11-2232_Arctos_upload.R</h2>
+
+<pre>wd &lt;- "D:/projects/Slikok_watershed/data/2016_bird_data/work_space/2019-11-11_Arctos_upload"
+setwd(wd)
+
+bd1 &lt;- read.csv("D:/projects/Slikok_watershed/data/2016_bird_data/VCP_data_tde_edits.csv")
+
+cd1 &lt;- read.csv("D:/projects/Slikok_watershed/data/2016_bird_data/IBPAOU/list19p.csv")
+
+summary(bd1)
+dim(bd1)
+
+library(sqldf)
+
+bd2 &lt;- sqldf('
+select
+ bd1.*,
+ cd1.SCINAME
+from
+ bd1 left outer join
+ cd1
+on
+ bd1.species = cd1.SPEC
+')
+
+## I am going to need to manually enter the dates and times.
+
+## Done.
+dt &lt;- read.csv("2019-11-11-2243_bird_times_observers.csv")
+
+dt$datetime &lt;- strptime(paste(dt$date, dt$time), format="%m/%d/%Y %H:%M")
+
+bd3 &lt;- sqldf('
+select 
+ bd2.*,
+ dt.datetime,
+ dt.observer
+from
+ bd2 left outer join
+ dt
+on
+ bd2.point_id = dt.point_id
+')
+Error in result_bind(res@ptr, params) : 
+  Parameter 5 does not have length 40.</pre>
+  
+<h2 id="toc_8">2019-11-12-0755_Arctos_upload.R</h2>
+<pre>wd &lt;- "D:/projects/Slikok_watershed/data/2016_bird_data/work_space/2019-11-11_Arctos_upload"
+setwd(wd)
+
+bd1 &lt;- read.csv("D:/projects/Slikok_watershed/data/2016_bird_data/VCP_data_tde_edits.csv", stringsAsFactors=FALSE)
+
+cd1 &lt;- read.csv("D:/projects/Slikok_watershed/data/2016_bird_data/IBPAOU/list19p.csv", stringsAsFactors=FALSE)
+
+summary(bd1)
+dim(bd1)
+
+library(sqldf)
+
+bd2 &lt;- sqldf('
+select
+ bd1.*,
+ cd1.SCINAME
+from
+ bd1 left outer join
+ cd1
+on
+ bd1.species = cd1.SPEC
+')
+
+## I am going to need to manually enter the dates and times.
+
+## Done.
+dt &lt;- read.csv("2019-11-11-2243_bird_times_observers.csv", stringsAsFactors=FALSE)
+
+dt$datetime &lt;- strptime(paste(dt$date, dt$time), format="%m/%d/%Y %H:%M")
+
+bd3 &lt;- sqldf('
+select 
+ bd2.*,
+ dt.datetime,
+ dt.observer
+from
+ bd2 left outer join
+ dt
+on
+ bd2.point_id = dt.point_id
+')
+Error in result_bind(res@ptr, params) : 
+  Parameter 5 does not have length 40.
+
+bd3 &lt;- merge(x=bd2, y=dt, by="point_id", all.x=TRUE)
+
+dim(bd3)
+[1] 518  12 ## That looked good.
+
+## Now I need to fix one identification.
+bd3$SCINAME[bd3$species=="RESQ"] &lt;- "Tamiasciurus hudsonicus"
+
+## I want to get the localities from Arctos...
+ad &lt;- read.csv("2019-11-12-0813_ArctosData_5EF59F5002.csv", stringsAsFactors=FALSE)
+
+lc &lt;- unique(ad[,c("SPEC_LOCALITY", "DEC_LAT", "DEC_LONG")])
+
+lc$point_id &lt;- substr(lc$SPEC_LOCALITY, nchar(lc$SPEC_LOCALITY)-3, nchar(lc$SPEC_LOCALITY))
+
+bd4 &lt;- merge(x=bd3, y=lc, by="point_id", all.x=TRUE)
+
+sum(bd4$SCINAME == "Tamiasciurus hudsonicus")
+
+bd4[is.na(bd4$SCINAME),]
+## Need to figure out the correct name to use for these hybrid gulls.
+
+GWGU X HEGU
+X Larus smithsonianus
+Larus [argentatus x hyperboreus] Henshaw, 1884 (avibase)
+
+Larus argentatus x hyperboreus (ebird)
+
+Larus nelsoni is in Arctos.
+
+## Looked up Arctos documentation and taxonomy for how best to handle this.
+bd4$SCINAME[bd4$species == "GWGU X HEGU"] &lt;- "Larus argentatus x Larus hyperboreus"
+
+## Setting up accessions in Arctos.  Need numbers of records. Of 518 total, how many are mammals?
+sum(bd4$SCINAME == "Tamiasciurus hudsonicus")
+[1] 3
+
+KNWR-2016.01-Slikok-ObsBird 
+KNWR-2016.01-Slikok-ObsMamm 
+
+## Now starting a data frame for uploading to Arctos.
+COLLECTION_OBJECT_ID &lt;- 1:518
+d1 &lt;- as.data.frame(COLLECTION_OBJECT_ID)
+
+d1$ENTEREDBY &lt;- "mbowser"
+
+d1$ACCN &lt;- "KNWR-2016.01-Slikok-ObsBird"
+d1$ACCN[bd4$SCINAME == "Tamiasciurus hudsonicus"] &lt;- "KNWR-2016.01-Slikok-ObsMamm"
+
+d1$TAXON_NAME &lt;- bd4$SCINAME
+
+d1$NATURE_OF_ID &lt;- "audio-visual"
+
+d1$ID_MADE_BY_AGENT &lt;- bd4$observer
+
+## It would be ideal to convert the date times to UTC (see http://handbook.arctosdb.org/documentation/dates)
+
+datetime &lt;- as.POSIXct(bd4$datetime)
+attr(datetime, "tzone") &lt;- "UTC"
+
+bd4$datetime[1]
+[1] "2016-06-14 05:22:00 AKDT"
+as.numeric(bd4$datetime[1])
+[1] 1465910520
+
+datetime[1]
+[1] "2016-06-14 13:22:00 UTC"
+as.numeric(datetime[1])
+[1] 1465910520
+
+tm &lt;- as.POSIXct(Sys.time())
+tm
+[1] "2019-11-12 09:26:41 AKST"
+
+attr(tm, "tzone") &lt;- "UTC"
+tm
+[1] "2019-11-12 18:26:41 UTC"
+## So 9 hours different in winter (with daylight savings time) and 8 hours different in the summer.
+
+d1$MADE_DATE &lt;- format(datetime, format="%Y-%m-%dT%H:%M:00Z")
+
+levels(as.factor(bd4$notes))
+
+slo &lt;- grepl("riginally", bd4$notes)
+slc &lt;- grepl("anged", bd4$notes)
+slr &lt;- grepl("Corrected", bd4$notes)
+sln &lt;- slo | slc | slr
+
+d1$IDENTIFICATION_REMARKS &lt;- paste0("Identification of ", bd4$SCINAME, " converted from American Ornithological Union (AOU) species code ", bd4$species, ".")
+d1$IDENTIFICATION_REMARKS[sln] &lt;- paste0(bd4$notes[sln], ". ", d1$IDENTIFICATION_REMARKS[sln])
+
+levels(as.factor(d1$IDENTIFICATION_REMARKS))
+## That looked good.
+
+d1$VERBATIM_DATE &lt;- bd4$date
+
+d1$BEGAN_DATE &lt;- format(datetime-60, format="%Y-%m-%dT%H:%M:00Z")
+
+d1$ENDED_DATE &lt;- format(datetime, format="%Y-%m-%dT%H:%M:00Z")
+
+d1$HIGHER_GEOG &lt;- "North America, United States, Alaska, Kenai National Wildlife Refuge"
+
+d1$SPEC_LOCALITY &lt;- bd4$SPEC_LOCALITY
+
+d1$VERBATIM_LOCALITY &lt;- bd4$SPEC_LOCALITY
+
+d1$ORIG_LAT_LONG_UNITS &lt;- "decimal degrees"
+
+d1$DATUM &lt;- "World Geodetic System 1984"
+ 
+d1$DEC_LAT &lt;- bd4$DEC_LAT
+
+d1$DEC_LONG &lt;- bd4$DEC_LONG
+
+d1$GEOREFERENCE_SOURCE &lt;- "predetermined coordinates + observed distance"
+
+d1$Locality_Remarks &lt;- "Max error distance was set to distance + 10 m to account for the observer being positioned off of plot center."
+d1$Locality_Remarks[is.na(bd4$distance_m)] &lt;- "Distance not recorded, so assumed maximum value of 800 m. Max error distance was set to distance + 10 m to account for the observer being positioned off of plot center."
+summary(bd4$distance_m)
+
+bd4$distance_m[is.na(bd4$distance_m)] &lt;- 800
+
+d1$MAX_ERROR_DISTANCE &lt;- 10 + bd4$distance_m
+
+d1$MAX_ERROR_UNITS &lt;- "m"
+
+d1$GEOREFERENCE_PROTOCOL &lt;- "MaNIS georeferencing guidelines"
+
+d1$EVENT_ASSIGNED_BY_AGENT &lt;- "Matt Bowser"
+
+d1$EVENT_ASSIGNED_DATE &lt;- "2019-11-12"
+
+d1$VERIFICATIONSTATUS &lt;- "unverified"
+
+sle &lt;- grepl("survey", bd4$notes)
+d1$COLL_EVENT_REMARKS &lt;- ""
+d1$COLL_EVENT_REMARKS[sle] &lt;- bd4$notes[sle]
+
+d1$COLLECTOR_AGENT_1 &lt;- bd4$observer
+
+d1$COLLECTOR_ROLE_1 &lt;- "collector"
+
+d1$GUID_PREFIX &lt;- "KNWRObs:Bird"
+d1$GUID_PREFIX[bd4$SCINAME == "Tamiasciurus hudsonicus"] &lt;- "KNWRObs:Mamm"
+
+d1$PART_NAME_1 &lt;- "media"
+
+d1$PART_CONDITION_1 &lt;- "not applicable"
+
+d1$PART_LOT_COUNT_1 &lt;- 1
+
+d1$PART_DISPOSITION_1 &lt;- "not applicable"
+
+d1$COLLECTING_SOURCE &lt;- "wild caught"
+
+d1$COLLECTING_METHOD &lt;- "Variable Circular Plot survey with methods adapted from the Alaska Landbird Monitoring System (ALMS) protocol."
+
+d1$SPECIMEN_EVENT_TYPE &lt;- "observation"
+
+## Ok, I think this is ready to try an upload.
+write.csv(d1[1,], "2019-11-12-1030_bird_records_001-001.csv", row.names=FALSE)
+## That worked.
+
+write.csv(d1[2:10,], "2019-11-12-1039_bird_records_002-010.csv", row.names=FALSE)
+## Got errors:
+; TAXON_NAME (Junco hyemalis  hyemalis) not found
+; TAXON_NAME (Tyrannidae (gen, sp)) not found
+
+## Fixing these.
+d1$TAXON_NAME[d1$TAXON_NAME=="Junco hyemalis  hyemalis"] &lt;- "Junco hyemalis hyemalis"
+d1$TAXON_NAME[d1$TAXON_NAME=="Tyrannidae (gen, sp)"] &lt;- "Tyrannidae"
+write.csv(d1[2:10,], "2019-11-12-1044_bird_records_002-010.csv", row.names=FALSE)
+## That worked.
+
+write.csv(d1[11:100,], "2019-11-12-1046_bird_records_011-100.csv", row.names=FALSE)
+
+## Bulkloader is occupied now.
+
+## Got to try again after a wait.
+## Got errors:
+; TAXON_NAME (Picinae (gen, sp)) not found
+; TAXON_NAME (Hirundinidae (gen, sp)) not found
+
+d1$TAXON_NAME[d1$TAXON_NAME=="Picinae (gen, sp)"] &lt;- "Picinae"
+
+d1$TAXON_NAME[d1$TAXON_NAME=="Hirundinidae (gen, sp)"] &lt;- "Hirundinidae"
+
+write.csv(d1[11:100,], "2019-11-12-1103_bird_records_011-100.csv", row.names=FALSE)
+
+write.csv(d1[101:200,], "2019-11-12-1106_bird_records_101-200.csv", row.names=FALSE)
+## That one went through without any errors.
+
+write.csv(d1[201:300,], "2019-11-12-1108_bird_records_201-300.csv", row.names=FALSE)
+## That worked just fine, also.
+
+## Going for the rest.
+write.csv(d1[301:518,], "2019-11-12-1113_bird_records_301-518.csv", row.names=FALSE)
+## Waiting to bulkload this last file until the previous sets clear the bulkloader.</pre>
+
+<h2 id="toc_27">2019-11-14-1137_summarizing.R</h2>
+
+<pre>wd &lt;- "C:/Users/mattbowser/Documents/Refuge_Notebook/work_space/2019-11-14_summarizing articles"
+setwd(wd)
+
+d1 &lt;- read.table("2019-11-14-1143_articles_to_add.txt", sep = "\t")
+dim(d1)
+[1] 50  1
+
+write.csv(d1, "2019-11-14-1145_articles.csv", row.names=FALSE)
+
+d1$date &lt;- NA
+d1$title &lt;- NA
+
+d2 &lt;- strsplit(as.character(d1$V1), ' ', fixed=TRUE)
+for(this_item in 1:length(d2))
+ {
+ d1$date[this_item] &lt;- d2[[this_item]][1]
+ dl &lt;- length(d2[[this_item]])
+ d1$title[this_item] &lt;- paste(d2[[this_item]][2:dl], collapse=" ")
+ }
+
+d1$author &lt;- NA
+d3 &lt;- strsplit(as.character(d1$title), ' (', fixed=TRUE)
+for(this_item in 1:length(d3))
+ {
+ d1$title[this_item] &lt;- d3[[this_item]][1]
+ d1$author[this_item] &lt;- d3[[this_item]][2]
+ }
+
+d4 &lt;- strsplit(as.character(d1$author), ')', fixed=TRUE)
+for(this_item in 1:length(d4))
+ {
+ d1$author[this_item] &lt;- d4[[this_item]][1]
+ }
+
+d1 &lt;- d1[,2:4]
+
+d0 &lt;- read.csv("2018-10-05-1011_articles.csv", colClass="character")
+
+d2 &lt;- rbind(d0, d1)
+dim(d2)
+[1] 1021    3
+
+## Adding tomorrow's article.
+da &lt;- d2[1,]
+da$date &lt;- "11/15/2019"
+da$title &lt;- "Kenai Refuge cabins are again open for business"
+da$author &lt;- "Dan Saxton"
+
+d2 &lt;- rbind(d2, da)
+dim(d2)
+[1] 1022    3
+
+d2$date &lt;- as.Date(d2$date, format="%m/%d/%Y")
+
+d2 &lt;- d2[order(d2$date),]
+
+## Saving here.
+write.csv(d2, "2019-11-14-1156_articles.csv", row.names=FALSE)
+ 
+## Now looking at things.
+write.csv(levels(as.factor(d2$author)), "2019-11-14-1159_authors.csv", row.names=FALSE)
+
+## Found and fixed a problem in the authors, fixed in MS Excel.
+
+d2 &lt;- read.csv("2019-11-14-1203_articles.csv", colClasses="character")
+
+write.csv(levels(as.factor(d2$author)), "2019-11-14-1209_authors.csv", row.names=FALSE)
+
+## Did a lot of editing in MS Excel.
+
+at &lt;- read.csv("2019-11-14-1300_authors.csv", colClasses="character")
+
+d3 &lt;- merge(d2, at, by="author", all.x=TRUE)
+
+d3 &lt;- d3[order(d3$date),2:6]
+
+## Save this.
+write.csv(d3, "2019-11-14-1315_articles.csv", row.names=FALSE)
+
+## Now for summaries.
+## By year.
+agy &lt;- aggregate(d3$title, by=list(substr(d3$date,1,4)), length)
+names(agy) &lt;- c("year", "n_articles")
+agy
+
+
+## Now for authors.
+au &lt;- c(d3$author1, d3$author2, d3$author3)
+au &lt;- au[!(au == "")]
+length(au)
+
+aga &lt;- aggregate(au, by=list(au), length)
+names(aga) &lt;- c("author", "n_articles")
+aga &lt;- aga[order(-aga$n_articles),]
+
+aga
+                          author n_articles
+107                  John Morton        104
+63                       Ed Berg        101
+194                   Ted Bailey         63
+33                  Candace Ward         55
+199                 Todd Eskelin         55
+58                 Doug Newbould         48
+141                  Matt Bowser         39
+65             Elizabeth Jozwiak         25
+175                   Robin West         25
+197                   Toby Burke         24
+18                     Bill Kent         23
+171                Rick Johnston         22
+48            Dawn Robin Magness         19
+74                    Gary Titus         15
+139                   Mark Laker         15
+64               Elizabeth Bella         14
+124                 Leah Eskelin         14
+170                   Rick Ernst         12
+8                  Andy Loranger         10
+35                 Chris Johnson          9
+46                   Dave Kenagy          9
+148           Michelle Ostrowski          9
+184                 Scott Slavik          9
+115                  Kelly Modla          8
+55                     Dom Watts          7
+94                 Janet Schmidt          7
+142                  Matt Conner          6
+156                   Nate Olson          6
+172                    Rob Barto          6
+96                 Jeff Anderson          5
+98                Jennifer Peura          5
+102                     Jim Hall          5
+120                   Kyra Clark          5
+23                 Brenda Nichol          4
+38                 Claire Caldes          4
+53                    Dick Reger          4
+57                 Donna Handley          4
+60                  Doug Staller          4
+104                 Joe Williams          4
+127                     LEskelin          4
+160               Nicole Johnson          4
+167                  Rebecca Uta          4
+188         Stephanie Rickabaugh          4
+196                   Tim Mullet          4
+3        Amber Kraxberger-Linson          3
+6             Andy Baltensperger          3
+7                  Andy DeVolder          3
+22                 Brandon Miner          3
+40              Colin Canterbury          3
+61                  Duston Beyer          3
+89                 Jack Sinclair          3
+117                Kristi Bulock          3
+149                 Mike Edwards          3
+157                 Nate Perrine          3
+163                    Pam Ables          3
+185                   Sean Ulman          3
+190                 Steve Miller          3
+193                    Tai Davis          3
+201                 Tracy Melvin          3
+1                Alicia Duzinski          2
+2               Allie Cunningham          2
+5                     Amy George          2
+10                  Annie Widdel          2
+12                     B Johnson          2
+19                   Bill Larned          2
+25                   Brenda Wise          2
+27                 Bri Kilbourne          2
+30                   Cade Kellam          2
+45                    Dan Saxton          2
+75                         Gates          2
+85       Hydn McDermott-Johnston          2
+88                     Jack Dean          2
+97               Jeff Richardson          2
+99                  Jenny Archis          2
+101                Jetta Minerva          2
+103                    Jim Neely          2
+116                  Kimo Rogala          2
+126                  Lee O'Brien          2
+135                  Mari Reeves          2
+136               Mariah McInnis          2
+143               Matthew Bowser          2
+150                    Mike Hill          2
+151                  Mimi Thomas          2
+158              Nick Longobardi          2
+168              Rebecca Zulueta          2
+178                   Ryan Beltz          2
+4                  Amber Robbins          1
+9                 Angelica Smith          1
+11            Anthony Holzhauser          1
+13                         Banks          1
+14                    Bartkovich          1
+15                  Ben Schubert          1
+16                       Beranek          1
+17                  Betty Siegel          1
+20               Bobbie Jo Skibo          1
+21                   Brad Stoner          1
+24                 Brenda Trefon          1
+26               Bretwood Higman          1
+28                 Bruce Bigelow          1
+29                  Bryan Taylor          1
+31                Caleb Slemmons          1
+32            Candace Cartwright          1
+34              Charlotte Hockin          1
+36               Christa Kennedy          1
+37                     CiJohnson          1
+39               Clay McDermott           1
+41               Courtney Breest          1
+42                   Craig Moore          1
+43               Cullen Anderson          1
+44                  Dan Pascucci          1
+47                    David Fink          1
+49           Dawn Robin Magness           1
+50                Dianne Maclean          1
+51                Dianne MacLean          1
+52               Dianne MacLean           1
+54                        Dinovo          1
+56              Dominique Collet          1
+59                   Doug Palmer          1
+62                   Dylan Beach          1
+66                  Emily Munter          1
+67                   Emily Smith          1
+68                Emily Sunblade          1
+69                   Emma Walker          1
+70               Erin Mckittrick          1
+71                 Eve Smallwood          1
+72                Frannie Nelson          1
+73                        Fuller          1
+76              Geoff Beyersdorf          1
+77               Graham McDonald          1
+78                   Greg George          1
+79                      Haserodt          1
+80               Heather Johnson          1
+81               Heather Knudsen          1
+82                        Heeren          1
+83                 Heidi Cunnick          1
+84                          Hurd          1
+86               Isabela Vilella          1
+87                Iven R. Sjodin          1
+90                         Jacob          1
+91                  Jacob Heslop          1
+92                    James Hall          1
+93                   James Neely          1
+95                     Jason Ray          1
+100                Jetta Fonkert          1
+105                   Joel Stone          1
+106               John Lundquist          1
+108 Juan Camilo Villegas Palacio          1
+109                  Julia Nagle          1
+110                  Julie Laker          1
+111               Kacy McDonnell          1
+112                         Kahn          1
+113                         Kain          1
+114                Karen McGahan          1
+118              Kristine Dunker          1
+119                  Kyle Graham          1
+121                  Larry Adams          1
+122                 Laura Bashor          1
+123                       LBurke          1
+125                  Leah Rigall          1
+128             Lindsay O'Reilly          1
+129               Lindy McNeilus          1
+130                  Liz Jozwiak          1
+131                Macey Hoffman          1
+132                Mallory Okuly          1
+133               Mandy Salminen          1
+134              Marcos Anguiano          1
+137              Mariah Stephens          1
+138                   Mark Chase          1
+140                  Mary Thomas          1
+144                       Mauger          1
+145              Michael Bernard          1
+146              Michelle Mulder          1
+147           Michelle Ostrowksi          1
+152                 Molly Slocum          1
+153                       Morris          1
+154                     Mulligan          1
+155               Natalie Dawson          1
+159               Nicole Gustine          1
+161               Nicole Schmitt          1
+162                  Noah Nelson          1
+164                         Park          1
+165                 Rachel Beach          1
+166              Rachel Belouin           1
+169           Rebekah Brassfield          1
+173               Rob Massengill          1
+174            Robert Massengill          1
+176                   Roman Dial          1
+177                      Ruffner          1
+179               Sadie Purinton          1
+180                  Sadie Ulman          1
+181            Samantha Bartling          1
+182          Samantha Dingfelder          1
+183                Scott Johnson          1
+186               Shanice Bailey          1
+187                   Steinlicht          1
+189              Stephanie Smith          1
+191                     Sue Ives          1
+192             Sue Schulmeister          1
+195               Tiffany Curtis          1
+198        Todd and Leah Eskelin          1
+200                 Tony Burgess          1
+202                  Travis Mabe          1
+203                         Usab          1
+204            William Moore III          1
+205                       Wright          1
+206                        Young          1
+
+write.csv(aga, "2019-11-14-1325_author_summary.csv", row.names=FALSE)</pre>
+
+
+
+<h2 id="toc_9">2019-11-15-0837_GenBank_SRA_submission_pre.R</h2>
+
+<pre>## Preparing data to fill out the GenBank SRA sample submission spreadsheet.
+wd &lt;- "D:/projects/Slikok_watershed/data/2016_arthropod_samples/NGS_data/work_space/2019-11-15_GenBank_SRA_submission"
+setwd(wd)
+
+d1 &lt;- read.delim("attributes.tsv")
+
+names(d1)[1] &lt;- "biosample_accession"
+
+d2 &lt;- d1[,c(1,3,4)]
+
+names(d2)[2:3] &lt;- c("library_ID", "title")
+
+d2$library_strategy &lt;- "AMPLICON"
+
+d2$library_source &lt;- "METAGENOMIC"
+
+d2$library_selection &lt;- "PCR"
+
+d2$library_layout &lt;- "paired"
+
+d2$platform &lt;- "ILLUMINA"
+
+d2$instrument_model &lt;- "Illumina MiSeq"
+
+d2$design_description &lt;- "Sweep net samples were sent to RTL Genomics (http://rtlgenomics.com/) for High-ThroughputSequencing. Samples were homogenized, DNA was extracted and amplified using the mlCOIlintF/HCO2198 primer set, yielding a 313 bp region of the COI gene. Sequencing was performed on an Illumina MiSeq platform and reads were processed using RTL Genomics standard methods."
+
+d2$filetype &lt;- "fastq"
+
+## Now I need to get the file names and associate them properly.
+fn &lt;- dir("D:/projects/Slikok_watershed/data/2016_arthropod_samples/NGS_data/RTL_data/Bowser_4869Raw03292017")
+
+fn &lt;- fn[grepl("fastq", fn)]
+
+fn &lt;- fn[!grepl("gz", fn)]
+
+filename &lt;- fn[grepl("_R1", fn)]
+
+filename2 &lt;- fn[grepl("_R2", fn)]
+
+fd &lt;- as.data.frame(cbind(filename, filename2))
+
+fd$library_ID &lt;- paste0("KNWR:Ento:", substr(fd$filename, 14, 18))
+
+d3 &lt;- merge(x=d2, y=fd, by="library_ID", all.x=TRUE)
+
+## Selecting only records for which we have files to submit.
+d3 &lt;- d3[complete.cases(d3),]
+
+## Rearranging.
+d3 &lt;- d3[,c(2,1,3:13)]
+
+## Saving.
+write.table(d3, "2019-11-15-0917_submission.txt", row.names=FALSE, quote=FALSE, sep="\t")</pre>
+
+<h2 id="toc_10">2019-11-18-0942_Arctos_other_ids.R</h2>
+
+<pre>## Preparing data to fill out the GenBank SRA sample submission spreadsheet.
+wd &lt;- "D:/projects/Slikok_watershed/data/2016_arthropod_samples/NGS_data/work_space/2019-11-15_GenBank_SRA_submission"
+setwd(wd)
+
+d1 &lt;- read.delim("attributes.tsv")
+
+names(d1)[1] &lt;- "biosample_accession"
+
+guid_prefix &lt;- rep("KNWR:Ento", 160)
+d2 &lt;- as.data.frame(guid_prefix)
+
+d2$existing_other_id_type &lt;- rep("catalog number", 160)
+
+d2$existing_other_id_number &lt;- substr(d1$sample_name, 11, 16)
+
+d2$new_other_id_number &lt;- d1$biosample_accession
+
+d2$new_other_id_type &lt;- rep("NCBI Biosample", 160)
+
+## Going to try one of these.
+write.csv(d2[2,], "2019-11-18-0955_other_ids_002-002.csv", row.names=FALSE)
+
+## That looked good. Going for the rest.
+write.csv(d2[3:160,], "2019-11-18-0958_other_ids_003-160.csv", row.names=FALSE)</pre>
+
+<h2 id="toc_11">2019-11-19-0931_summaries.R</h2>
+
+<pre>## Summary and analysis of data.
+
+wd &lt;- "D:/projects/Slikok_watershed/data/work_space/2019-11-19_summary_analyses"
+setwd(wd)
+
+## Ok, data downloaded from Arctos.
+d1 &lt;- read.csv("2019-11-19-0910_ArctosData_5FEAE6E33F.csv")
+dim(d1)
+[1] 4764   28 ## Good.
+
+## Getting the plot names.
+s1 &lt;- strsplit(as.character(d1$SPEC_LOCALITY), "site ")
+s2 &lt;- sapply(s1, "[", 2)
+s3 &lt;- strsplit(s2, ",")
+s4 &lt;- sapply(s3, "[", 1)
+levels(as.factor(s4))
+d1$point_id &lt;- s4
+
+## Should truncate to 200 m from plot.
+ng200m &lt;- d1$COORDINATEUNCERTAINTYINMETERS &lt;= 200
+d1 &lt;- d1[ng200m,]
+dim(d1)
+[1] 4703   29
+
+## Now for summaries.
+## First need a plot by taxon dataset.
+d2 &lt;- unique(d1[,c("point_id", "KINGDOM", "PHYLUM", "SPECIES", "SCIENTIFIC_NAME")])
+dim(d2)
+[1] 4109    5
+
+## Selection for only described species.
+slsp &lt;- !(d2$SPECIES == "")
+## How many species * plot occurrence records?
+sum(slsp)
+[1] 2897
+
+## Now for aggregates.
+## How many species?
+length(unique(d2$SCIENTIFIC_NAME[slsp]))
+[1] 710
+ 
+## Breakdown by plot
+agp &lt;- aggregate(d2$SCIENTIFIC_NAME[slsp], by=list(d2$PHYLUM[slsp], d2$KINGDOM[slsp], d2$point_id[slsp]), FUN=length)
+agp
+
+## Hmmm. For which taxa do we have SPECIES values but not higher ranks?
+sp1 &lt;- unique(d1[,c("KINGDOM", "PHYLUM", "SPECIES", "SCIENTIFIC_NAME")])
+dim(sp1)
+sp1 &lt;- sp1[order(sp1$KINGDOM, sp1$PHYLUM, sp1$SPECIES, sp1$SCIENTIFIC_NAME),]
+sp1
+
+## Selecting only those that lack higher taxonomy.
+slm &lt;- sp1$PHYLUM == ""
+spm &lt;- sp1[slm,]
+spm
+          KINGDOM PHYLUM SPECIES  SCIENTIFIC_NAME
+36 Plantae, Fungi                Fungi or Plantae
+## That is good.
+
+## Fixing taxonomic inconsistencies.
+sl &lt;- d1$KINGDOM == "Plantae, Viridiplantae"
+d1$KINGDOM[sl] &lt;- "Plantae"
+
+sl &lt;- d1$PHYLUM == "Streptophyta"
+d1$PHYLUM[sl] &lt;- "Tracheophyta"
+
+sl &lt;- d1$PHYLUM == "Tracheophyta, Streptophyta"
+d1$PHYLUM[sl] &lt;- "Tracheophyta"
+
+## Saving this here.
+write.csv(d1, "2019-11-19-0937_ArctosData_F9092681A2.csv", row.names=FALSE)
+
+d2 &lt;- unique(d1[,c("point_id", "KINGDOM", "PHYLUM", "SPECIES", "SCIENTIFIC_NAME")])
+dim(d2)
+
+slsp &lt;- !(d2$SPECIES == "")
+
+## Breakdown by plot
+agp &lt;- aggregate(d2$SCIENTIFIC_NAME[slsp], by=list(d2$PHYLUM[slsp], d2$KINGDOM[slsp], d2$point_id[slsp]), FUN=length)
+agp
+
+## One more aggregate before we go on...
+ts1 &lt;- unique(d1[,c("KINGDOM", "PHYLUM", "SPECIES", "SCIENTIFIC_NAME")])
+ts1 &lt;- ts1[!(ts1$SPECIES == ""),]
+dim(ts1)
+[1] 710   4
+
+agg &lt;- aggregate(ts1$SCIENTIFIC_NAME, by=list(ts1$PHYLUM, ts1$KINGDOM), FUN=length)
+agg
+          Group.1  Group.2   x
+1        Annelida Animalia   3
+2      Arthropoda Animalia 397
+3        Chordata Animalia  43
+4        Mollusca Animalia   6
+5      Ascomycota    Fungi 111
+6       Bryophyta  Plantae  51
+7 Marchantiophyta  Plantae  12
+8    Tracheophyta  Plantae  87
+
+## Setting this aside for later.
+agsp &lt;- agg
+
+## Now, what if we were to do the same thing, but this time also include BOLD BINs as a proxy for species?
+slb &lt;- grepl("BOLD:", d1$SCIENTIFIC_NAME)
+d1[slb,][1:10,]
+d1$SPECIES &lt;- as.character(d1$SPECIES)
+d1$SCIENTIFIC_NAME &lt;- as.character(d1$SCIENTIFIC_NAME)
+d1$SPECIES[slb] &lt;- d1$SCIENTIFIC_NAME[slb]
+
+## Now for summaries.
+## First need a plot by taxon dataset.
+d2 &lt;- unique(d1[,c("point_id", "KINGDOM", "PHYLUM", "SPECIES", "SCIENTIFIC_NAME")])
+dim(d2)
+[1] 4109    5
+
+slsp &lt;- !(d2$SPECIES == "")
+## How many species * plot occurrence records?
+sum(slsp)
+[1] 3514
+
+## Now for aggregates.
+## How many species?
+length(unique(d2$SCIENTIFIC_NAME[slsp]))
+[1] 984
+
+## Breakdown by plot
+agp &lt;- aggregate(d2$SCIENTIFIC_NAME[slsp], by=list(d2$PHYLUM[slsp], d2$KINGDOM[slsp], d2$point_id[slsp]), FUN=length)
+agp
+
+## One more aggregate before we go on...
+ts1 &lt;- unique(d1[,c("KINGDOM", "PHYLUM", "SPECIES", "SCIENTIFIC_NAME")])
+ts1 &lt;- ts1[!(ts1$SPECIES == ""),]
+dim(ts1)
+[1] 984   4
+
+agg &lt;- aggregate(ts1$SCIENTIFIC_NAME, by=list(ts1$PHYLUM, ts1$KINGDOM), FUN=length)
+agg
+          Group.1  Group.2   x
+1        Annelida Animalia   8
+2      Arthropoda Animalia 663
+3        Chordata Animalia  43
+4        Mollusca Animalia   9
+5      Ascomycota    Fungi 111
+6       Bryophyta  Plantae  51
+7 Marchantiophyta  Plantae  12
+8    Tracheophyta  Plantae  87
+
+
+## Saving this here.
+write.csv(d1, "2019-11-19-0937_ArctosData_F9092681A2.csv", row.names=FALSE)
+
+## Ok, now need to make a map.
+names(agp) &lt;- c("phylum", "kingdom", "point_id", "n_spp")
+ag &lt;- agp
+
+## First I need to organize my data.
+library(reshape2)
+ag2 &lt;- melt(ag, measure.vars = "n_spp")
+ag3 &lt;- dcast(ag2, point_id ~ phylum, fun.aggregate=sum)
+## Re-ordering.
+ag3 &lt;- ag3[,c("point_id",
+ "Bryophyta",
+ "Marchantiophyta",
+ "Tracheophyta",
+ "Ascomycota",
+ "Annelida",
+ "Arthropoda",
+ "Mollusca",
+ "Chordata"
+ )]
+
+## Now setting some parameters for plotting bar plots.
+maxh &lt;- 400 ## 500 m plot spacing.
+ncats &lt;- ncol(ag3) -1 ## Number of categories.
+bw &lt;- 50 ## bar width.
+lw &lt;- 1 ## line width for boxes.
+maxn &lt;- max(ag3[,2:ncol(ag3)]) ## max number of species in any box.
+cf &lt;- maxh/maxn ## Conversion factor for boxes.
+ll &lt;- (1:ncats)*bw - ncats*bw/2 - bw ## lower left
+lr &lt;- ll + bw ## lower right
+bcol &lt;- ## bar colors:
+c("#006600",
+ "#00cc66",
+ "#33cc33",
+ "#999966",
+ "#9B7653", ## Crayola Dirt
+ "#1A1110", ## Crayola Licorice
+ "#8B8680", ## Crayola Gray
+ "#C32148" ## Crayola Maroon
+ )
+ 
+md &lt;- "I:/BIOLOGY/Data/ProjectData/Slikok_watershed/geodata/work_space/2018-12-06_manuscript_map"
+
+knwr = "J:/Goedata/Boundaries/KNWR/knwr.shp"
+lakes = "J:/Goedata/Hydro/KP_lakes/lakes.shp"
+streams = "J:/Goedata/Hydro/KP_streams/streams.shp"
+roads = "J:/Goedata/Transportation/Roads/roads.shp"
+
+library(maptools)
+library(rgdal)
+library(raster)
+library(GISTools)
+library(rgeos)
+ 
+albers &lt;- "+proj=aea +lat_1=55 +lat_2=65 +lat_0=50 +lon_0=-154 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
+wgs84 &lt;- "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
+ 
+## Load shape files.
+knwr &lt;- readShapeSpatial(knwr)
+lakes &lt;- readShapeSpatial(lakes)
+streams &lt;- readShapeSpatial(streams)
+roads &lt;- readOGR(dsn=roads, layer="roads")
+
+proj4string(knwr) &lt;- CRS(albers)
+proj4string(lakes) &lt;- CRS(albers)
+
+setwd(md)
+slikokw &lt;- readShapeSpatial("HUC12_Slikok.shp")
+proj4string(slikokw) &lt;- CRS(wgs84)
+slikoka &lt;- spTransform(slikokw, CRS(albers))
+setwd(wd)
+
+## Want to clip this to 60.44 N...
+bb &lt;- extent(slikokw)
+bb2 &lt;- bb
+bb2@ymin &lt;- 60.44
+slikok2 &lt;- crop(slikokw, bb2)
+slikok2a &lt;- spTransform(slikok2, CRS(albers))
+
+## Need to clip this to KNWR...
+slikok3 &lt;- gIntersection(slikok2a, knwr)
+
+## Now for the minigrid...
+sites &lt;- "I:/BIOLOGY/Data/ProjectData/Slikok_watershed/geodata/kml/Slikok_500m_minigrid.kml"
+sitesw = readOGR(sites) 
+#proj4string(sitesw) &lt;- CRS(wgs84)
+sitesa &lt;- spTransform(sitesw, CRS(albers))
+
+water &lt;- "#93CCEA" ## #76D7EA = Crayola Sky Blue "#BEBEBE" #93CCEA is Crayola cornflower
+land &lt;- "#E8E8E8" 
+lab &lt;- c("study area", "plot locations", "Slikok Creek watershed", "KNWR boundary", "water", "roads")
+ldf &lt;- as.data.frame(lab)
+ldf$fill &lt;- c("#C2E0D1", NA, "#E8E8E8", "#E8E8E8", "#93CCEA", NA)
+ldf$border &lt;- c("#33664d", NA, "blue", "red", "#1d6b95", NA)
+ldf$lwd &lt;- c(NA, NA, NA, NA, 1, 2)
+ldf$pch &lt;- c(NA, 1, NA, NA, NA, NA)
+ldf$ptcex &lt;- c(NA, 1.2, NA, NA, NA, NA)
+ldf$ptlwd  &lt;- c(NA, 2, NA, NA, NA, NA)
+ldf$col &lt;- c(NA, "black", NA, NA, "#1d6b95", "#888888")
+
+
+## Legend stuff.
+lab &lt;- c("study area", "plot locations", "Slikok Creek watershed", "KNWR boundary", "water", "roads", names(ag3)[2:ncol(ag3)])
+ldf &lt;- as.data.frame(lab)
+ldf$fill &lt;- c("#C2E0D1", NA, "#E8E8E8", "#E8E8E8", "#93CCEA", NA, bcol)
+ldf$border &lt;- c("#33664d", NA, "blue", "red", "#1d6b95", NA, rep("#000000", length(bcol)))
+ldf$lwd &lt;- c(NA, NA, NA, 2, 1, 2, rep(1, length(bcol)))
+ldf$pch &lt;- c(NA, 1, NA, NA, NA, NA, rep(NA, length(bcol)))
+ldf$ptcex &lt;- c(NA, 1.2, NA, NA, NA, NA, rep(NA, length(bcol)))
+ldf$ptlwd  &lt;- c(NA, 2, NA, 2, NA, NA, rep(NA, length(bcol)))
+ldf$col &lt;- c(NA, "black", NA, NA, "#1d6b95", "#888888", rep(NA, length(bcol)))
+
+pdf(file="2019-11-19-0956_Slikok_breakdown_map.pdf",
+ width=8,
+ height=7
+ )
+ par(mar=c(0.1, 0.1, 0.1, 0.1)) 
+ plot(slikok3,
+  col="#C2E0D1",
+  bg=land,
+  border="#33664d",
+  lwd=2,
+  xlim = c(slikok3@bbox[1,1], slikok3@bbox[1,2] + 800)
+  )
+ plot(slikoka,
+  col=NA,
+  add=TRUE,
+  border="blue",
+  lwd=2
+  )
+ plot(knwr,
+  col=NA,
+  border="red",
+  lwd=2,
+  add=TRUE
+  )
+ plot(slikok3,
+  col="#C2E0D1",
+  bg=land,
+  border="#33664d",
+  lwd=2,
+  add=TRUE
+  )
+ plot(slikoka,
+  col=NA,
+  add=TRUE,
+  border="blue",
+  lwd=2,
+  lty="dashed"
+  )
+ plot(knwr,
+  col=NA,
+  border="red",
+  lwd=2,
+  add=TRUE,
+  lty="dashed"
+  )
+ plot(streams,
+  add=TRUE,
+  col="#1d6b95",
+  lwd=1
+  )
+ plot(lakes,
+  add=TRUE,
+  col=water,
+  border="#1d6b95",
+  lwd=1
+  )
+ plot(roads,
+  col="#888888",
+  lwd=2,
+  add=TRUE
+  )
+ points(
+  sitesa,
+  lwd=2,
+  cex=1.2
+  )
+  
+ ## Now add those bar plots.
+ for (this_site in 1:nrow(sitesa)) #nrow(sitesa)
+  {
+  agt &lt;- ag3[as.character(ag3$point_id) == sitesa$Name[this_site],]
+  print(agt)
+  print(nrow(agt))
+  if (nrow(agt) &gt; 0)
+   {
+   for (this_cat in 1:ncats)
+    {
+	 rect(xleft=coordinates(sitesa[this_site,])[1] + ll[this_cat], 
+	  ybottom=coordinates(sitesa[this_site,])[2],
+	  xright=coordinates(sitesa[this_site,])[1] + ll[this_cat] + bw,
+	  ytop=coordinates(sitesa[this_site,])[2] + agt[,this_cat+1]*cf,
+	  col=bcol[this_cat]
+	  )
+	 text(coordinates(sitesa[this_site,])[1] + ll[this_cat] + bw/2,
+	  coordinates(sitesa[this_site,])[2] + agt[,this_cat+1]*cf + bw,
+	  agt[,this_cat+1],
+	  cex=0.4,
+	  srt=90
+	  )
+    }	
+   }
+  }   
+  
+ legend("topright",
+  bg="white",
+  legend=ldf$lab,
+  fill=ldf$fill,
+  border=ldf$border,
+  lwd=ldf$lwd,
+  pch=ldf$pch,
+  pt.cex=ldf$ptcex,
+  pt.lwd=ldf$ptlwd,
+  col=ldf$col
+  )
+ map.scale(x=160681.6+250, y=1164800, len=3500, ndivs=7, units="km", subdiv=0.5)
+ north.arrow(xb=158681.6+4700, yb=1164800, len=100, lab="N")
+dev.off()
+
+## I need to make a species list to look for exotic species.
+splist &lt;- unique(d1[,c("KINGDOM", "PHYLUM", "PHYLCLASS", "PHYLORDER", "FAMILY", "GENUS", "SPECIES", "SCIENTIFIC_NAME")])
+splist &lt;- splist[order(splist$KINGDOM, splist$PHYLUM, splist$PHYLCLASS, splist$PHYLORDER, splist$FAMILY, splist$GENUS, splist$SCIENTIFIC_NAME),]
+## Saving this.
+write.csv(splist, "2019-11-19-1132_species_list.csv", row.names=FALSE)
+
+## How many species per plot?
+agpp &lt;- aggregate(d2$SCIENTIFIC_NAME[slsp], by=list(d2$point_id[slsp]), FUN=length)
+agpp
+summary(agpp$x)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  49.00   72.75   84.00   87.85   97.75  137.00 
+
+## Saving here.
+save.image("2019-11-19-1225_workspace.RData")  
+  
+## It would be nice to make a map of where exotic species were detected.
+dex &lt;- d1[d1$SCIENTIFIC_NAME %in% c("Deroceras agreste", "Dendrobaena octaedra", "Heterarthrus nemoratus"),]
+dex$txt &lt;- NA
+dex$txt[dex$SCIENTIFIC_NAME == "Deroceras agreste"] &lt;- "Da"
+dex$txt[dex$SCIENTIFIC_NAME == "Dendrobaena octaedra"] &lt;- "Do"
+dex$txt[dex$SCIENTIFIC_NAME == "Heterarthrus nemoratus"] &lt;- "Hn"
+dex &lt;- unique(dex[,c("point_id", "SCIENTIFIC_NAME", "txt")])
+dex &lt;- aggregate(dex$txt, by=list(dex$point_id), paste)
+names(dex) &lt;- c("Name", "spp")
+
+sitese &lt;- sitesa[order(sitesa$Name),]
+sitese@data &lt;- merge(x=sitese@data, y=dex, by="Name", all.x=TRUE)
+sitese &lt;- sitese[!is.na(sitese@data$spp),]
+sitese@data$spp &lt;- gsub("\"", "", sitese@data$spp)
+sitese@data$spp &lt;- gsub("c\\(", "", sitese@data$spp)
+sitese@data$spp &lt;- gsub(")", "", sitese@data$spp)
+sitese@data$spp &lt;- gsub(" ", "", sitese@data$spp)
+
+## Legend stuff.
+ldf &lt;- ldf[1:6,]
+ldf$col[ldf$lab == "plot locations"] &lt;- "#808080"
+
+pdf(file="2019-11-19-1251_Slikok_exotics_map.pdf",
+ width=8,
+ height=7
+ )
+ par(mar=c(0.1, 0.1, 0.1, 0.1)) 
+ plot(slikok3,
+  col="#C2E0D1",
+  bg=land,
+  border="#33664d",
+  lwd=2,
+  xlim = c(slikok3@bbox[1,1], slikok3@bbox[1,2] + 800)
+  )
+ plot(slikoka,
+  col=NA,
+  add=TRUE,
+  border="blue",
+  lwd=2
+  )
+ plot(knwr,
+  col=NA,
+  border="red",
+  lwd=2,
+  add=TRUE
+  )
+ plot(slikok3,
+  col="#C2E0D1",
+  bg=land,
+  border="#33664d",
+  lwd=2,
+  add=TRUE
+  )
+ plot(slikoka,
+  col=NA,
+  add=TRUE,
+  border="blue",
+  lwd=2,
+  lty="dashed"
+  )
+ plot(knwr,
+  col=NA,
+  border="red",
+  lwd=2,
+  add=TRUE,
+  lty="dashed"
+  )
+ plot(streams,
+  add=TRUE,
+  col="#1d6b95",
+  lwd=1
+  )
+ plot(lakes,
+  add=TRUE,
+  col=water,
+  border="#1d6b95",
+  lwd=1
+  )
+ plot(roads,
+  col="#888888",
+  lwd=2,
+  add=TRUE
+  )
+ points(
+  sitesa,
+  lwd=2,
+  cex=1.2,
+  col=ldf$col[ldf$lab == "plot locations"]
+  )
+  
+ ## Now add those exotic species records.
+ text(
+  sitese,
+  sitese@data$spp,
+  cex=1.5
+  ) 
+  
+ legend("topright",
+  bg="white",
+  legend=ldf$lab,
+  fill=ldf$fill,
+  border=ldf$border,
+  lwd=ldf$lwd,
+  pch=ldf$pch,
+  pt.cex=ldf$ptcex,
+  pt.lwd=ldf$ptlwd,
+  col=ldf$col
+  )
+ map.scale(x=160681.6+250, y=1164800, len=3500, ndivs=7, units="km", subdiv=0.5)
+ north.arrow(xb=158681.6+4700, yb=1164800, len=100, lab="N")
+dev.off()
+
+save.image("2019-11-19-1314_workspace.RData")
+
+## Remaking the design map to be consistent with this last map.
+
+pdf(file="2019-11-19-1444_Slikok_design_map.pdf",
+ width=8,
+ height=7
+ )
+ par(mar=c(0.1, 0.1, 0.1, 0.1)) 
+ plot(slikok3,
+  col="#C2E0D1",
+  bg=land,
+  border="#33664d",
+  lwd=2,
+  xlim = c(slikok3@bbox[1,1], slikok3@bbox[1,2] + 800)
+  )
+ plot(slikoka,
+  col=NA,
+  add=TRUE,
+  border="blue",
+  lwd=2
+  )
+ plot(knwr,
+  col=NA,
+  border="red",
+  lwd=2,
+  add=TRUE
+  )
+ plot(slikok3,
+  col="#C2E0D1",
+  bg=land,
+  border="#33664d",
+  lwd=2,
+  add=TRUE
+  )
+ plot(slikoka,
+  col=NA,
+  add=TRUE,
+  border="blue",
+  lwd=2,
+  lty="dashed"
+  )
+ plot(knwr,
+  col=NA,
+  border="red",
+  lwd=2,
+  add=TRUE,
+  lty="dashed"
+  )
+ plot(streams,
+  add=TRUE,
+  col="#1d6b95",
+  lwd=1
+  )
+ plot(lakes,
+  add=TRUE,
+  col=water,
+  border="#1d6b95",
+  lwd=1
+  )
+ plot(roads,
+  col="#888888",
+  lwd=2,
+  add=TRUE
+  )
+ points(
+  sitesa,
+  lwd=2,
+  cex=1.2,
+  col=ldf$col[ldf$lab == "plot locations"]
+  )
+  
+ legend("topright",
+  bg="white",
+  legend=ldf$lab,
+  fill=ldf$fill,
+  border=ldf$border,
+  lwd=ldf$lwd,
+  pch=ldf$pch,
+  pt.cex=ldf$ptcex,
+  pt.lwd=ldf$ptlwd,
+  col=ldf$col
+  )
+ map.scale(x=160681.6+250, y=1164800, len=3500, ndivs=7, units="km", subdiv=0.5)
+ north.arrow(xb=158681.6+4700, yb=1164800, len=100, lab="N")
+dev.off()
+
+## Now remaking the barplot map to be consistent.
+
+## Legend stuff.
+lab &lt;- c("study area", "plot locations", "Slikok Creek watershed", "KNWR boundary", "water", "roads", names(ag3)[2:ncol(ag3)])
+ldf &lt;- as.data.frame(lab)
+ldf$fill &lt;- c("#C2E0D1", NA, "#E8E8E8", "#E8E8E8", "#93CCEA", NA, bcol)
+ldf$border &lt;- c("#33664d", NA, "blue", "red", "#1d6b95", NA, rep("#000000", length(bcol)))
+ldf$lwd &lt;- c(NA, NA, NA, 2, 1, 2, rep(1, length(bcol)))
+ldf$pch &lt;- c(NA, 1, NA, NA, NA, NA, rep(NA, length(bcol)))
+ldf$ptcex &lt;- c(NA, 1.2, NA, NA, NA, NA, rep(NA, length(bcol)))
+ldf$ptlwd  &lt;- c(NA, 2, NA, 2, NA, NA, rep(NA, length(bcol)))
+ldf$col &lt;- c(NA, "#808080", NA, NA, "#1d6b95", "#888888", rep(NA, length(bcol)))
+
+pdf(file="2019-11-19-1454_Slikok_breakdown_map.pdf",
+ width=8,
+ height=7
+ )
+ par(mar=c(0.1, 0.1, 0.1, 0.1)) 
+ plot(slikok3,
+  col="#C2E0D1",
+  bg=land,
+  border="#33664d",
+  lwd=2,
+  xlim = c(slikok3@bbox[1,1], slikok3@bbox[1,2] + 800)
+  )
+ plot(slikoka,
+  col=NA,
+  add=TRUE,
+  border="blue",
+  lwd=2
+  )
+ plot(knwr,
+  col=NA,
+  border="red",
+  lwd=2,
+  add=TRUE
+  )
+ plot(slikok3,
+  col="#C2E0D1",
+  bg=land,
+  border="#33664d",
+  lwd=2,
+  add=TRUE
+  )
+ plot(slikoka,
+  col=NA,
+  add=TRUE,
+  border="blue",
+  lwd=2,
+  lty="dashed"
+  )
+ plot(knwr,
+  col=NA,
+  border="red",
+  lwd=2,
+  add=TRUE,
+  lty="dashed"
+  )
+ plot(streams,
+  add=TRUE,
+  col="#1d6b95",
+  lwd=1
+  )
+ plot(lakes,
+  add=TRUE,
+  col=water,
+  border="#1d6b95",
+  lwd=1
+  )
+ plot(roads,
+  col="#888888",
+  lwd=2,
+  add=TRUE
+  )
+ points(
+  sitesa,
+  lwd=2,
+  cex=1.2,
+  col=ldf$col[ldf$lab == "plot locations"]
+  )
+  
+ ## Now add those bar plots.
+ for (this_site in 1:nrow(sitesa)) #nrow(sitesa)
+  {
+  agt &lt;- ag3[as.character(ag3$point_id) == sitesa$Name[this_site],]
+  print(agt)
+  print(nrow(agt))
+  if (nrow(agt) &gt; 0)
+   {
+   for (this_cat in 1:ncats)
+    {
+	 rect(xleft=coordinates(sitesa[this_site,])[1] + ll[this_cat], 
+	  ybottom=coordinates(sitesa[this_site,])[2],
+	  xright=coordinates(sitesa[this_site,])[1] + ll[this_cat] + bw,
+	  ytop=coordinates(sitesa[this_site,])[2] + agt[,this_cat+1]*cf,
+	  col=bcol[this_cat]
+	  )
+	 text(coordinates(sitesa[this_site,])[1] + ll[this_cat] + bw/2,
+	  coordinates(sitesa[this_site,])[2] + agt[,this_cat+1]*cf + bw,
+	  agt[,this_cat+1],
+	  cex=0.4,
+	  srt=90
+	  )
+    }	
+   }
+  }   
+  
+ legend("topright",
+  bg="white",
+  legend=ldf$lab,
+  fill=ldf$fill,
+  border=ldf$border,
+  lwd=ldf$lwd,
+  pch=ldf$pch,
+  pt.cex=ldf$ptcex,
+  pt.lwd=ldf$ptlwd,
+  col=ldf$col
+  )
+ map.scale(x=160681.6+250, y=1164800, len=3500, ndivs=7, units="km", subdiv=0.5)
+ north.arrow(xb=158681.6+4700, yb=1164800, len=100, lab="N")
+dev.off()
+
+## It would be nice to make a barplot of numbers of species by phyla.
+## Reordering to be consistent with the map plot.
+agg &lt;- agg[c(6,7,8,5,1,2,4,3),]
+pdf(file="2019-11-19-1522_breakdown.pdf",
+ width=6,
+ height=6
+ )
+par(mar=c(8,5,1,1))
+bp &lt;- barplot(agg$x,
+ ylab="Number of Species",
+ names.arg=agg$Group.1,
+ las=2,
+ col=bcol,
+ ylim=c(0,700)
+ )
+text(bp,
+ agg$x + 20,
+ agg$x
+ )
+dev.off() 
+
+save.image("2019-11-19-1551_workspace.RData")</pre>
+
+<h2 id="toc_12">2019-11-20-1441_clustering.R</h2>
+
+<pre>## Today I want start looking at this dataset: clustering, etc.
+
+wd &lt;- "D:/projects/Slikok_watershed/data/work_space/2019-11-19_summary_analyses"
+setwd(wd)
+
+load("2019-11-19-1551_workspace.RData")
+
+library(vegan)
+library(reshape2)
+
+d1$presence &lt;- 1
+dm &lt;- melt(d1, measure.vars="presence")
+
+dc &lt;- dcast(dm[!(dm$SPECIES == ""),], point_id ~ SPECIES, fun.aggregate=max, na.rm=TRUE, fill=0)
+
+row.names(dc) &lt;- dc$point_id
+dc &lt;- dc[,2:ncol(dc)]
+dim(dc)
+[1]  40 984
+
+## Using vegantutor example.
+dis &lt;- vegdist(dc)
+clua &lt;- hclust(dis, "average")
+plot(clua)
+
+## Trying to make this prettier.
+## Looking at http://www.sthda.com/english/wiki/beautiful-dendrogram-visualizations-in-r-5-must-known-methods-unsupervised-machine-learning
+
+## Loading colors I want to use and site data.
+ct &lt;- read.csv("2018-12-10-0955_nlcd_table.csv")
+cdf &lt;- read.csv("2018-12-10-1004_colors_table.csv")
+c2 &lt;- merge(x=ct, y=cdf, all.x=TRUE)
+st &lt;- read.csv("2019-11-20-1622_site_data.csv")
+c3 &lt;- merge(x=st, y=c2, all.x=TRUE)
+
+label &lt;- labels(clua)
+lab &lt;- as.data.frame(label)
+
+c4 &lt;- merge(x=lab, y=c3, all.x=TRUE, sort=FALSE)
+c4$clr &lt;- rgb(c4$r, c4$g, c4$b)
+
+library(dendextend)
+
+t2 &lt;- color_branches(clua, col=c4$clr)
+
+## Stopping here for the day.
+save.image("2019-11-20-1634_workspace.RData")</pre>
+
+<h2 id="toc_13">2019-11-21-0750_clustering.R</h2>
+
+<pre>## Today I want start looking at this dataset: clustering, etc.
+
+wd &lt;- "D:/projects/Slikok_watershed/data/work_space/2019-11-19_summary_analyses"
+setwd(wd)
+
+load("2019-11-20-1634_workspace.RData")
+
+library(vegan)
+library(dendextend)
+
+## Trying to make this prettier.
+## Looking at http://www.sthda.com/english/wiki/beautiful-dendrogram-visualizations-in-r-5-must-known-methods-unsupervised-machine-learning
+
+t2 &lt;- color_branches(clua, col=c4$clr, k=40)
+plot(t2) 
+
+library(ggplot2)
+# Rectangle dendrogram using ggplot2
+ggd1 &lt;- as.ggdend(t2)
+ggplot(ggd1, 
+ horiz=TRUE,
+ theme = theme_minimal()
+ ) ## That is better.
+
+library(phytools) 
+tp &lt;- as.phylo(t2)
+
+plot(tp,
+ tip.color=c4$clr[order(c4$label)]
+ )
+
+tc &lt;- tp
+tc$tip.label &lt;- as.character(c4$cover_class[order(c4$label)])
+plot(tc,
+ tip.color=c4$clr[order(c4$label)]
+ )
+
+t2 &lt;- color_branches(clua, col=c("#D5C388", "#C0D39B", "#C2E0F2"), k=3)
+plot(t2)
+t3 &lt;- color_branches(t2, col=c4$clr, k=40)
+plot(t3) 
+
+plot(tc,
+ tip.color=c4$clr[order(c4$label)]
+ ) 
+ 
+## I was not really happy with any of those.
+## Now making separate veg and animal datasets for comparison.
+
+## First cleaning up.
+dm$KINGDOM[dm$KINGDOM=="Plantae, Viridiplantae"] &lt;- "Plantae"
+
+library(reshape2)
+da &lt;- dcast(dm[!(dm$SPECIES == "") &amp; dm$KINGDOM == "Animalia",], point_id ~ SPECIES, fun.aggregate=max, na.rm=TRUE, fill=0)
+dim(da)
+row.names(da) &lt;- da$point_id
+da &lt;- da[,2:ncol(da)]
+dim(da)
+[1]  40 723
+
+dv &lt;- dcast(dm[!(dm$SPECIES == "") &amp; dm$KINGDOM %in% c("Plantae", "Fungi"),], point_id ~ SPECIES, fun.aggregate=max, na.rm=TRUE, fill=0)
+row.names(dv) &lt;- dv$point_id
+dv &lt;- dv[,2:ncol(dv)]
+dim(dv)
+[1]  40 261
+
+disa &lt;- vegdist(da)
+ta &lt;- hclust(disa, "average")
+plot(ta)
+
+disv &lt;- vegdist(dv)
+tv &lt;- hclust(disv, "average")
+plot(tv)
+## Those two looked consistent.
+
+## Now trying to make it prettier.
+clud &lt;- as.dendrogram(clua)
+color_labels(clud, c4$clr, k=3)
+set(clud, "labels_col", "blue")
+#set(clud, "labels_colors", value=c4$clr)
+plot(clud)
+
+tp &lt;- as.phylo(clua)
+
+plot(tp,
+ tip.color=c4$clr[order(c4$label)]
+ )
+
+## Following example at http://www.phytools.org/Cordoba2017/ex/15/Plotting-methods.html
+tap &lt;- as.phylo(ta)
+tvp &lt;- as.phylo(tv)
+assoc &lt;- as.data.frame(cbind(labels(ta), labels(ta)))
+names(assoc) &lt;- c("tap", "tvp")
+obj&lt;-cophylo(tvp,tap,assoc=assoc, print=TRUE)
+
+plot(obj,link.type="curved",link.lwd=3,link.lty="solid",
+    link.col=make.transparent("blue",0.25),fsize=0.8)
+	
+plot(obj) ## That worked.
+
+pdf("2019-11-21-1544_cophylo_tree.pdf")
+plot(obj)
+dev.off()
+
+plot(obj, ftype="off")
+tiplabels.cophylo(pch=21,frame="none",bg="grey",which="right",cex=1.5)
+
+## I checked.  The plot on the left is the animal plot.
+## Saving here.
+save.image("2019-11-21-1557_workspace.RData")
+
+tleft &lt;- as.data.frame( obj[[1]][[1]]$tip.label)
+names(tleft) &lt;- "label"
+tright &lt;- as.data.frame( obj[[1]][[2]]$tip.label)
+names(tright) &lt;- "label"
+cleft &lt;- merge(x=tleft, y=c4[,c("label", "clr")], all.x=TRUE, sort=FALSE)
+cright &lt;- merge(x=tright, y=c4[,c("label", "clr")], all.x=TRUE, sort=FALSE)
+
+pdf(file="2019-11-21-2111_cophylo_tree.pdf",
+ width=6,
+ height=6
+ )
+plot(obj, ftype="off")
+tiplabels.cophylo(pch=22,frame="none", bg=cleft$clr, which="left",cex=2)
+tiplabels.cophylo(pch=22,frame="none", bg=cright$clr, which="right",cex=2)
+dev.off()
+
+## Adding colors to the associations.
+names(assoc)[1] &lt;- "label"
+acol &lt;- merge(x=assoc, y=c4[,c("label", "clr")], all.x=TRUE, sort=FALSE)
+
+pdf(file="2019-11-21-2130_cophylo_tree.pdf",
+ width=6,
+ height=6
+ )
+plot(obj,
+ link.type="curved",
+ link.lwd=3,
+ link.lty="solid",
+ link.col=acol$clr,
+ ftype="off",
+ lwd=3
+ )
+tiplabels.cophylo(pch=22,frame="none", bg=cleft$clr, which="left",cex=2)
+tiplabels.cophylo(pch=22,frame="none", bg=cright$clr, which="right",cex=2)
+dev.off() 
+ 
+
+pdf(file="2019-11-21-2130_cophylo_tree.pdf",
+ width=6,
+ height=6
+ )
+plot(obj,
+ link.type="curved",
+ link.lwd=3,
+ link.lty="solid",
+ link.col=acol$clr,
+ ftype="off",
+ lwd=3,
+ mar=c(0,0,2,0)
+ )
+tiplabels.cophylo(pch=22,frame="none", bg=cleft$clr, which="left",cex=2)
+tiplabels.cophylo(pch=22,frame="none", bg=cright$clr, which="right",cex=2)
+mtext("Plantae and Fungi", side=3, at=-0.25)
+mtext("Animalia", side=3, at=0.25)
+dev.off() 
+
+pdf(file="2019-11-21-2154_cophylo_tree.pdf",
+ width=6,
+ height=6
+ )
+plot(obj,
+ link.type="curved",
+ link.lwd=3,
+ link.lty="solid",
+ link.col=acol$clr,
+ ftype="off",
+ lwd=3,
+ mar=c(0,0,2,0)
+ )
+tiplabels.cophylo(pch=22,frame="none", bg=cleft$clr, which="left",cex=2)
+tiplabels.cophylo(pch=22,frame="none", bg=cright$clr, which="right",cex=2)
+mtext("plants and lichens", side=3, at=-0.25)
+mtext("invertebrates and birds", side=3, at=0.28)
+dev.off()
+
+save.image("2019-11-22-0609_workspace.RData") 
+
+## Trying to color edges now.
+## colors: c("#D5C388", "#C0D39B", "#C2E0F2")
+plot(obj)
+nodelabels.cophylo(which="left",frame="circle",cex=0.8)
+nodelabels.cophylo(which="right",frame="circle",cex=0.8)
+edgelabels.cophylo(which="left",frame="circle",cex=0.8)
+#edgelabels.cophylo(which="right",frame="circle",cex=0.8)
+
+left&lt;-rep("black",nrow(obj$trees[[1]]$edge))
+nodes&lt;-getDescendants(obj$trees[[1]],41)
+left[sapply(nodes,function(x,y) which(y==x),y=obj$trees[[1]]$edge[,2])] &lt;- "#D5C388"
+nodes&lt;-getDescendants(obj$trees[[1]],43)
+left[sapply(nodes,function(x,y) which(y==x),y=obj$trees[[1]]$edge[,2])] &lt;- "#C0D39B"
+nodes&lt;-getDescendants(obj$trees[[1]],67)
+left[3] &lt;- "#C0D39B"
+left[sapply(nodes,function(x,y) which(y==x),y=obj$trees[[1]]$edge[,2])] &lt;- "#C2E0F2"
+left[52] &lt;- "#C2E0F2"
+		
+right&lt;-rep("black",nrow(obj$trees[[2]]$edge))
+nodes&lt;-getDescendants(obj$trees[[2]],41)
+right[sapply(nodes,function(x,y) which(y==x),y=obj$trees[[2]]$edge[,2])] &lt;- "#D5C388"
+nodes&lt;-getDescendants(obj$trees[[2]],43)
+right[sapply(nodes,function(x,y) which(y==x),y=obj$trees[[2]]$edge[,2])] &lt;- "#C0D39B"
+right[3] &lt;- "#C0D39B"
+nodes&lt;-getDescendants(obj$trees[[2]],69)
+right[sapply(nodes,function(x,y) which(y==x),y=obj$trees[[2]]$edge[,2])] &lt;- "#C2E0F2"
+right[56] &lt;- "#C2E0F2"
+
+edge.col&lt;-list(left=left,right=right)
+plot(obj, edge.col=edge.col)
+
+pdf(file="2019-11-22-0640_cophylo_tree.pdf",
+ width=6,
+ height=6
+ )
+plot(obj,
+ link.type="curved",
+ link.lwd=3,
+ link.lty="solid",
+ link.col=acol$clr,
+ ftype="off",
+ lwd=3,
+ edge.col=edge.col,
+ mar=c(0,0,2,0)
+ )
+tiplabels.cophylo(pch=22,frame="none", bg=cleft$clr, which="left",cex=2)
+tiplabels.cophylo(pch=22,frame="none", bg=cright$clr, which="right",cex=2)
+mtext("plants and lichens", side=3, at=-0.25)
+mtext("invertebrates and birds", side=3, at=0.28)
+dev.off()
+## That looked good!
+
+## Now I need some citations for this part of the analysis.
+citation("phytools")</pre>
+
+<h2 id="toc_14">2019-11-22-0942_reclustering.R</h2>
+
+<pre>## I need to standardize effort across all sites, which will mean dropping 45 sweep net samples, leaving 80.
+
+wd &lt;- "D:/projects/Slikok_watershed/data/work_space/2019-11-19_summary_analyses"
+setwd(wd)
+
+load("2019-11-22-0701_workspace.RData")
+
+## Loading data from Zenodo at https://doi.org/10.5281/zenodo.3245460
+sw &lt;- read.csv("ArctosData_43C6167EB1.csv", stringsAsFactors=FALSE)
+
+sum(grepl("east half of plot", sw$SPEC_LOCALITY))
+[1] 80
+sum(grepl("west half of plot", sw$SPEC_LOCALITY))
+[1] 45
+
+swrm &lt;- sw$SPEC_LOCALITY[grepl("west half of plot", sw$SPEC_LOCALITY)]
+
+## Now reprocessing, repeating analyses from the last couple of days.
+
+d1 &lt;- read.csv("2019-11-19-0910_ArctosData_5FEAE6E33F.csv")
+dim(d1)
+[1] 4764   28
+
+## Filtering out west half sweep net samples.
+d1 &lt;- d1[!(d1$SPEC_LOCALITY %in% swrm),]
+dim(d1)
+[1] 3916   28
+
+## Getting the plot names.
+s1 &lt;- strsplit(as.character(d1$SPEC_LOCALITY), "site ")
+s2 &lt;- sapply(s1, "[", 2)
+s3 &lt;- strsplit(s2, ",")
+s4 &lt;- sapply(s3, "[", 1)
+levels(as.factor(s4))
+d1$point_id &lt;- s4
+
+## Should truncate to 200 m from plot.
+ng200m &lt;- d1$COORDINATEUNCERTAINTYINMETERS &lt;= 200
+d1 &lt;- d1[ng200m,]
+dim(d1)
+[1] 3855   29
+
+## Now for summaries.
+## First need a plot by taxon dataset.
+d2 &lt;- unique(d1[,c("point_id", "KINGDOM", "PHYLUM", "SPECIES", "SCIENTIFIC_NAME")])
+dim(d2)
+
+## Selection for only described species.
+slsp &lt;- !(d2$SPECIES == "")
+## How many species * plot occurrence records?
+sum(slsp)
+[1] 2648
+
+## Now for aggregates.
+## How many species?
+length(unique(d2$SCIENTIFIC_NAME[slsp]))
+[1] 635
+ 
+## Breakdown by plot
+agp &lt;- aggregate(d2$SCIENTIFIC_NAME[slsp], by=list(d2$PHYLUM[slsp], d2$KINGDOM[slsp], d2$point_id[slsp]), FUN=length)
+agp
+
+## Hmmm. For which taxa do we have SPECIES values but not higher ranks?
+sp1 &lt;- unique(d1[,c("KINGDOM", "PHYLUM", "SPECIES", "SCIENTIFIC_NAME")])
+dim(sp1)
+sp1 &lt;- sp1[order(sp1$KINGDOM, sp1$PHYLUM, sp1$SPECIES, sp1$SCIENTIFIC_NAME),]
+sp1
+
+## Selecting only those that lack higher taxonomy.
+slm &lt;- sp1$PHYLUM == ""
+spm &lt;- sp1[slm,]
+spm
+
+## Fixing taxonomic inconsistencies.
+sl &lt;- d1$KINGDOM == "Plantae, Viridiplantae"
+d1$KINGDOM[sl] &lt;- "Plantae"
+
+sl &lt;- d1$PHYLUM == "Streptophyta"
+d1$PHYLUM[sl] &lt;- "Tracheophyta"
+
+sl &lt;- d1$PHYLUM == "Tracheophyta, Streptophyta"
+d1$PHYLUM[sl] &lt;- "Tracheophyta"
+
+## Saving this here.
+write.csv(d1, "2019-11-22-1004_ArctosData_F9092681A2.csv", row.names=FALSE)
+
+d2 &lt;- unique(d1[,c("point_id", "KINGDOM", "PHYLUM", "SPECIES", "SCIENTIFIC_NAME")])
+dim(d2)
+
+slsp &lt;- !(d2$SPECIES == "")
+
+## Breakdown by plot
+agp &lt;- aggregate(d2$SCIENTIFIC_NAME[slsp], by=list(d2$PHYLUM[slsp], d2$KINGDOM[slsp], d2$point_id[slsp]), FUN=length)
+agp
+
+## One more aggregate before we go on...
+ts1 &lt;- unique(d1[,c("KINGDOM", "PHYLUM", "SPECIES", "SCIENTIFIC_NAME")])
+ts1 &lt;- ts1[!(ts1$SPECIES == ""),]
+dim(ts1)
+[1] 635   4
+
+agg &lt;- aggregate(ts1$SCIENTIFIC_NAME, by=list(ts1$PHYLUM, ts1$KINGDOM), FUN=length)
+agg
+          Group.1  Group.2   x
+1        Annelida Animalia   3
+2      Arthropoda Animalia 323
+3        Chordata Animalia  43
+4        Mollusca Animalia   5
+5      Ascomycota    Fungi 111
+6       Bryophyta  Plantae  51
+7 Marchantiophyta  Plantae  12
+8    Tracheophyta  Plantae  87
+
+## Setting this aside for later.
+agsp &lt;- agg
+
+## Now, what if we were to do the same thing, but this time also include BOLD BINs as a proxy for species?
+slb &lt;- grepl("BOLD:", d1$SCIENTIFIC_NAME)
+d1[slb,][1:10,]
+d1$SPECIES &lt;- as.character(d1$SPECIES)
+d1$SCIENTIFIC_NAME &lt;- as.character(d1$SCIENTIFIC_NAME)
+d1$SPECIES[slb] &lt;- d1$SCIENTIFIC_NAME[slb]
+
+## Now for summaries.
+## First need a plot by taxon dataset.
+d2 &lt;- unique(d1[,c("point_id", "KINGDOM", "PHYLUM", "SPECIES", "SCIENTIFIC_NAME")])
+dim(d2)
+[1] 3558    5
+
+slsp &lt;- !(d2$SPECIES == "")
+## How many species * plot occurrence records?
+sum(slsp)
+[1] 3090
+
+## Now for aggregates.
+## How many species?
+length(unique(d2$SCIENTIFIC_NAME[slsp]))
+[1] 849
+
+## Breakdown by plot
+agp &lt;- aggregate(d2$SCIENTIFIC_NAME[slsp], by=list(d2$PHYLUM[slsp], d2$KINGDOM[slsp], d2$point_id[slsp]), FUN=length)
+agp
+
+## One more aggregate before we go on...
+ts1 &lt;- unique(d1[,c("KINGDOM", "PHYLUM", "SPECIES", "SCIENTIFIC_NAME")])
+ts1 &lt;- ts1[!(ts1$SPECIES == ""),]
+dim(ts1)
+[1] 849   4
+
+agg &lt;- aggregate(ts1$SCIENTIFIC_NAME, by=list(ts1$PHYLUM, ts1$KINGDOM), FUN=length)
+agg
+          Group.1  Group.2   x
+1        Annelida Animalia   8
+2      Arthropoda Animalia 529
+3        Chordata Animalia  43
+4        Mollusca Animalia   8
+5      Ascomycota    Fungi 111
+6       Bryophyta  Plantae  51
+7 Marchantiophyta  Plantae  12
+8    Tracheophyta  Plantae  87
+
+## Saving this here.
+write.csv(d1, "2019-11-22-1009_ArctosData_F9092681A2.csv", row.names=FALSE)
+
+library(reshape2)
+
+d1$presence &lt;- 1
+dm &lt;- melt(d1, measure.vars="presence")
+
+dc &lt;- dcast(dm[!(dm$SPECIES == ""),], point_id ~ SPECIES, fun.aggregate=max, na.rm=TRUE, fill=0)
+
+row.names(dc) &lt;- dc$point_id
+dc &lt;- dc[,2:ncol(dc)]
+dim(dc)
+[1]  40 849
+
+## Now making separate veg and animal datasets for comparison.
+## First cleaning up.
+dm$KINGDOM[dm$KINGDOM=="Plantae, Viridiplantae"] &lt;- "Plantae"
+
+library(reshape2)
+da &lt;- dcast(dm[!(dm$SPECIES == "") &amp; dm$KINGDOM == "Animalia",], point_id ~ SPECIES, fun.aggregate=max, na.rm=TRUE, fill=0)
+dim(da)
+row.names(da) &lt;- da$point_id
+da &lt;- da[,2:ncol(da)]
+dim(da)
+[1]  40 588
+
+dv &lt;- dcast(dm[!(dm$SPECIES == "") &amp; dm$KINGDOM %in% c("Plantae", "Fungi"),], point_id ~ SPECIES, fun.aggregate=max, na.rm=TRUE, fill=0)
+row.names(dv) &lt;- dv$point_id
+dv &lt;- dv[,2:ncol(dv)]
+dim(dv)
+[1]  40 261
+
+library(vegan)
+disa &lt;- vegdist(da)
+ta &lt;- hclust(disa, "average")
+plot(ta)
+
+disv &lt;- vegdist(dv)
+tv &lt;- hclust(disv, "average")
+plot(tv)
+
+## Now for the cophylo plot...
+library(phytools)
+
+tap &lt;- as.phylo(ta)
+tvp &lt;- as.phylo(tv)
+assoc &lt;- as.data.frame(cbind(tap$tip.label, tap$tip.label))
+names(assoc) &lt;- c("tap", "tvp")
+obj&lt;-cophylo(tvp,tap,assoc=assoc, print=TRUE)
+	
+plot(obj) 
+
+## Adding colors to tip labels.
+tleft &lt;- as.data.frame( obj[[1]][[1]]$tip.label)
+names(tleft) &lt;- "label"
+tright &lt;- as.data.frame( obj[[1]][[2]]$tip.label)
+names(tright) &lt;- "label"
+cleft &lt;- merge(x=tleft, y=c4[,c("label", "clr")], all.x=TRUE, sort=FALSE)
+cright &lt;- merge(x=tright, y=c4[,c("label", "clr")], all.x=TRUE, sort=FALSE)
+
+pdf(file="2019-11-22-1032_cophylo_tree.pdf",
+ width=6,
+ height=6
+ )
+plot(obj, ftype="off")
+tiplabels.cophylo(pch=22,frame="none", bg=cleft$clr, which="left",cex=2)
+tiplabels.cophylo(pch=22,frame="none", bg=cright$clr, which="right",cex=2)
+dev.off()
+
+## Adding colors to the associations.
+names(assoc)[1] &lt;- "label"
+acol &lt;- merge(x=assoc, y=c4[,c("label", "clr")], all.x=TRUE, sort=FALSE)
+
+pdf(file="2019-11-22-1035_cophylo_tree.pdf",
+ width=6,
+ height=6
+ )
+plot(obj,
+ link.type="curved",
+ link.lwd=3,
+ link.lty="solid",
+ link.col=acol$clr,
+ ftype="off",
+ lwd=3,
+ mar=c(0,0,2,0)
+ )
+tiplabels.cophylo(pch=22,frame="none", bg=cleft$clr, which="left",cex=2)
+tiplabels.cophylo(pch=22,frame="none", bg=cright$clr, which="right",cex=2)
+mtext("plants and lichens (261 species)", side=3, at=-0.25)
+mtext("invertebrates and birds (588 species)", side=3, at=0.28)
+dev.off()
+
+## Trying to add a scale
+pdf(file="2019-11-22-1042_cophylo_tree.pdf",
+ width=6,
+ height=6
+ )
+plot(obj,
+ link.type="curved",
+ link.lwd=3,
+ link.lty="solid",
+ link.col=acol$clr,
+ ftype="off",
+ lwd=3,
+ scale.bar=rep(0.5,2),
+ mar=c(2,0,2,0)
+ )
+tiplabels.cophylo(pch=22,frame="none", bg=cleft$clr, which="left",cex=2)
+tiplabels.cophylo(pch=22,frame="none", bg=cright$clr, which="right",cex=2)
+mtext("Plants and lichens (261 species)", side=3, at=-0.28)
+mtext("Invertebrates and birds (588 species)", side=3, at=0.28)
+mtext("Average dissimilarity index", side=1, at=0)
+dev.off()
+
+## Making another taxonomic breakdown plot, this time for the analysis dataset.
+agg &lt;- agg[c(6,7,8,5,1,2,4,3),]
+pdf(file="2019-11-22-1135_analysis_breakdown.pdf",
+ width=6,
+ height=6
+ )
+par(mar=c(8,5,1,1))
+bp &lt;- barplot(agg$x,
+ ylab="Number of Species",
+ names.arg=agg$Group.1,
+ las=2,
+ col=bcol,
+ ylim=c(0,600)
+ )
+text(bp,
+ agg$x + 20,
+ agg$x
+ )
+dev.off() 
+
+## Trying to color edges now.
+## colors: c("#D5C388", "#C0D39B", "#C2E0F2")
+plot(obj)
+nodelabels.cophylo(which="left",frame="circle",cex=0.8)
+nodelabels.cophylo(which="right",frame="circle",cex=0.8)
+edgelabels.cophylo(which="left",frame="circle",cex=0.8)
+edgelabels.cophylo(which="right",frame="circle",cex=0.8)
+
+left&lt;-rep("black",nrow(obj$trees[[1]]$edge))
+nodes&lt;-getDescendants(obj$trees[[1]],41)
+left[sapply(nodes,function(x,y) which(y==x),y=obj$trees[[1]]$edge[,2])] &lt;- "#D5C388"
+nodes&lt;-getDescendants(obj$trees[[1]],56)
+left[sapply(nodes,function(x,y) which(y==x),y=obj$trees[[1]]$edge[,2])] &lt;- "#C0D39B"
+nodes&lt;-getDescendants(obj$trees[[1]],43)
+left[sapply(nodes,function(x,y) which(y==x),y=obj$trees[[1]]$edge[,2])] &lt;- "#C2E0F2"
+left[2] &lt;- "#C0D39B"
+left[30] &lt;- "#C0D39B"
+left[3] &lt;- "#C2E0F2"
+		
+right&lt;-rep("black",nrow(obj$trees[[2]]$edge))
+#nodes&lt;-getDescendants(obj$trees[[2]],41)
+#right[sapply(nodes,function(x,y) which(y==x),y=obj$trees[[2]]$edge[,2])] &lt;- "#D5C388"
+nodes&lt;-getDescendants(obj$trees[[2]],48)
+right[sapply(nodes,function(x,y) which(y==x),y=obj$trees[[2]]$edge[,2])] &lt;- "#C0D39B"
+nodes&lt;-getDescendants(obj$trees[[2]],42)
+right[sapply(nodes,function(x,y) which(y==x),y=obj$trees[[2]]$edge[,2])] &lt;- "#C2E0F2"
+right[1] &lt;- "#C2E0F2"
+right[15] &lt;- "#D5C388"
+right[14] &lt;- "#C0D39B"
+
+edge.col&lt;-list(left=left,right=right)
+plot(obj, edge.col=edge.col)
+
+pdf(file="2019-11-22-1227_cophylo_tree.pdf",
+ width=6,
+ height=6
+ )
+plot(obj,
+ link.type="curved",
+ link.lwd=3,
+ link.lty="solid",
+ link.col=acol$clr,
+ ftype="off",
+ lwd=3,
+ scale.bar=rep(0.5,2),
+ edge.col=edge.col,
+ mar=c(2,0,2,0)
+ )
+tiplabels.cophylo(pch=22,frame="none", bg=cleft$clr, which="left",cex=2)
+tiplabels.cophylo(pch=22,frame="none", bg=cright$clr, which="right",cex=2)
+mtext("Plants and lichens (261 species)", side=3, at=-0.28)
+mtext("Invertebrates and birds (588 species)", side=3, at=0.28)
+mtext("Average dissimilarity index", side=1, at=0)
+dev.off()
+
+## need to fix a label!
+pdf(file="2019-11-22-1307_cophylo_tree.pdf",
+ width=6,
+ height=6
+ )
+plot(obj,
+ link.type="curved",
+ link.lwd=3,
+ link.lty="solid",
+ link.col=acol$clr,
+ ftype="off",
+ lwd=3,
+ scale.bar=rep(0.5,2),
+ edge.col=edge.col,
+ mar=c(2,0,2,0)
+ )
+tiplabels.cophylo(pch=22,frame="none", bg=cleft$clr, which="left",cex=2)
+tiplabels.cophylo(pch=22,frame="none", bg=cright$clr, which="right",cex=2)
+mtext("Plants and lichens (261 species)", side=3, at=-0.31)
+mtext("Animals (588 species)", side=3, at=0.29)
+mtext("Average dissimilarity index", side=1, at=0)
+dev.off()
+
+## Saving here.
+save.image("2019-11-22-1310_workspace.RData")</pre>
+
+<h2 id="toc_15">2019-11-25-0611_species_accum.R</h2>
+
+<pre>## Seeing about a species accumulation curve.
+library(vegan)
+library(reshape2)
+
+wd &lt;- "D:/projects/Slikok_watershed/data/work_space/2019-11-19_summary_analyses"
+setwd(wd)
+
+load("2019-11-22-1310_workspace.RData")
+
+## Trying this out on the veg data.
+sac &lt;- specaccum(dv)
+plot(sac, ci.type="polygon", ci.col="yellow")
+
+specpool(dv)
+    Species    chao  chao.se jack1 jack1.se    jack2     boot  boot.se  n
+All     261 353.078 26.15813 346.8  19.7928 392.4487 299.1823 10.83218 40
+
+## I think I want to make a separate species accumulation curve for each phylum...
+
+dsp &lt;- dm[!(dm$SPECIES == ""),]
+phyla &lt;- levels(as.factor(as.character(dsp$PHYLUM)))
+nsites &lt;- 40
+spac &lt;- list(NA)
+for (this_phylum in 1:length(phyla))
+ {
+ dtmp &lt;- dcast(dm[!(dm$SPECIES == "") &amp; dm$PHYLUM == phyla[this_phylum],], point_id ~ SPECIES, fun.aggregate=max, na.rm=TRUE, fill=0)
+ row.names(dtmp) &lt;- dtmp$point_id
+ dtmp &lt;- dtmp[,2:ncol(dtmp)]
+ dim(dtmp)
+ dadd &lt;- as.data.frame(matrix(0, nrow = nsites-nrow(dtmp), ncol = ncol(dtmp)))
+ names(dadd) &lt;- names(dtmp)
+ dtmp &lt;- rbind(dtmp, dadd)
+ print(dim(dtmp))
+ spac[[this_phylum]] &lt;- specaccum(dtmp)
+ plot(spac[[this_phylum]], ci.type="polygon", ci.col="yellow")
+ }
+
+## Now for a plot.
+## reordering to match colors.
+
+## Colors.
+aggc &lt;- agg
+aggc$clr &lt;- bcol
+aggc &lt;- aggc[order(aggc$Group.1),]
+
+
+pdf("2019-11-25-0639_spac.pdf")
+par(mar=c(4,4,1,1))
+plot(1,1,
+ ylab="Number of species",
+ xlab="Number of sites",
+ type="n",
+ xlim=c(0,40),
+ ylim=c(0,600)
+ )
+for (this_phylum in 1:length(phyla))
+ {
+ plot(spac[[this_phylum]],
+  ci.type="polygon",
+  add=TRUE,
+  col=aggc$clr[this_phylum],
+  ci.col=paste0(aggc$clr[this_phylum], 80)
+  )
+ }
+legend("topleft",
+ fill=paste0(bcol, 80),
+ border=bcol,
+ legend=agg$Group.1
+ )
+dev.off()
+
+## Now for stats.
+spl &lt;- matrix(NA, nrow=8, ncol=9)
+spl &lt;- as.data.frame(spl)
+names(spl) &lt;- names(specpool(dv))
+row.names(spl) &lt;- phyla
+for (this_phylum in 1:length(phyla))
+ {
+ dtmp &lt;- dcast(dm[!(dm$SPECIES == "") &amp; dm$PHYLUM == phyla[this_phylum],], point_id ~ SPECIES, fun.aggregate=max, na.rm=TRUE, fill=0)
+ row.names(dtmp) &lt;- dtmp$point_id
+ dtmp &lt;- dtmp[,2:ncol(dtmp)]
+ dadd &lt;- as.data.frame(matrix(0, nrow = nsites-nrow(dtmp), ncol = ncol(dtmp)))
+ names(dadd) &lt;- names(dtmp)
+ dtmp &lt;- rbind(dtmp, dadd)
+ print(dim(dtmp))
+ spl[this_phylum,] &lt;- specpool(dtmp)
+ }
+spl
+                Species       chao    chao.se   jack1  jack1.se      jack2       boot    boot.se  n
+Annelida              8    9.95000   3.654791   9.950  1.378858   10.92436   8.987700  0.8641943 40
+Arthropoda          529 1255.13784 119.181442 852.700 64.867615 1099.60256 661.184049 28.7031688 40
+Ascomycota          111  148.07438  15.709079 149.025 11.259413  167.56218 128.076552  6.2161771 40
+Bryophyta            51   77.21667  15.084792  72.450  6.357181   85.01923  60.382956  3.5940069 40
+Chordata             43   47.45714   4.150689  50.800  3.091116   51.92051  47.066686  2.1545588 40
+Marchantiophyta      12   12.97500   1.830727  13.950  1.378858   13.99872  13.132913  0.9426905 40
+Mollusca              8   13.85000   6.930934  11.900  3.106847   15.70000   9.513893  1.5550901 40
+Tracheophyta         87  117.46875  16.487522 111.375  8.629347  125.86859  97.589832  4.9936341 40
+
+## Now trying to plot the chao estimators as a bar plot.
+
+## Making another taxonomic breakdown plot, this time for the analysis dataset.
+## Re-ordering to be consistent.
+splp &lt;- spl[c(4,6,8,3,1,2,7,5),]
+pdf(file="2019-11-25-0815_analysis_breakdown.pdf",
+ width=6,
+ height=6
+ )
+par(mar=c(8,5,1,1))
+bp &lt;- barplot(splp$chao,
+ ylab="Number of Species",
+ names.arg=agg$Group.1,
+ las=2,
+ col=paste0(bcol, 80),
+ border="#00000080",
+ ylim=c(0,1600)
+ )
+barplot(agg$x,
+ ylab="Number of Species",
+ names.arg=agg$Group.1,
+ las=2,
+ col=bcol,
+ add=TRUE
+ )
+y0=splp$chao - 2*splp$chao.se
+y0[y0 &lt; agg$x] &lt;- agg$x[y0 &lt; agg$x] 
+segments(x0=bp,
+ y0=y0,
+ x1=bp,
+ y1=splp$chao + 2*splp$chao.se,
+ col="#00000080",
+ lwd=2
+ )
+text(bp,
+ agg$x + 110,
+ agg$x
+ )
+text(bp,
+ agg$x + 190,
+ paste0("(", round(splp$chao), ")")
+ )
+dev.off() 
+
+## Saving estimated diversity table.
+write.csv(spl, "2019-11-25-0846_specpool_table.csv")
+
+## Saving here.
+save.image("2019-11-25-0847_workspace.RData")
+
+## How about an estimate of the total number of species?
+chaot &lt;- sum(spl$chao)
+chaot
+[1] 1682.13
+
+## And for variances.
+chaov &lt;- spl$chao.se^2
+chaotv &lt;- sum(chaov)
+chaotse &lt;- chaotv^0.5
+chaotse
+[1] 122.6065
+
+## How many species were being added at each plot?
+spl$slope39 &lt;- NA
+for (this_phylum in 1:length(phyla))
+ {
+ spl$slope39[this_phylum] &lt;- specslope(object=spac[[this_phylum]], at=39)
+ }
+
+## Saving estimated diversity table.
+write.csv(spl, "2019-11-25-0915_specpool_table.csv")
+
+## Saving here.
+save.image("2019-11-25-0915_workspace.RData")</pre>
+
+<h2 id="toc_16">2019-11-25-new_exotics_map.R</h2>
+
+<pre>## Adding exotic species occurrence data to the exotic species map.
+
+wd &lt;- "D:/projects/Slikok_watershed/data/work_space/2019-11-19_summary_analyses"
+setwd(wd)
+
+load("2019-11-19-1551_workspace.RData")
+
+library(maptools)
+library(rgdal)
+library(raster)
+library(GISTools)
+library(rgeos)
+ 
+## First the AKEPIC data....
+ake &lt;- read.csv("akepic_observations.csv")
+ dim(ake)
+[1] 127844     46
+summary(ake)
+sum(is.na(ake$longitude))
+sum(is.na(ake$latitude)) ## Zeros. That is good...
+
+## Can remove data way outside of our area of interst...
+ake &lt;- ake[ake$longitude &gt; -152,]
+ake &lt;- ake[ake$longitude &lt; -150,]
+ake &lt;- ake[ake$latitude &gt; 60,]
+ake &lt;- ake[ake$latitude &lt; 61,]
+dim(ake)
+[1] 4956   46
+
+## Removing sites where no exotic species were found.
+ake &lt;- ake[!(ake$scientific_name=="None"),]
+dim(ake)
+[1] 4015   46
+
+coordinates(ake) &lt;- c("longitude", "latitude")
+proj4string(ake) &lt;- CRS(wgs84)
+aka &lt;- spTransform(ake, CRS(albers)) 
+plot(aka)
+## That is all for now. 
+
+## Continuing at 2019-11-26 06:32
+## Loading GBIF and exotic species data.
+gb &lt;- read.delim("0004326-160526112335914.csv", stringsAsFactors=FALSE)
+ex &lt;- read.delim("Non-native_Master_V2-0_20190912.txt", stringsAsFactors=FALSE)
+
+dim(ex)
+[1] 12986    34
+## Selecting Alaska exotics.
+ex &lt;- ex[ex$Region=="AK",]
+dim(ex)
+[1] 563  34
+
+dim(gb)
+[1] 40342    44
+
+gbe &lt;- gb[gb$species %in% ex$scientificName,]
+dim(gbe)
+[1] 202  44
+
+coordinates(gbe) &lt;- c("decimallongitude", "decimallatitude")
+proj4string(gbe) &lt;- CRS(wgs84)
+gba &lt;- spTransform(gbe, CRS(albers)) 
+plot(gba)
+
+## Now making an exotic species map.
+
+## Legend stuff.
+lab &lt;- c("study area", "plot locations", "Slikok Creek watershed", "KNWR boundary", "water", "roads", names(ag3)[2:ncol(ag3)])
+ldf &lt;- as.data.frame(lab)
+ldf$fill &lt;- c("#C2E0D1", NA, "#E8E8E8", "#E8E8E8", "#93CCEA", NA, bcol)
+ldf$border &lt;- c("#33664d", NA, "blue", "red", "#1d6b95", NA, rep("#000000", length(bcol)))
+ldf$lwd &lt;- c(NA, NA, NA, 2, 1, 2, rep(1, length(bcol)))
+ldf$pch &lt;- c(NA, 1, NA, NA, NA, NA, rep(NA, length(bcol)))
+ldf$ptcex &lt;- c(NA, 1.2, NA, NA, NA, NA, rep(NA, length(bcol)))
+ldf$ptlwd  &lt;- c(NA, 2, NA, 2, NA, NA, rep(NA, length(bcol)))
+ldf$col &lt;- c(NA, "black", NA, NA, "#1d6b95", "#888888", rep(NA, length(bcol)))
+
+dex &lt;- d1[d1$SCIENTIFIC_NAME %in% c("Deroceras agreste", "Dendrobaena octaedra", "Heterarthrus nemoratus"),]
+dex$txt &lt;- NA
+dex$txt[dex$SCIENTIFIC_NAME == "Deroceras agreste"] &lt;- "Da"
+dex$txt[dex$SCIENTIFIC_NAME == "Dendrobaena octaedra"] &lt;- "Do"
+dex$txt[dex$SCIENTIFIC_NAME == "Heterarthrus nemoratus"] &lt;- "Hn"
+dex &lt;- unique(dex[,c("point_id", "SCIENTIFIC_NAME", "txt")])
+dex &lt;- aggregate(dex$txt, by=list(dex$point_id), paste)
+names(dex) &lt;- c("Name", "spp")
+
+sitese &lt;- sitesa[order(sitesa$Name),]
+sitese@data &lt;- merge(x=sitese@data, y=dex, by="Name", all.x=TRUE)
+sitese &lt;- sitese[!is.na(sitese@data$spp),]
+sitese@data$spp &lt;- gsub("\"", "", sitese@data$spp)
+sitese@data$spp &lt;- gsub("c\\(", "", sitese@data$spp)
+sitese@data$spp &lt;- gsub(")", "", sitese@data$spp)
+sitese@data$spp &lt;- gsub(" ", "", sitese@data$spp)
+
+## Legend stuff.
+ldf$lab &lt;- as.character(ldf$lab)
+ldf &lt;- ldf[1:6,]
+ldf$col[ldf$lab == "plot locations"] &lt;- "#808080"
+ldf[7,] &lt;- NA
+ldf$lab[7] &lt;- "non-native species records"
+ldf$pch[7] &lt;- 21
+ldf$ptcex[7] &lt;- 1
+ldf$col[7] &lt;- "#C3214880"
+ldf$ptbg &lt;- c(rep(NA, 6), "#FD0E3580")
+
+pdf(file="2019-11-26-0648_Slikok_exotics_map.pdf",
+ width=8,
+ height=7
+ )
+ par(mar=c(0.1, 0.1, 0.1, 0.1)) 
+ plot(slikok3,
+  col="#C2E0D1",
+  bg=land,
+  border="#33664d",
+  lwd=2,
+  xlim = c(slikok3@bbox[1,1], slikok3@bbox[1,2] + 800)
+  )
+ plot(slikoka,
+  col=NA,
+  add=TRUE,
+  border="blue",
+  lwd=2
+  )
+ plot(knwr,
+  col=NA,
+  border="red",
+  lwd=2,
+  add=TRUE
+  )
+ plot(slikok3,
+  col="#C2E0D1",
+  bg=land,
+  border="#33664d",
+  lwd=2,
+  add=TRUE
+  )
+ plot(slikoka,
+  col=NA,
+  add=TRUE,
+  border="blue",
+  lwd=2,
+  lty="dashed"
+  )
+ plot(knwr,
+  col=NA,
+  border="red",
+  lwd=2,
+  add=TRUE,
+  lty="dashed"
+  )
+ plot(streams,
+  add=TRUE,
+  col="#1d6b95",
+  lwd=1
+  )
+ plot(lakes,
+  add=TRUE,
+  col=water,
+  border="#1d6b95",
+  lwd=1
+  )
+ plot(roads,
+  col="#888888",
+  lwd=2,
+  add=TRUE
+  )
+ points(
+  sitesa,
+  lwd=2,
+  cex=1.2,
+  col=ldf$col[ldf$lab == "plot locations"]
+  )
+ ## Add AKEPIC and GBIF exotic species records.
+ points(
+  aka,
+  pch=21,
+  cex=1,
+  col="#C3214880",
+  bg="#FD0E3580"
+  ) 
+ points(
+  gba,
+  pch=21,
+  cex=1,
+  col="#C3214880",
+  bg="#FD0E3580"
+  ) 
+ ## Now add those exotic species records.
+ text(
+  sitese,
+  sitese@data$spp,
+  cex=1.5
+  ) 
+  
+ legend("topright",
+  bg="white",
+  legend=ldf$lab,
+  fill=ldf$fill,
+  border=ldf$border,
+  lwd=ldf$lwd,
+  pch=ldf$pch,
+  pt.cex=ldf$ptcex,
+  pt.lwd=ldf$ptlwd,
+  col=ldf$col,
+  pt.bg=ldf$ptbg
+  )
+ map.scale(x=160681.6+250, y=1164800, len=3500, ndivs=7, units="km", subdiv=0.5)
+ north.arrow(xb=158681.6+4700, yb=1164800, len=100, lab="N")
+dev.off()</pre>
+
+<h2 id="toc_17">2019-11-26-1317_community_data.R</h2>
+
+<pre>## Seeing about a species accumulation curve.
+library(vegan)
+library(reshape2)
+
+wd &lt;- "D:/projects/Slikok_watershed/data/work_space/2019-11-19_summary_analyses"
+setwd(wd)
+
+load("2019-11-25-0915_workspace.RData")
+
+library(vegan)
+
+dc.ca &lt;- cca(dc)
+
+plot(dc.ca)
+points(
+ dc.ca, 
+ pch=21,
+ bg=c4$clr[order(c4$label)],
+ cex=1.5
+ )
+
+## I think I want to split the whole thing into three communities.
+
+## Now including all of the data.
+dis &lt;- vegdist(dc)
+te &lt;- hclust(dis, "average")
+plot(te)
+
+library(phytools)
+
+tep &lt;- as.phylo(te)
+
+tlab &lt;- as.data.frame(te$labels[te$order])
+names(tlab) &lt;- "label"
+clab &lt;- merge(x=tlab, y=c4[,c("label", "clr")], all.x=TRUE, sort=FALSE)
+
+plot(
+ tep,
+ show.tip.label=FALSE,
+ edge.width = 6
+ )
+tiplabels(pch=22, col="black", bg=clab$clr[order(clab$label)], cex=2)
+
+nodelabels()
+
+## Now trying to group by edge colors.
+ecl &lt;- rep("#D5C388", dim(tep$edge)[1])
+nodes&lt;-getDescendants(tep,42)
+ecl[sapply(nodes,function(x,y) which(y==x),y=tep$edge[,2])] &lt;- "#C0D39B"
+nodes&lt;-getDescendants(tep,44)
+ecl[sapply(nodes,function(x,y) which(y==x),y=tep$edge[,2])] &lt;- "#C2E0F2"
+ecl[2] &lt;- "#C0D39B"
+ecl[52] &lt;- "#C2E0F2"
+
+pdf(file="2019-11-26-1504_phylo_tree.pdf",
+ width=6,
+ height=6
+ )
+par(mar=c(3,0,0,0))
+plot(
+ tep,
+ show.tip.label=FALSE,
+ edge.width = 6,
+ edge.color = ecl
+ )
+tiplabels(pch=22, col="black", bg=clab$clr[order(clab$label)], cex=2)
+axisPhylo()
+mtext("Average dissimilarity index", side=1, at=0.25, line=2)
+dev.off()
+
+## Now trying to assign these to groups.
+grp &lt;- as.data.frame(tep$tip.label)
+names(grp) &lt;- "label"
+grp$grp &lt;- rep(NA, 40)
+nodes&lt;-getDescendants(tep,39)
+grp$grp[nodes[nodes &lt; 41]] &lt;- "shrub"
+nodes&lt;-getDescendants(tep,43)
+grp$grp[nodes[nodes &lt; 41]] &lt;- "forest"
+nodes&lt;-getDescendants(tep,44)
+grp$grp[nodes[nodes &lt; 41]] &lt;- "wetland"
+
+## Ok, now I should be able to group cca results.
+## Saving here.
+save.image("2019-11-26-1520_workspace.RData")
+
+plot(dc.ca)
+points(
+ dc.ca, 
+ pch=21,
+ bg=c4$clr[order(c4$label)],
+ cex=2
+ )
+ordihull(
+ dc.ca,
+ groups=grp$grp
+ )</pre>
+
+<h2 id="toc_18">2019-11-27-0632_community_data.R</h2>
+
+<pre>## Community analysis.
+library(vegan)
+
+wd &lt;- "D:/projects/Slikok_watershed/data/work_space/2019-11-19_summary_analyses"
+setwd(wd)
+
+## Ok, now I should be able to group cca results.
+## Saving here.
+load("2019-11-26-1520_workspace.RData")
+
+forcol &lt;- "#C0D39B"
+wetcol &lt;- "#C2E0F2"
+shrcol &lt;- "#D5C388"
+
+pdf(file="2019-11-27-0647_ca_1-2.pdf",
+ width=6,
+ height=6
+ )
+par(mar=c(4,4,1,1))
+plot( 
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ col="black"
+ )
+ordihull(
+ dc.ca,
+ groups=grp$grp,
+ col=c(forcol, shrcol, wetcol),
+ lwd=6
+ )
+points(
+ dc.ca, 
+ pch=21,
+ bg=c4$clr[order(c4$label)],
+ cex=2
+ )
+dev.off()
+
+pdf(file="2019-11-27-0650_ca_2-3.pdf",
+ width=6,
+ height=6
+ )
+par(mar=c(4,4,1,1))
+plot( 
+ dc.ca,
+ choices = c(2, 3),
+ display="sp",
+ col="black"
+ )
+ordihull(
+ dc.ca,
+ choices = c(2, 3),
+ groups=grp$grp,
+ col=c(forcol, shrcol, wetcol),
+ lwd=6
+ )
+points(
+ dc.ca, 
+ choices = c(2, 3),
+ pch=21,
+ bg=c4$clr[order(c4$label)],
+ cex=2
+ )
+dev.off()
+ 
+## I just want to know. Which is the plot that is so high on CA3?
+ plot( 
+ dc.ca,
+ choices = c(2, 3),
+ col="black",
+ display="sites"
+ )
+## It is MG32. MG08 is the wetland plot that is high on CA3.
+## MG32 was a devil's club patch under cottonwoods. MG08 was that diverse black spruce site between the two lakes.
+
+## I would like to get CCA values for species.  I am sure they can be extracted from the dc.ca object.
+dc.su &lt;- summary(dc.ca)
+
+spsc &lt;- dc.su[[1]]
+## Saving this.
+write.csv(spsc, "2019-11-27-0727_species_scores.csv")
+
+spsc &lt;- spsc[order(spsc[,1]),]
+slca1 &lt;- spsc[,1] == max(spsc[,1])
+sum(slca1)
+[1] 35
+row.names(spsc[slca1,])
+ [1] "Calliergon cordifolium"         
+ [2] "Caricea erythrocera"            
+ [3] "Chamaemyia geniculata"          
+ [4] "Chamaemyia paludosa"            
+ [5] "Chironomidae sp. BOLD:ADR7982"  
+ [6] "Clubiona riparia"               
+ [7] "Delia echinata"                 
+ [8] "Delia tenuiventris"             
+ [9] "Delphacodes serrata"            
+[10] "Galium trifidum"                
+[11] "Hilara argentata"               
+[12] "Hippodamia tredecimpunctata"    
+[13] "Hydrotaea pilitibia"            
+[14] "Hypomma bituberculatum"         
+[15] "Idiocerus elegans"              
+[16] "Idiocerus subnitens"            
+[17] "Lathrapanteles heleios"         
+[18] "Melanostoma mellinum"           
+[19] "Minettia lupulina"              
+[20] "Orthocladiinae sp. BOLD:ACL6277"
+[21] "Pachynematus albipennis"        
+[22] "Platypalpus xanthopodus"        
+[23] "Polemonium acutiflorum"         
+[24] "Rheocricotopus sp. BOLD:ACM7368"
+[25] "Rhizomnium glabrescens"         
+[26] "Rubus arcticus"                 
+[27] "Salix commutata"                
+[28] "Scaptomyza sp. BOLD:ACG6466"    
+[29] "Scaptomyza trochanterata"       
+[30] "Spilogona opaca"                
+[31] "Spilogona sp. BOLD:ACR4125"     
+[32] "Thricops sp. BOLD:ABY7837"      
+[33] "Xenolechia aethiops"            
+[34] "Ypsolopha senex"                
+[35] "Zaphne borealis"      
+
+## Ok, now to look at CA2.
+spsc &lt;- spsc[order(spsc[,2]),]
+
+## Most negative ca2 species....
+slca2n &lt;- spsc[,2] == min(spsc[,2])
+sum(slca2n)
+row.names(spsc[slca2n,])
+ [1] "Carex limosa"          
+ [2] "Carex livida"          
+ [3] "Dicranum leioneuron"   
+ [4] "Eriophorum scheuchzeri"
+ [5] "Eurois occulta"        
+ [6] "Falco columbarius"     
+ [7] "Juncus triglumis"      
+ [8] "Ligyrocoris sylvestris"
+ [9] "Malaxis paludosa"      
+[10] "Parornix obliterella"  
+[11] "Phylloneta impressa"   
+[12] "Sphagnum contortum"    
+[13] "Viola epipsila"        
+[14] "Xysticus britcheri"   
+## Those are wetland things.
+
+## Most positive ca2 species....
+slca2p &lt;- spsc[,2] == max(spsc[,2])
+row.names(spsc[slca2p,])
+ [1] "Calliergon cordifolium"         
+ [2] "Caricea erythrocera"            
+ [3] "Chamaemyia geniculata"          
+ [4] "Chamaemyia paludosa"            
+ [5] "Chironomidae sp. BOLD:ADR7982"  
+ [6] "Clubiona riparia"               
+ [7] "Delia echinata"                 
+ [8] "Delia tenuiventris"             
+ [9] "Delphacodes serrata"            
+[10] "Galium trifidum"                
+[11] "Hilara argentata"               
+[12] "Hippodamia tredecimpunctata"    
+[13] "Hydrotaea pilitibia"            
+[14] "Hypomma bituberculatum"         
+[15] "Idiocerus elegans"              
+[16] "Idiocerus subnitens"            
+[17] "Lathrapanteles heleios"         
+[18] "Melanostoma mellinum"           
+[19] "Minettia lupulina"              
+[20] "Orthocladiinae sp. BOLD:ACL6277"
+[21] "Pachynematus albipennis"        
+[22] "Platypalpus xanthopodus"        
+[23] "Polemonium acutiflorum"         
+[24] "Rheocricotopus sp. BOLD:ACM7368"
+[25] "Rhizomnium glabrescens"         
+[26] "Rubus arcticus"                 
+[27] "Salix commutata"                
+[28] "Scaptomyza sp. BOLD:ACG6466"    
+[29] "Scaptomyza trochanterata"       
+[30] "Spilogona opaca"                
+[31] "Spilogona sp. BOLD:ACR4125"     
+[32] "Thricops sp. BOLD:ABY7837"      
+[33] "Xenolechia aethiops"            
+[34] "Ypsolopha senex"                
+[35] "Zaphne borealis"  
+## These are all those species unique to site SK24 again.
+
+## I think frequencies of species in the groups would be better.
+## saving here.
+save.image("2019-11-27-0739_workspace.RData") 
+
+## Picking up again later.
+
+library(vegan)
+
+wd &lt;- "D:/projects/Slikok_watershed/data/work_space/2019-11-19_summary_analyses"
+setwd(wd)
+
+load("2019-11-27-0739_workspace.RData")
+
+## Going to join site groups to occurrence data to make frequencies.
+names(grp) &lt;- c("point_id", "com3") ## com3 stands for communities grouped into three clades.
+dcg &lt;- cbind(grp, dc)
+dcf &lt;- aggregate(dcg[,3:ncol(dcg)], by=list(dcg$com3), mean)
+1/25
+
+row.names(dcf) &lt;- dcf$Group.1
+dcf &lt;- dcf[,2:ncol(dcf)]
+dcf &lt;- t(dcf)
+dcf &lt;- as.data.frame(dcf)
+
+## Top forest species.
+dcff &lt;- dcf[order(-dcf$forest, row.names(dcf)),]
+dcff &lt;- dcff[dcff$forest &gt;= 0.5,]
+dcff
+                           forest shrub    wetland
+Betula neoalaskana           0.96     0 0.00000000
+Catharus ustulatus           0.96     1 0.57142857
+Pleurozium schreberi         0.96     0 0.78571429
+Rosa acicularis              0.96     0 0.00000000
+Setophaga coronata           0.96     1 0.35714286
+Calamagrostis canadensis     0.92     1 0.35714286
+Chamerion angustifolium      0.88     0 0.00000000
+Parmelia sulcata             0.88     0 0.50000000
+Hylocomium splendens         0.84     0 0.35714286
+Linnaea borealis             0.84     0 0.00000000
+Lycopodium annotinum         0.84     0 0.00000000
+Picea glauca                 0.84     0 0.00000000
+Trientalis europaea          0.84     0 0.07142857
+Cornus canadensis            0.80     0 0.00000000
+Gymnocarpium dryopteris      0.80     0 0.00000000
+Vaccinium vitis-idaea        0.80     0 0.78571429
+Hypogymnia physodes          0.76     0 0.64285714
+Ochlerotatus communis        0.76     0 0.42857143
+Orthilia secunda             0.76     0 0.00000000
+Geocaulon lividum            0.72     0 0.42857143
+Lobaria pulmonaria           0.72     0 0.00000000
+Sanionia uncinata            0.72     0 0.00000000
+Equisetum pratense           0.68     0 0.00000000
+Hybotidae sp. BOLD:ACX4896   0.68     1 0.00000000
+Junco hyemalis               0.68     1 0.85714286
+Equisetum arvense            0.64     0 0.21428571
+Chrysothrix candelaris       0.56     0 0.21428571
+Regulus calendula            0.56     1 0.78571429
+Viburnum edule               0.56     0 0.00000000
+Cladonia coniocraea          0.52     0 0.07142857
+Loxia leucoptera             0.52     1 0.28571429
+Lygocoris pabulinus          0.52     0 0.14285714
+Ptilidium pulcherrimum       0.52     0 0.07142857
+Ptilium crista-castrensis    0.52     0 0.07142857
+Pyrola asarifolia            0.52     0 0.00000000
+
+
+## Shrub species.
+dcfs &lt;- dcf[order(-dcf$shrub, row.names(dcf)),]
+dcfs &lt;- dcfs[dcfs$shrub &gt;= 0.5,]
+dcfs
+                                forest shrub    wetland
+Anacharis eucharoides             0.00     1 0.00000000
+Aphidius ervi                     0.08     1 0.00000000
+Balclutha rhenana                 0.00     1 0.07142857
+Bradysia hilaris                  0.24     1 0.00000000
+Calamagrostis canadensis          0.92     1 0.35714286
+Calliergon cordifolium            0.00     1 0.00000000
+Carex aquatilis                   0.00     1 0.07142857
+Caricea erythrocera               0.00     1 0.00000000
+Catharus ustulatus                0.96     1 0.57142857
+Chamaemyia geniculata             0.00     1 0.00000000
+Chamaemyia paludosa               0.00     1 0.00000000
+Chironomidae sp. BOLD:ADR7982     0.00     1 0.00000000
+Clubiona riparia                  0.00     1 0.00000000
+Coenosia conforma                 0.16     1 0.00000000
+Comarum palustre                  0.00     1 0.21428571
+Constempellina brevicosta         0.04     1 0.00000000
+Corynoptera subtrivialis          0.04     1 0.00000000
+Delia echinata                    0.00     1 0.00000000
+Delia lineariventris              0.04     1 0.00000000
+Delia tenuiventris                0.00     1 0.00000000
+Delphacodes serrata               0.00     1 0.00000000
+Equisetum fluviatile              0.00     1 0.28571429
+Fannia brooksi                    0.24     1 0.14285714
+Fannia postica                    0.08     1 0.00000000
+Fannia spathiophora               0.08     1 0.14285714
+Galium trifidum                   0.00     1 0.00000000
+Hilara argentata                  0.00     1 0.00000000
+Hippodamia tredecimpunctata       0.00     1 0.00000000
+Hybotidae sp. BOLD:ACX4896        0.68     1 0.00000000
+Hydrotaea pilitibia               0.00     1 0.00000000
+Hydrotaea spinifemorata           0.16     1 0.00000000
+Hypomma bituberculatum            0.00     1 0.00000000
+Idiocerus elegans                 0.00     1 0.00000000
+Idiocerus subnitens               0.00     1 0.00000000
+Idiocerus xanthiops               0.00     1 0.07142857
+Ixoreus naevius                   0.16     1 0.00000000
+Junco hyemalis                    0.68     1 0.85714286
+Lathrapanteles heleios            0.00     1 0.00000000
+Lauxania shewelli                 0.08     1 0.00000000
+Loxia leucoptera                  0.52     1 0.28571429
+Macrosiphum euphorbiae            0.20     1 0.14285714
+Melanostoma mellinum              0.00     1 0.00000000
+Melospiza lincolnii               0.12     1 0.28571429
+Mesembrina latreillii             0.16     1 0.07142857
+Minettia lupulina                 0.00     1 0.00000000
+Myrica gale                       0.00     1 0.28571429
+Orthocladiinae sp. BOLD:ACL6277   0.00     1 0.00000000
+Pachynematus albipennis           0.00     1 0.00000000
+Pinicola enucleator               0.08     1 0.00000000
+Platypalpus xanthopodus           0.00     1 0.00000000
+Poecile hudsonicus                0.32     1 0.21428571
+Polemonium acutiflorum            0.00     1 0.00000000
+Regulus calendula                 0.56     1 0.78571429
+Rheocricotopus sp. BOLD:ACM7368   0.00     1 0.00000000
+Rhizomnium glabrescens            0.00     1 0.00000000
+Rhopalopterum soror               0.00     1 0.07142857
+Rubus arcticus                    0.00     1 0.00000000
+Salix commutata                   0.00     1 0.00000000
+Salix pulchra                     0.00     1 0.21428571
+Scaptomyza sp. BOLD:ACG6466       0.00     1 0.00000000
+Scaptomyza trochanterata          0.00     1 0.00000000
+Setophaga coronata                0.96     1 0.35714286
+Spilogona opaca                   0.00     1 0.00000000
+Spilogona sp. BOLD:ACR4125        0.00     1 0.00000000
+Stellaria calycantha              0.04     1 0.00000000
+Theridion pictum                  0.00     1 0.50000000
+Thricops sp. BOLD:ABY7837         0.00     1 0.00000000
+Turdus migratorius                0.24     1 0.35714286
+Xenolechia aethiops               0.00     1 0.00000000
+Ypsolopha senex                   0.00     1 0.00000000
+Zaphne borealis                   0.00     1 0.00000000
+
+dcfw &lt;- dcf[order(-dcf$wetland, row.names(dcf)),]
+dcfw &lt;- dcfw[dcfw$wetland &gt;= 0.5,]
+dcfw
+                             forest shrub   wetland
+Ledum palustre                 0.08     0 1.0000000
+Vaccinium oxycoccos            0.00     0 1.0000000
+Betula glandulosa              0.04     0 0.9285714
+Picea mariana                  0.20     0 0.9285714
+Empetrum nigrum                0.24     0 0.8571429
+Junco hyemalis                 0.68     1 0.8571429
+Rubus chamaemorus              0.00     0 0.8571429
+Pleurozium schreberi           0.96     0 0.7857143
+Regulus calendula              0.56     1 0.7857143
+Sphagnum fuscum                0.00     0 0.7857143
+Vaccinium uliginosum           0.12     0 0.7857143
+Vaccinium vitis-idaea          0.80     0 0.7857143
+Andromeda polifolia            0.00     0 0.7142857
+Hypogymnia occidentalis        0.16     0 0.7142857
+Hypogymnia physodes            0.76     0 0.6428571
+Sphagnum angustifolium         0.00     0 0.6428571
+Bryoria fuscescens             0.40     0 0.5714286
+Catharus ustulatus             0.96     1 0.5714286
+Drosera rotundifolia           0.00     0 0.5714286
+Philodromus sp. BOLD:AAA9991   0.04     0 0.5714286
+Zonotrichia leucophrys         0.00     0 0.5714286
+Aulacomnium palustre           0.00     0 0.5000000
+Chamaedaphne calyculata        0.00     0 0.5000000
+Parmelia sulcata               0.88     0 0.5000000
+Passerculus sandwichensis      0.04     0 0.5000000
+Ptilidium ciliare              0.12     0 0.5000000
+Theridion pictum               0.00     1 0.5000000
+
+## So these are what are common/dominant.
+
+plot( 
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ col="black"
+ )
+od &lt;- ordihull(
+ dc.ca,
+ choices = c(1, 2),
+ groups=grp$com3,
+ col=c(forcol, shrcol, wetcol),
+ lwd=6
+ )
+
+library(sp)
+slf &lt;- point.in.polygon(
+ point.x = spsc[,1], 
+ point.y = spsc[,2], 
+ pol.x = od$forest[,1], 
+ pol.y = od$forest[,2]
+ )
+slf &lt;- as.logical(slf)
+comf &lt;- row.names(spsc)[slf]
+
+sls &lt;- point.in.polygon(
+ point.x = spsc[,1], 
+ point.y = spsc[,2], 
+ pol.x = od$shrub[,1], 
+ pol.y = od$shrub[,2]
+ )
+sls &lt;- as.logical(sls)
+coms &lt;- row.names(spsc)[as.logical(sls)]
+## That did not work.
+sls &lt;- (round(spsc[,1],2) == round(od$shrub[1,1],2)) &amp; (round(spsc[,2],2) == round(od$shrub[1,2],2))
+coms &lt;- row.names(spsc)[as.logical(sls)]
+
+slw &lt;- point.in.polygon(
+ point.x = spsc[,1], 
+ point.y = spsc[,2], 
+ pol.x = od$wetland[,1], 
+ pol.y = od$wetland[,2]
+ )
+slw &lt;- as.logical(slw)
+comw &lt;- row.names(spsc)[slw]
+
+comf &lt;- comf[order(comf)]
+length(comf)
+[1] 403
+
+coms &lt;- coms[order(coms)]
+length(coms)
+[1] 36
+
+comw &lt;- comw[order(comw)]
+length(comw)
+[1] 197
+
+## Now what about species that did not end up in any of these categories?
+sln &lt;- !slf &amp; !sls &amp; !slw
+comn &lt;- row.names(spsc)[sln]
+comn &lt;- comn[order(comn)]
+length(comn)
+[1] 213
+comn
+
+spcom &lt;- as.data.frame(row.names(spsc))
+names(spcom) &lt;- "species"
+spcom$com3 &lt;- NA
+spcom$com3[slf] &lt;- "forest"
+spcom$com3[sls] &lt;- "shrub"
+spcom$com3[slw] &lt;- "wetland"
+
+pdf(file="2019-11-27-1509_species_grouped.pdf",
+ width=6,
+ height=6
+ )
+par(mar=c(4,4,1,1))
+plot( 
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ col="black"
+ )
+points(
+ spsc[slf,1],
+ spsc[slf,2],
+ pch=16,
+ col=forcol
+ ) 
+points(
+ spsc[sls,1],
+ spsc[sls,2],
+ pch=16,
+ col=shrcol
+ ) 
+points(
+ spsc[slw,1],
+ spsc[slw,2],
+ pch=16,
+ col=wetcol
+ ) 
+points(
+ spsc[sln,1],
+ spsc[sln,2],
+ pch=16,
+ col="gray"
+ ) 
+dev.off()
+## That is not good.  There are clearly some species in the NA category here that should be included in one of the community types, for example the species on the extreme lower left of the plot that fell outside of the wetland polygon.
+
+## Trying a union of requent and in polygon species.
+
+comf2 &lt;- union(comf, row.names(dcff))
+coms2 &lt;- union(coms, row.names(dcfs))
+comw2 &lt;- union(comw, row.names(dcfw))
+ 
+## Now plotting those.
+pdf(file="2019-11-27-1527_species_grouped.pdf",
+ width=6,
+ height=6
+ )
+par(mar=c(4,4,1,1))
+plot( 
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ col="black"
+ )
+tmp &lt;- spsc[rownames(spsc) %in% comf2,] 
+points(
+ tmp[,1],
+ tmp[,2],
+ pch=16,
+ col=paste0(forcol, 80)
+ ) 
+tmp &lt;- spsc[rownames(spsc) %in% coms2,] 
+points(
+ tmp[,1],
+ tmp[,2],
+ pch=16,
+ col=paste0(shrcol, 80)
+ ) 
+tmp &lt;- spsc[rownames(spsc) %in% comw2,] 
+points(
+ tmp[,1],
+ tmp[,2],
+ pch=16,
+ col=paste0(wetcol, 80)
+ ) 
+dev.off()
+
+
+## Trying ellipses.
+pdf(file="2019-11-27-0647_ca_1-2.pdf",
+ width=6,
+ height=6
+ )
+par(mar=c(4,4,1,1))
+plot( 
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ col="black"
+ )
+ordiellipse(
+ dc.ca,
+ groups=grp$com3,
+ col=c(forcol, shrcol, wetcol),
+ lwd=6,
+ conf=1.95
+ )
+points(
+ dc.ca, 
+ pch=21,
+ bg=c4$clr[order(c4$label)],
+ cex=2
+ )
+dev.off()
+## That does not work NaNs produced, 
+
+## Maybe I should re-run the cca, this time dropping the one strange shrub point.
+## Not right now.
+
+names(dcf) &lt;- c("forest_f", "shrub_f", "wetland_f") ## Frequencies.
+dcf$forest_m &lt;- row.names(dcf) %in% comf2
+dcf$shrub_m &lt;- row.names(dcf) %in% coms2
+dcf$wetland_m &lt;- row.names(dcf) %in% comw2
+dcf &lt;- dcf[order(row.names(dcf)),]
+
+write.csv(dcf, "2019-11-27-1625_community_assignments.csv")
+save.image("2019-11-27-1626_workspace.RData")</pre>
+
+<h2 id="toc_19">2019-11-29-0926_fungal_summaries.R</h2>
+
+<pre>wd &lt;- "D:/projects/2019_black_spruce_inventory/work_space/2019-11-29_fungi_summaries_for_John"
+dd &lt;- "I:/BIOLOGY/Data/ProjectData/Melvin_thesis_project/NGS_samples_2019/data/arthropod_data/Bowser_6202Analysis11042019/AnalysisF"
+setwd(wd)
+
+d1 &lt;- read.delim(paste0(dd, "/FullTaxa.otu_table.txt"), skip=1)
+
+## selecting black spruce project sites.
+bs &lt;- which(grepl("ITS3mix.ITS4ngs", names(d1)))
+d2 &lt;- d1[,c(bs, ncol(d1))]
+
+## shortening the names a little.
+names(d2) &lt;- gsub(".ITS3mix.ITS4ngs", "", names(d2))
+names(d2) &lt;- gsub("soifun", "f", names(d2))
+
+## Filtering out possible demultiplexing errors.
+d3 &lt;- d2
+d3$total_reads &lt;- apply(d3[,1:(ncol(d2)-1)], 1, sum)
+sl &lt;- d3[,1:26] &gt; 5e-04*d3$total_reads
+d3[,1:26] &lt;- d3[,1:26] * sl
+
+## Removing remaining singletons and doubletons.
+d3[,1:26][d3[,1:26] &lt; 3] &lt;- 0
+d3 &lt;- d3[,1:27]
+
+## melting
+library(reshape2)
+d4 &lt;- melt(d3, id.vars="taxonomy")
+
+names(d4)[2] &lt;- "site"
+d4$variable &lt;- "read_count"
+
+## Removing 0's.
+d4 &lt;- d4[d4$value &gt; 0,]
+dim(d4)
+[1] 3443    4
+
+## Trying a different way to split taxonomy.
+t1 &lt;- gsub(" ; ", ",", d4$taxonomy)
+write.table(
+ t1, 
+ "2019-11-29-1013_tax.csv", 
+ row.names=FALSE, 
+ col.names=FALSE,
+ quote=FALSE
+ )
+t2 &lt;- read.csv(
+"2019-11-29-1013_tax.csv", 
+ header=FALSE
+ )
+ 
+names(t2) &lt;- c(
+  "kingdom",
+  "phylum",
+  "class",
+  "order",
+  "family",
+  "genus",
+  "species"
+  )
+
+d5 &lt;- cbind(d4, t2)
+
+## Selecting only fungi.
+levels(as.factor(d5$kingdom))
+[1] "Eukaryota" "Fungi"     "No Hit"    "Plantae" 
+d6 &lt;- d5[d5$kingdom == "Fungi",]
+dim(d6)
+[1] 2643   11
+
+## Saving this here.
+write.csv(d6, "2019-11-29-1044_black_spruce_fungal_occurrences.csv", row.names=FALSE)
+
+## List of black spruce sites from Slikok grid.
+samples &lt;- names(d2)[1:26]
+sites &lt;- unique(substr(samples,2,5))
+sites &lt;- sites[grepl("MG", sites) | grepl("SK", sites)]
+
+sites
+[1] "MG07" "MG19" "MG24" "MG39" "SK22"
+
+## John wanted an upland black spruce site from the Slikok grid. Looking at photos.
+## MG07 is wetland.
+## MG19 is wetland.
+## MG24 is upland.
+## MG39 is wetland.
+## SK22 is wetland.
+
+dMG24 &lt;- d6[grepl("MG24", d6$site),]
+MG24l &lt;- unique(dMG24[,5:11])
+## Saving this.
+write.csv(MG24l, "2019-11-29-1104_MG24_fungi.csv", row.names=FALSE)
+
+## Now for the other parts of the dataset from this site, downloaded from Arctos.
+m1 &lt;- read.csv("ArctosData_E5B7FF9889.csv", colClasses="character")
+sl &lt;- grepl("BOLD:", m1$SCIENTIFIC_NAME)
+m1$SPECIES[sl] &lt;- m1$SCIENTIFIC_NAME[sl]
+
+m2 &lt;- unique(m1[,c("KINGDOM", "PHYLUM", "PHYLCLASS", "PHYLORDER", "FAMILY", "GENUS", "SPECIES")])
+m2 &lt;- m2[!m2$SPECIES == "",]
+
+## Saving here.
+write.csv(m2, "2019-11-29-1128_MG24_species_2016.csv", row.names=FALSE)
+
+## Where did MG24 fall on the CCA plot?
+library(vegan)
+
+wd &lt;- "D:/projects/Slikok_watershed/data/work_space/2019-11-19_summary_analyses"
+setwd(wd)
+
+## Ok, now I should be able to group cca results.
+## Saving here.
+load("2019-11-26-1520_workspace.RData")
+
+plot(dc.ca, display="sites")
+
+forcol &lt;- "#C0D39B"
+wetcol &lt;- "#C2E0F2"
+shrcol &lt;- "#D5C388"
+
+pdf(file="2019-11-29-1155_ca_1-2.pdf",
+ width=12,
+ height=12
+ )
+par(mar=c(4,4,1,1))
+plot( 
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ col="black"
+ )
+ordihull(
+ dc.ca,
+ groups=grp$grp,
+ col=c(forcol, shrcol, wetcol),
+ lwd=6
+ )
+points(
+ dc.ca, 
+ pch=21,
+ bg=c4$clr[order(c4$label)],
+ cex=2
+ )
+text(dc.ca, display="sites")
+dev.off()
+
+## MG24 is the outlying forest site closest to the wetland sites.</pre>
+
+</body></html>

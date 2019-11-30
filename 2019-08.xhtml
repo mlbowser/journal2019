@@ -1,0 +1,519 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+    <title>August</title>
+</head>
+
+<body>
+<h1>August</h1>
+
+<h2 id="toc_1">Thursday, August 1</h2>
+
+<p>I examined pollen grains of birch specimens <a href="http://arctos.database.museum/guid/KNWR:Herb:11556">KNWR:Herb:11556</a> and <a href="http://arctos.database.museum/guid/KNWR:Herb:11553">KNWR:Herb:11553</a> collected this spring, looking for obvious differences in the pollen grains.  I simply mounted the pollen grains in glycerin. <a href="http://arctos.database.museum/guid/KNWR:Herb:11553">KNWR:Herb:11553</a> had pollen with a lightly larger overally diameter.</p>
+
+<pre>bk &lt;- c(
+rep(9, 1),
+rep(10, 10),
+rep(11, 10),
+rep(12, 8),
+rep(14, 1))  ## Betula kenaica, specimen KNWR:Herb:11553.
+
+summary(bk) 
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   9.00   10.00   11.00   10.97   12.00   14.00 
+
+bp &lt;- c(
+rep(9, 3),
+rep(10, 8),
+rep(11, 18),
+rep(12, 1)) ## Betula neoalaskana, specimen KNWR:Herb:11556.
+
+summary(bp)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   9.00   10.00   11.00   10.57   11.00   12.00 
+   
+t.test(bk, bp)
+
+        Welch Two Sample t-test
+
+data:  bk and bp
+t = 1.7333, df = 52.095, p-value = 0.08896
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.0630622  0.8630622
+sample estimates:
+mean of x mean of y 
+ 10.96667  10.56667 
+
+## converting to micrometers.
+cf &lt;- 0.25/100 ## mm/ticks
+ / 100 ## ticks
+
+cf &lt;- cf*1000 ## mm to micrometers.
+
+summary(bk)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  22.50   25.00   27.50   27.42   30.00   35.00 
+summary(bp)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  22.50   25.00   27.50   26.42   27.50   30.00</pre> 
+  
+<div class="nb"><img alt="Image" src="img/2019-08-01_nb01.jpg"/></div>
+
+<h2 id="toc_2">Friday, August 2</h2> 
+ 
+<p>I prepared a shipment of 17 LifeScanner specimens to go out this morning.</p>
+              
+<p>I started trying to catch up on formatting <i>Refuge Notebook</i> articles.</p>
+
+<p>I participated in the Swan Lake Fire BAER meeting.</p>
+
+<div class="nb"><img alt="Image" src="img/2019-08-02_nb01.jpg"/></div>
+
+<div class="nb"><img alt="Image" src="img/2019-08-02_nb02.jpg"/></div>
+
+<div class="nb"><img alt="Image" src="img/2019-08-02_nb03.jpg"/></div>
+
+<p>I plotted Tracy's birch stand data (see <a href="appendices_July-September.xhtml#toc_9">R script</a>).  The spatial distribution of these 201 birches looked good for looking at Kenai Peninsula birch genetics.  It would be good to get specimens from Hope and Seward.</p>
+
+<div class="figure"><img alt="Image" src="img/2019-08-02-1345_birch_stand_map.jpg"/><p>Map of Tracy Melvin's birch stand data.</p></div>
+
+<p>I ran a yellow pan trap from 08:00 to 14:15 today.  Out of the trap catch I pinned a eumenine wasp and I put a cecidomyiid in a LifeScanner vial (BOLD-Z98).</p>
+
+<div class="figure"><img alt="Image" src="img/2019-08-02_pan_trap.jpg"/><p>Yellow pan trap run in the back yard.</p></div>
+
+<h2 id="toc_3">Monday, August 5</h2>
+
+<p>I formatted and posted a <i>Refuge Notebook</i> article.  John asked me to write an article for next week on ticks.</p>
+
+<div class="nb"><img alt="Image" src="img/2019-08-05_nb01.jpg"/></div>
+
+<p>A eumenine wasp (<a href="http://arctos.database.museum/guid/KNWR:Ento:11330">KNWR:Ento:11330</a>) collected a yellow pan trap on Friday I identified as <i>Symmorphus cristatus</i>.  I added this to the FWSpecies checkist for Kenai National Wildlife Refuge.</p>
+
+<div class="nb"><img alt="Image" src="img/2019-08-05_nb02.jpg"/></div>
+
+<div class="nb"><img alt="Image" src="img/2019-08-05_nb03.jpg"/></div>
+
+<p>I set out the yellow pan trap again today.  It collected mostly aphids.  I retained only a single yellow and black tachinid.</p>
+
+<h2 id="toc_4">Tuesday, August 6</h2>
+<div class="todo">
+<ul>
+ <li class="done">Call Tony regarding metabarcoding contract.</li>
+ <li>Housing for worm folks.</li>
+ <li>Review De Jong manuscript.</li>
+ <li>Review <i>Rabdophaga</i> manuscript.</li>
+ <li class="done">Get info for ordering temperature and humidity data loggers.</li>
+</ul>
+</div>
+
+<p>I spent the morning trying to get contracts through for metabarcoding and for RADSeq of birches.</p>
+
+<p>I worked a little on the Slikok manuscript.</p>
+
+<h2 id="toc_5">Wednesday, August 7</h2>
+
+<p>I collected birch tissue samples at my house and on Kasilof Beach Road on the way to work this morning.</p>
+
+<div class="todo">
+<ul>
+ <li>Check up on metabarcoding contract.</li>
+ <li>Housing for worm folks.</li>
+ <li>Review De Jong manuscript.</li>
+ <li>Review <i>Rabdophaga</i> manuscript.</li>
+ <li class="done">Swan Lake Fire LTEMP map/data for Lisa Saperstein.</li>
+</ul>
+</div>
+
+<p>I produced a map of FIA points falling within the Swan Lake Fire as requested by Lisa Saperstein (<a href="appendices_July-September.xhtml#toc_10">R script</a>).</p>
+
+<div class="figure"><img alt="Image" src="img/2019-08-07-1016_Swan_Lake_Fire_LTEMP.jpg"/><p>Map of FIA plots within the Swan Lake Fire.</p></div>
+
+<p>I was also asked for a map/metadata for FMH plots within the fire, which I produced (<a href="appendices_July-September.xhtml#toc_11">R script</a>).</p>
+
+<div class="figure"><img alt="Image" src="img/2019-08-07-1142_Swan_Lake_Fire_FMH.jpg"/><p>Map of FMH plots within the Swan Lake Fire.</p></div>
+
+<p>I started work toward uploading bryophyte and lichen records from the Slikok project onto Arctos (<a href="appendices_July-September.xhtml#toc_11">R script</a>).</p>
+
+<h2 id="toc_6">Thursday, August 8</h2>
+
+<p>I worked on shepherding the metabarcoding contract.</p>
+
+<p>I also started uploading cryptogam records from the Slikok project onto Arctos.</p>
+
+<h2 id="toc_7">Monday, August 12</h2>
+
+<p>I stopped to collect a Kenai birch specimen off of Freeway Lane in Kasilof (birch <a href="http://arctos.database.museum/guid/KNWR:Herb:11553">KNWR:Herb:11553</a>), then collected a birch specimen at headquarters (<a href="http://arctos.database.museum/guid/KNWR:Herb:11556">KNWR:Herb:11556</a>).  I packaged these cuttings on ice, drove them to Kenai, and shipped them out overnight to SNPsaurus for whole-genome sequencing (FedEx tracking #: 813677694477).</p>
+
+<div class="todo">
+<p>To do:</p>
+ <ul>
+  <li><i>Refuge Notebook</i> article on ticks.</li>
+  <li>Finish reviewing manuscript for De Jong.</li>
+  <li>Review AK exotic species dataset.</li>
+  <li>Update/link newly available LifeScanner records.</li>
+  <li><a href="http://mycoflora.org/index.php/participate/continental-mycoblitz-2019">Continental MycoBlitz 2019</a> this week.</li>
+ </ul>
+</div>
+
+<p>I added data and photos to birch records on Arctos, then I got started researching for my <i>Refuge Notebook</i> article. Notes:</p>
+
+<pre>From 
+https://en.wikipedia.org/wiki/Borrelia
+
+Global hard tick species that cause Lyme disease[5]
+Region	Tick species	Common name
+East and Midwest (US)	Ixodes scapularis	Black-legged tick, deer tick
+Pacific Coast (US)	Ixodes pacificus	Western black-legged tick
+Europe	Ixodes ricinus	Sheep tick
+Asia	Ixodes persulcatus	Taiga tick
+
+Ixodes scapularis
+One example:
+http://bins.boldsystems.org/index.php/Public_RecordView?processid=MOBIL2475-17
+
+
+http://arctos.database.museum/guid/UAM:Ento:378783
+Ixodes ricinus
+That is a scary one.  This species is known from high latitudes and transmits Borrelia.
+
+Up to 69.2N in Norway
+
+Ixodes persulcatus
+No Nearctic records on GBIF.
+
+
+Relation of Ixodes ricinus distribution to climate:
+https://doi.org/10.1289/ehp.00108119
+
+Number of winter days with winter temp below -12 C was important for limiting distribution.  Where does Kenai sit?
+
+Downloaded Kenai Airport data from 
+http://climate.gi.alaska.edu/acis_data
+KENAI AP station
+
+wd &lt;- "C:/Users/mattbowser/Documents/Refuge_Notebook/2019/submissions/ticks"
+setwd(wd)
+d1 &lt;- read.delim("Kenai_Airport_min_temp_1950-2018.txt", stringsAsFactors=FALSE)
+d1$date &lt;- as.Date(d1$date)
+
+d1$year &lt;- format(d1$date, format="%Y")
+
+d1$min_temp_F &lt;- as.numeric(d1$min_temp_F)
+Warning message:
+NAs introduced by coercion 
+
+d1$min_temp_C &lt;- (d1$min_temp_F - 32) * 5/9
+
+d1$year &lt;- as.numeric(d1$year)
+
+## days less than negative 12
+d1$lt_n12 &lt;- NA
+d1$lt_n12[d1$min_temp_C &lt; -12] &lt;- TRUE
+d1$lt_n12[!(d1$min_temp_C &lt; -12)] &lt;- FALSE
+
+ag1 &lt;- aggregate(d1$lt_n12, by=list(d1$year), sum, na.rm=TRUE)
+ag1
+ag1
+   Group.1   x
+1     1950 104
+2     1951  96
+3     1952  73
+4     1953  74
+5     1954 103
+6     1955  93
+7     1956 116
+8     1957  69
+9     1958  62
+10    1959  73
+11    1960  55
+12    1961  97
+13    1962  84
+14    1963  64
+15    1964  89
+16    1965  90
+17    1966 100
+18    1967  92
+19    1968  78
+20    1969  79
+21    1970  70
+22    1971 110
+23    1972 113
+24    1973 100
+25    1974  91
+26    1975 111
+27    1976  69
+28    1977  71
+29    1978  53
+30    1979  65
+31    1980  70
+32    1981  34
+33    1982  65
+34    1983  48
+35    1984  62
+36    1985  77
+37    1986  47
+38    1987  46
+39    1988  49
+40    1989  81
+41    1990 102
+42    1991  60
+43    1992  66
+44    1993  44
+45    1994  74
+46    1995  80
+47    1996 105
+48    1997  58
+49    1998  63
+50    1999  86
+51    2000  40
+52    2001  66
+53    2002  51
+54    2003  51
+55    2004  63
+56    2005  51
+57    2006  84
+58    2007  78
+59    2008  78
+60    2009  75
+61    2010  56
+62    2011  81
+63    2012  97
+64    2013  63
+65    2014  26
+66    2015  47
+67    2016  31
+68    2017  92
+69    2018  50
+70    2019  35
+
+jpeg(file="2019-08-12-1424_Kenai_min_temps.jpg",
+ width=1000,
+ height=round(1000/1.618)
+ )
+plot(1950:2018, ag1$x[1:69],
+ type="l",
+ xlab="year",
+ ylab="Number of days with min. temp below -12 C",
+ main="Kenai Airport"
+ )
+points(1950:2018, ag1$x[1:69])
+dev.off()
+
+Ixodes angustus is capable of vectoring Lyme Disease:
+Vector competence of Ixodes angustus (Acari: Ixodidae) for Borrelia burgdorferi sensu stricto.
+
+Northward range expansion of Ixodes scapularis evident over a short timescale in Ontario, Canada
+https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0189393
+
+Prevalence of Borrelia burgdorferi in Ixodes ricinus ticks collected from moose (Alces alces) and roe deer (Capreolus capreolus) in southern Norway.
+
+Transmission of Borrelia burgdorferi s.l. from mammal reservoirs to the primary vector of Lyme borreliosis, Ixodes ricinus (Acari: Ixodidae), in Sweden. - control of Borrelia would require massive reductions of voles and hares.
+
+https://www.nature.com/articles/s41598-019-41686-0
+Genospecies of Borrelia burgdorferi sensu lato detected in 16 mammal species and questing ticks from northern Europe
+-moose not a competent vector of Borrelia.
+
+From
+http://www.adfg.alaska.gov/index.cfm?adfg=wildlifenews.view_article&amp;articles_id=874
+-"A case of Lyme disease in a dog, acquired from a tick bite on the Kenai, has also been diagnosed in Alaska."
+
+-"Two non-native ticks have become established in Alaska in the past decade, the brown dog tick and the American dog tick. The brown dog tick prefers indoor environments, especially kennels and homes."
+</pre>
+
+<div class="figure"><img alt="Image" src="img/2019-08-12-1424_Kenai_min_temps.jpg"/><p>Number of days with minimum temperatures below -12 C at Kenai Airport for the years 1950-2018.</p></div>
+
+<h2 id="toc_8">Tuesday, August 13</h2>
+
+<p>I mostly worked on researching for the <i>Refuge Notebook</i> article on ticks that I was asked to write.  I did speak with Micah Hahn, who explained some more about the criteria used to consider whether or not a tick species is established in an area.  These can just be numbers observations per year or finding of multiple life stages in a single year.  This does not necessarily mean that a species is breeding in the wild.</p>
+
+<p>I also dealt some with the birch population genetics contract.</p>
+
+<h2 id="toc_9">Wednesday, August 14</h2>
+
+<p>I finished my <i>Refuge Notebook</i> article on ticks.</p>
+
+<p>I loaded some Slikok cryptogram records into Arctos (<a href="appendices_July-September.xhtml#toc_13">R script</a>).</p>
+
+<h2 id="toc_10">Monday, August 19</h2>
+
+<p>John had left a bag of <i>Myriophyllum</i> specimens from one of the Tote Road lakes for me to examine.</p>
+
+<div class="nb"><img alt="Image" src="img/2019-08-19_nb01.jpg"/></div>
+
+<p>I wrote John:</p>
+
+<blockquote>I cannot distinguish whether the <i>Myriophyllum</i> specimens you gave me are <i>Myriophyllum verticillatum</i> or <i>Myriophyllum sibiricum</i>.  I checked the most complete and up-to-date treatment (URI below).  The number of leaflets is not a reliable character and overlaps greatly between these two species. 
+
+<a href="http://floranorthamerica.org/files/Haloragaceae.provisional.Gal_.pdf">http://floranorthamerica.org/files/Haloragaceae.provisional.Gal_.pdf</a>
+
+The best characters for separating these two species are the bracts on the inflorescences and the winter turions.  The turions on these specimens are only just starting to form.  As the water temperature cools this fall the turions should form and we could collect these.  The turions of <i>M. verticillatum</i> are club-shaped; the turions of <i>M. sibiricum</i> are cylindrical.  See the image at the URI below.  Right now there may still be some flowering stems to be found emerging from the water, especially in shallower water.
+
+<a href="http://floranordica.org/Review/-ill-html-filer/ill_Myriophyllum-tur.html">http://floranordica.org/Review/-ill-html-filer/ill_Myriophyllum-tur.html</a></blockquote>
+
+<p>I loaded the rest of the Slikok project cryptogam records (<a href="appendices_July-September.xhtml#toc_14">R script</a>).  I also associated plot photos with all of these collection events on Arctos.</p>
+
+<p>I collected a few mushrooms at the end of the day for the <a href="http://mycoflora.org/index.php/participate/continental-mycoblitz-2019">Continental MycoBlitz 2019</a>, but there were few mushrooms to be found.</p>
+
+<h2 id="toc_11">Tuesday, August 20</h2>
+<p>I processed and entered data for mushroom specimens collected yesterday.</p>
+<p>I tallied our birch tissue samples (<i>n = 99</i>) and made inquiries about sending these samples to Eurofins USA for extraction.</p>
+
+<p>I reviewed a manuscript on bristletails of the southeast U.S. and a manuscript on genetic variation in <i>Rabdophaga</i>.</p>
+
+<p>I started entering data into Arctos for birch tissue specimens to be submitted for RADseq.</p>
+
+<h2 id="toc_12">Wednesday, August 21</h2>
+
+<p>I spent the day on data entry of birch leaf tissue samples for RADseq, getting all of Tracy's birch tissue samples bulkloaded into Arctos (<a href="appendices_July-September.xhtml#toc_15">R script</a>).</p>
+
+<div class="figure"><img alt="Image" src="img/2019-08-21-1120_Melvin_birch_sample_map.jpg"/><p>Map of collection sites of Tracy's birch specimens.</p></div>
+
+<div class="figure"><img alt="Image" src="img/2019-08-21_birch_samples.jpg"/><p>Birch leaf tissue samples being prepared for shipping out.</p></div>
+
+<p>I did take a walk and collected one additional hybrid birch specimen (<a href="http://arctos.database.museum/guid/KNWR:Herb:12440">KNWR:Herb:12440</a>)</p>
+
+<h2 id="toc_13">Thursday, August 22</h2>
+
+<p>I packaged birch specimens to be shipped to eurofins BioDiagnostics (FedEx tracking #: 813677694466).</p>
+
+<p>I also shipped out four fungi specimens for the Continental Mycoblitz (FedEx tracking #: 813677694455).</p>
+
+<div class="figure"><img alt="Image" src="img/2019-08-22_fungi.jpg"/><p>Fungi specimens shipped out.</p></div>
+
+<p>I mapped specimen records of birch samples sent out for RADseq (<a href="appendices_July-September.xhtml#toc_17">R script</a>).</p>
+
+
+
+<div class="figure"><img alt="Image" src="img/2019-08-22-1418_birch_specimen_map.png"/><p>Map of birch samples shipped out for RADseq (<a href="https://www.simplemappr.net/map/12360">https://www.simplemappr.net/map/12360</a>).</p></div>
+
+<div class="nb"><img alt="Image" src="img/2019-08-22_nb01.jpg"/></div>
+
+<div class="figure"><img alt="Image" src="img/2019-08-22_blackfish_locality.jpg"/><p>Slow pool in stream on south side of Lawton Drive at Kenai golf course.</p></div>
+
+<div class="figure"><img alt="Image" src="img/2019-08-22_blackfish.jpg"/><p>Tiny blackfish, iNaturalist observation <a href="https://www.inaturalist.org/observations/31357420">31357420</a>.</p></div>
+
+<h2 id="toc_14">Friday, August 23</h2>
+
+<p>At home in the morning I got two <i>Refuge Notebook</i> articles formatted and posted.</p>
+
+<div class="nb"><img alt="Image" src="img/2019-08-23_nb01.jpg"/></div>
+
+<div class="nb"><img alt="Image" src="img/2019-08-23_nb02.jpg"/></div>
+
+<p>The metabarcoding contract was awarded.  I can start sending samples out to RTL Genomics next week.</p>
+
+<h2 id="toc_15">Monday, August 26</h2>
+
+<div class="todo">
+<p>To do:</p>
+ <ul>
+  <li class="done">Submit earthworm proposal agenda change request.</li>
+  <li class="done">Change password.</li>
+  <li>Prepare to ship out Tracy's NGS samples.</li>
+ </ul>
+</div>
+
+<p>I received correspondence regarding an <i>Eisenia</i> specimen from a garden/compost pile in Wrangell, Alaska.  The COI DNA barcode, which was obtained by LifeScanner, I submitted to NCBI blast.  This turned out to be <i>Eisenia fetida</i> 2 <i>sensu</i> Römbke et al. (<a href="references.xhtml#Rombkeetal2016">2016</a>).</p>
+
+<p>I examined sequence obtained from <i>Eisenia</i> specimen <a href="http://arctos.database.museum/guid/UAM:Ento:377284">UAM:Ento:377284</a> from Fairbanks.  This was <i>Eisenia andrei</i>.</p>
+
+<p>I spent most of the day catching up on formatting and posting <i>Refuge Notebook</i> articles from this summer.</p>
+
+<h2 id="toc_16">Tuesday, August 27</h2>
+
+<p>I need to make arrangements for shipping out and processing Tracy's samples.</p>  
+<p>For her fungal analyses from last year MrDNA used <code>GATGAAGAACGYAGYRAA</code> for the forward primer and <code>CTNTTVCCKCTTCACTCG</code> for the reverse primer.  The forward primer is ITS3_KYO2 from Toju et al. (<a href="references.xhtml#Tojuetal2012">2012</a>).</p>
+
+<p>The reverse primer used by MrDNA was <code>CTNTTVCCKCTTCACTCG</code>, which I could not find an exact match for.  It is almost identical to the primer ITS4_KYO3 (<code>CTBTTVCCKCTTCACTCG</code>) from Toju et al. (<a href="references.xhtml#Tojuetal2012">2012</a>).</p>
+
+<p>We had requested ITS3F/ITS4R (ITS3F: <code>GCATCGATGAAGAACGCAGC</code>, 
+ITS4R:	<code>TCCTCCGCTTATTGATATGC</code></p>
+
+<p>The arthropod primers used by Tracy for last year's samples were <code>GGWACWGGWTGAACWGTWTAYCCYCC</code> (forward) and <code>TAIACYTCIGGRTGICCRAARAAYCA</code> (reverse).  I see that the reverse primer is slightly different than what we requested (mlCOI2-jgHCO2198, <code>TANACYTCNGGRTGNCCRAARAAYCA</code>) in that the primer used has an inosine at position three instead of an N (any nucleotide)  mlCOI2-jgHCO2198 was used here: <a href="https://royalsocietypublishing.org/doi/10.1098/rsos.160635">https://royalsocietypublishing.org/doi/10.1098/rsos.160635</a>.</p>
+
+<p>I wrote RTL:</p>
+
+<blockquote><p>I will be preparing to send our first sets of samples of soil fungi and terrestrial arthropods out to RTL next week for metabarcoding.</p>
+
+<p>These particular samples are from the second year of a multi-year project.  Even though the metabarcoding of samples was performed by a different lab last year, I would like to use the same primer sets if possible to maintain some consistency.</p>
+
+<p>For soil fungi the other lab used the primers below.</p>
+
+<p>Forward: GATGAAGAACGYAGYRAA<br/>
+Reverse: CTNTTVCCKCTTCACTCG</p>
+
+<p>The forward primer is ITS3_KYO2 from Toju et al. (2012); the reverse primer is  almost identical to the primer ITS4_KYO3 (CTBTTVCCKCTTCACTCG) from Toju et al. (2012).</p>
+
+<p>I was surprised by this primer selection because we had asked for the standard ITS3F/ITS4R primer pair.</p>
+
+<p>For arthropods the other lab used the primers below.</p>
+
+<p>Forward: GGWACWGGWTGAACWGTWTAYCCYCC<br/>
+Reverse: TAIACYTCIGGRTGICCRAARAAYCA</p>
+
+<p>This is basically the mlCOI2/jgHCO2198 primer pair except that the reverse primer varies by one nucleotide at position 3 (standard jgHCO2198: TANACYTCNGGRTGNCCRAARAAYCA).  I think it would be fine to use either of these reverse primers.</p>
+
+<p>Please let me know if these primers are available.  I also welcome your input on primer selection.</p>
+
+<p>Sincerely,</p>
+
+<p>Matt</p>
+
+<p>Reference:<br/>
+Toju H, Tanabe AS, Yamamoto S, Sato H. 2012. High-Coverage ITS Primers for the DNA-Based Identification of Ascomycetes and Basidiomycetes in Environmental Samples. PLOS ONE 7:1–11. https://doi.org/10.1371/journal.pone.0040863</p></blockquote>
+
+<p>I took a walk down to Headquarters Lake wetland looking for rosette galls on <i>Salix fuscescens</i>, but I found none.  The wetland is extremely dry.</p>
+
+<div class="nb"><img alt="Image" src="img/2019-08-27_nb01.jpg"/></div>
+
+<p>I examined and dissected the leaf galls from <i>Salix fuscescens</i>.  They look like galls from eriophyid mites, but whatever caused them has already left the leaves.</p>
+
+<p>I dissected stem galls from <i>Salix</i> collected in Kasilof the other day (iNaturalist: <a href="https://www.inaturalist.org/observations/30814406">30814406</a>), collecting out two <i>Rabdophaga</i> larvae for sequencing (→ BOLD-B41 and BOLD-IZ0).</p>
+
+<p>After examining the willow I am unsure what species it is.  It has leaves pale underneath, very hairy stems and bud scales, and hairless ovaries.  I thought at first that it might be <i>Salix commutata</i>, but the leaves are pale underneath.  It would be a very hairy <i>Salix barclayi.</i> I should look at when catkins emerge in the spring.</p>
+
+<h2 id="toc_17">Wednesday, August 28</h2>
+<div class="todo">
+ <ul>
+  <li class="done">Review and submit this week's <i>Refuge Notebook</i> article to the <i>Clarion</i>.</li>
+  <li class="done">Time</li>
+  <li>Prepare Tracy's samples for shipping on Tuesday.</li>
+  <li>Prepare some of my soil samples for shipping on Tuesday.</li>
+</ul>
+</div>
+
+<p>I edited this week's <i>Refuge Notebook</i> article and submitted it to the <i>Clarion</i>.</p>
+
+<p>I started filling out the RTL Genomics sample submission form (<a href="appendices_July-September.xhtml#toc_18">R script</a>). I worked on re-labeling Tracy's NGS samples, a rather labor-intensive process.</p>
+
+<h2 id="toc_18">Thursday, August 29</h2>
+
+<p>I need to decide on the appropriate microbial diversity assay for LTEMP/Slikok soil samples from this year.  I downloaded <a href="https://rtlgenomics.com/s/Amplicon-Diversity-Assay-List-2019.pdf">RTL Genomics' assay list</a>. Their default for ITS is ITS3F <code>GCATCGATGAAGAACGCAGC</code>
+ITS4R <code>TCCTCCGCTTATTGATATGC</code>.  Looking at the Toju et al. (<a href="references.xhtml#Tojuetal2012">2012</a>) article, it does appear that the primers they designed have better coverage.</p>
+
+<p>The ITS86F/ITS4 primer pair from Op De Beeck et al. (<a href="references.xhtml#OpDeBeecketal2014">2014</a>) looks good.  The ITS3mix-ITS4ngs cocktail of Tedersoo et al (<a href="references.xhtml#Tedersooetal2015">2015</a>) looks even better.  These are ITS3mix: <code>CANCGATGAAGAACGYRG</code> and ITS4ngs: <code>TCCTSCGCTTATTGATATGC</code>.</p>
+
+<p>There is a comparison of fungal primers at <a href="https://unite.ut.ee/primers.php">https://unite.ut.ee/primers.php</a>.</p>
+
+<p>I think I will go for ITS3mix/ITS4ngs for the 2019 LTEMP/Slikok samples.</p>
+
+<p>I labeled the rest of Tracy's NGS samples.</p>
+
+<p>I labeled a set of 26 soil samples from the 2019 LTEMP/Slikok project and populated RTL Genomics' sample submission form (<a href="appendices_July-September.xhtml#toc_19">R script</a>).</p>
+
+<p>I started preparing to upload vascular plant records from the Slikok project to Arctos (<a href="appendices_July-September.xhtml#toc_20">R script</a>).</p>
+
+<h2 id="toc_19">Friday, August 30</h2>
+
+<p>I sorted sweep net sample <a href="http://arctos.database.museum/guid/KNWR:Ento:11332">KNWR:Ento:11332</a>.</p>
+
+<div class="nb"><img alt="Image" src="img/2019-08-30_nb01.jpg"/></div>
+
+<p>I wrapped Tracy's sweep net samples and soil arthropod samples in vials in preparation for shipping them out on Tuesday.</p>
+
+<p>Brandon Perkins brought in a mouse he had trapped in the maintenance building office overnight (iNaturalist:<a href="https://www.inaturalist.org/observations/31806419">31806419</a>).  This was our first record of a house mouse from the refuge, although we had suspected that they were present.</p>
+
+<div class="figure"><img alt="Image" src="img/2019-08-30_Mus.jpg"/><p>House mouse trapped in the maintenance building.</p></div>
+
+</body></html>

@@ -4603,4 +4603,550 @@ dev.off()
 
 ## MG24 is the outlying forest site closest to the wetland sites.</pre>
 
+<h2 id="toc_20">2019-12-04-1114_community_data.R</h2>
+
+<pre>## Community analysis.
+library(vegan)
+
+wd &lt;- "D:/projects/Slikok_watershed/data/work_space/2019-11-19_summary_analyses"
+setwd(wd)
+
+## Reconsidering community membership.
+load("2019-11-27-1626_workspace.RData")
+
+## Trying using frequency of 25% as the cutoff for community membership (i.e., if a species was detected at 25% of plots in a community type, it is considered as part of that community.
+
+dcf[,4:6] &lt;- 0
+th &lt;- 0.25 ## 25% threshold for membership.
+dcf$forest_m[dcf$forest_f &gt;= th] &lt;- 1
+dcf$shrub_m[dcf$shrub_f &gt;= th] &lt;- 1
+dcf$wetland_m[dcf$wetland_f &gt;= th] &lt;- 1
+sum(dcf$forest_m)
+[1] 81
+sum(dcf$shrub_m)
+[1] 71
+sum(dcf$wetland_m)
+[1] 73
+## That is pretty good. It delivers a pretty stable number of species over these three classes.
+
+## overall frequency.
+fa &lt;- apply(dcg[,3:ncol(dcg)], 2, mean)
+
+## 
+row.names(dcf)[order(-fa)]
+cbind(row.names(dcf)[order(-fa)], fa[order(-fa)])
+
+dcf$total_f &lt;- apply(dcg[,3:ncol(dcg)], 2, mean)
+
+
+## Trying to plot one community.
+pdf(file="2019-12-04-1155_forest_spp.pdf",
+ width=6,
+ height=6
+ )
+par(mar=c(4,4,1,1))
+plot( 
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ type="none"
+ )
+od &lt;- ordihull(
+ dc.ca,
+ choices = c(1, 2),
+ groups=grp$com3,
+ col=c(forcol, shrcol, wetcol),
+ lwd=6
+ )
+points(
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ cex=2*dcf$forest_f,
+ bg=paste0(forcol, 80),
+ col="#00000080",
+ pch=21
+ )
+dev.off()
+
+pdf(file="2019-12-04-1159_shrub_spp.pdf",
+ width=6,
+ height=6
+ )
+par(mar=c(4,4,1,1))
+plot( 
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ type="none"
+ )
+od &lt;- ordihull(
+ dc.ca,
+ choices = c(1, 2),
+ groups=grp$com3,
+ col=c(forcol, shrcol, wetcol),
+ lwd=6
+ )
+points(
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ cex=2*dcf$shrub_f,
+ bg=paste0(shrcol, 80),
+ col="#00000080",
+ pch=21
+ )
+dev.off()
+
+pdf(file="2019-12-04-1201_wetland_spp.pdf",
+ width=6,
+ height=6
+ )
+par(mar=c(4,4,1,1))
+plot( 
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ type="none"
+ )
+od &lt;- ordihull(
+ dc.ca,
+ choices = c(1, 2),
+ groups=grp$com3,
+ col=c(forcol, shrcol, wetcol),
+ lwd=6
+ )
+points(
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ cex=2*dcf$wetland_f,
+ bg=paste0(wetcol, 80),
+ col="#00000080",
+ pch=21
+ )
+dev.off()
+
+## saving the community matrix.
+write.csv(dcf, "2019-12-04-1204_community_assignments.csv")
+
+## We have already seen the shrub species list.  What does the forest species list look like?
+row.names(dcf)[dcf$forest_m == 1]
+ [1] "Acanthis flammea"                
+ [2] "Balclutha sp. BOLD:AAG8963"      
+ [3] "Betula neoalaskana"              
+ [4] "Biatora efflorescens"            
+ [5] "Bimastos rubidus"                
+ [6] "Bolitophila sp. BOLD:AAV0668"    
+ [7] "Bryoria fuscescens"              
+ [8] "Bryoria inactiva"                
+ [9] "Bryoria pseudofuscescens"        
+[10] "Cacopsylla myrtilli"             
+[11] "Calamagrostis canadensis"        
+[12] "Catharus ustulatus"              
+[13] "Chamerion angustifolium"         
+[14] "Chrysothrix candelaris"          
+[15] "Cladonia coniocraea"             
+[16] "Cornus canadensis"               
+[17] "Cyclosa conica"                  
+[18] "Dendrobaena octaedra"            
+[19] "Dikraneura sp. BOLD:AAV0227"     
+[20] "Dryopteris expansa"              
+[21] "Empidonax alnorum"               
+[22] "Equisetum arvense"               
+[23] "Equisetum pratense"              
+[24] "Equisetum sylvaticum"            
+[25] "Estrandia grandaeva"             
+[26] "Geocaulon lividum"               
+[27] "Goodyera repens"                 
+[28] "Gymnocarpium dryopteris"         
+[29] "Hybotidae sp. BOLD:ACX4896"      
+[30] "Hylocomium splendens"            
+[31] "Hypogymnia physodes"             
+[32] "Junco hyemalis"                  
+[33] "Leiothlypis celata"              
+[34] "Linnaea borealis"                
+[35] "Listera cordata"                 
+[36] "Lobaria pulmonaria"              
+[37] "Lobaria scrobiculata"            
+[38] "Loxia leucoptera"                
+[39] "Lycopodium annotinum"            
+[40] "Lygocoris pabulinus"             
+[41] "Mecomma gilvipes"                
+[42] "Mycoblastus sanguinarius"        
+[43] "Mycomya nitida"                  
+[44] "Mycomya shermani"                
+[45] "Mycomya sp. BOLD:AAG4937"        
+[46] "Ochlerotatus communis"           
+[47] "Oplopanax horridus"              
+[48] "Orthilia secunda"                
+[49] "Parmelia sulcata"                
+[50] "Peltigera aphthosa"              
+[51] "Peltigera membranacea"           
+[52] "Perisoreus canadensis"           
+[53] "Pertusaria suboculata"           
+[54] "Picea glauca"                    
+[55] "Platypalpus sp. BOLD:AAV3699"    
+[56] "Platypalpus sp. BOLD:AAV3720"    
+[57] "Pleurozium schreberi"            
+[58] "Poecile atricapillus"            
+[59] "Poecile hudsonicus"              
+[60] "Populus tremuloides"             
+[61] "Ptilidium pulcherrimum"          
+[62] "Ptilium crista-castrensis"       
+[63] "Pyrola asarifolia"               
+[64] "Ramalina farinacea"              
+[65] "Ramalina thrausta"               
+[66] "Ramboldia cinnabarina"           
+[67] "Regulus calendula"               
+[68] "Rhagonycha mandibularis"         
+[69] "Ribes triste"                    
+[70] "Rosa acicularis"                 
+[71] "Rubus pedatus"                   
+[72] "Sanionia uncinata"               
+[73] "Setophaga coronata"              
+[74] "Sorbus scopulina"                
+[75] "Streptopus amplexifolius"        
+[76] "Strongylogaster sp. BOLD:ACO4308"
+[77] "Suillia convergens"              
+[78] "Trientalis europaea"             
+[79] "Vaccinium vitis-idaea"           
+[80] "Viburnum edule"                  
+[81] "Zoogenetes harpa"             
+
+## Wetlands?
+row.names(dcf)[dcf$wetland_m == 1]
+ [1] "Andromeda polifolia"                
+ [2] "Aulacomnium palustre"               
+ [3] "Betula glandulosa"                  
+ [4] "Bryoria fuscescens"                 
+ [5] "Bryoria lanestris"                  
+ [6] "Bryoria pseudofuscescens"           
+ [7] "Cacopsylla myrtilli"                
+ [8] "Calamagrostis canadensis"           
+ [9] "Carex rotundata"                    
+[10] "Catharus ustulatus"                 
+[11] "Chamaedaphne calyculata"            
+[12] "Chironomidae sp. BOLD:AAM6264"      
+[13] "Chironominae sp. BOLD:ACC9013"      
+[14] "Cinara fornacula"                   
+[15] "Cinara mariana"                     
+[16] "Cixius meridionalis"                
+[17] "Cladina rangiferina"                
+[18] "Cladina stygia"                     
+[19] "Cyclosa conica"                     
+[20] "Dicrotendipes modestus"             
+[21] "Dictyna arundinacea"                
+[22] "Drosera rotundifolia"               
+[23] "Empetrum nigrum"                    
+[24] "Empidonax alnorum"                  
+[25] "Equisetum fluviatile"               
+[26] "Equisetum sylvaticum"               
+[27] "Eudorylas sp. BOLD:ACZ4721"         
+[28] "Geocaulon lividum"                  
+[29] "Hylocomium splendens"               
+[30] "Hypogymnia bitteri"                 
+[31] "Hypogymnia occidentalis"            
+[32] "Hypogymnia physodes"                
+[33] "Junco hyemalis"                     
+[34] "Larus hyperboreus, Larus argentatus"
+[35] "Ledum palustre"                     
+[36] "Loxia leucoptera"                   
+[37] "Macrocera sp. BOLD:AAP6490"         
+[38] "Macrosteles binotatus"              
+[39] "Macrosteles cristata"               
+[40] "Melospiza lincolnii"                
+[41] "Misumena vatia"                     
+[42] "Mycoblastus sanguinarius"           
+[43] "Mycomya sp. BOLD:AAG4937"           
+[44] "Myrica gale"                        
+[45] "Nephroma arcticum"                  
+[46] "Ochlerotatus communis"              
+[47] "Ochlerotatus excrucians"            
+[48] "Ohlertidion ohlerti"                
+[49] "Parmelia sulcata"                   
+[50] "Passerculus sandwichensis"          
+[51] "Peltigera aphthosa"                 
+[52] "Peltigera scabrosa"                 
+[53] "Perisoreus canadensis"              
+[54] "Philodromus sp. BOLD:AAA9991"       
+[55] "Picea mariana"                      
+[56] "Pityohyphantes alticeps"            
+[57] "Pleurozium schreberi"               
+[58] "Ptilidium ciliare"                  
+[59] "Regulus calendula"                  
+[60] "Rubus chamaemorus"                  
+[61] "Setophaga coronata"                 
+[62] "Sphagnum angustifolium"             
+[63] "Sphagnum fuscum"                    
+[64] "Sphagnum rubellum"                  
+[65] "Theridion pictum"                   
+[66] "Toensbergia leucococca"             
+[67] "Turdus migratorius"                 
+[68] "Vaccinium oxycoccos"                
+[69] "Vaccinium uliginosum"               
+[70] "Vaccinium vitis-idaea"              
+[71] "Valenzuela sp. BOLD:AAP4628"        
+[72] "Vespula alascensis"                 
+[73] "Zonotrichia leucophrys"             
+
+## Trying to improve plots.
+pdf(file="2019-12-04-1321_forest_spp.pdf",
+ width=6,
+ height=6
+ )
+par(mar=c(4,4,2,1))
+plot( 
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ type="none",
+ main="Forest species"
+ )
+od &lt;- ordihull(
+ dc.ca,
+ choices = c(1, 2),
+ groups=grp$com3,
+ col=c(forcol, shrcol, wetcol),
+ lwd=6
+ )
+points(
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ cex=2*dcf$forest_f,
+ bg=paste0(forcol, 80),
+ col="#00000080",
+ pch=21
+ )
+legend("topleft",
+ pch=c(21, 21),
+ pt.cex=c(2*1, 2*0.04),
+ pt.bg=paste0(forcol, 80),
+ legend=c("frequency = 1.00", "frequency = 0.04"),
+ bg="white"
+ ) 
+dev.off()
+
+
+pdf(file="2019-12-04-1328_shrub_spp.pdf",
+ width=6,
+ height=6
+ )
+par(mar=c(4,4,2,1))
+plot( 
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ type="none",
+ main="Shrub species"
+ )
+od &lt;- ordihull(
+ dc.ca,
+ choices = c(1, 2),
+ groups=grp$com3,
+ col=c(forcol, shrcol, wetcol),
+ lwd=6
+ )
+points(
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ cex=2*dcf$shrub_f,
+ bg=paste0(shrcol, 80),
+ col="#00000080",
+ pch=21
+ )
+legend("topleft",
+ pch=c(21, 21),
+ pt.cex=c(2*1, 2*0.04),
+ pt.bg=paste0(shrcol, 80),
+ legend=c("frequency = 1.00", "frequency = 0.04"),
+ bg="white"
+ ) 
+dev.off()
+
+pdf(file="2019-12-04-1330_wetland_spp.pdf",
+ width=6,
+ height=6
+ )
+par(mar=c(4,4,2,1))
+plot( 
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ type="none",
+ main="Wetland species"
+ )
+od &lt;- ordihull(
+ dc.ca,
+ choices = c(1, 2),
+ groups=grp$com3,
+ col=c(forcol, shrcol, wetcol),
+ lwd=6
+ )
+points(
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ cex=2*dcf$wetland_f,
+ bg=paste0(wetcol, 80),
+ col="#00000080",
+ pch=21
+ )
+legend("topleft",
+ pch=c(21, 21),
+ pt.cex=c(2*1, 2*0.04),
+ pt.bg=paste0(wetcol, 80),
+ legend=c("frequency = 1.00", "frequency = 0.04"),
+ bg="white"
+ ) 
+dev.off()
+
+pdf(file="2019-12-04-1333_sites.pdf",
+ width=6,
+ height=6
+ )
+par(mar=c(4,4,2,1))
+plot( 
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ type="none",
+ main="Sites"
+ )
+od &lt;- ordihull(
+ dc.ca,
+ choices = c(1, 2),
+ groups=grp$com3,
+ col=c(forcol, shrcol, wetcol),
+ lwd=6
+ )
+points(
+ dc.ca, 
+ pch=21,
+ bg=c4$clr[order(c4$label)],
+ cex=2
+ )
+dev.off()
+
+## Now trying a big plot.
+pdf(file="2019-12-04-1340_cca.pdf",
+ width=9,
+ height=9
+ )
+par(mar=c(4,4,3,1))
+par(mfrow=c(2,2))
+plot( 
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ type="none",
+ main="Sites"
+ )
+od &lt;- ordihull(
+ dc.ca,
+ choices = c(1, 2),
+ groups=grp$com3,
+ col=c(forcol, shrcol, wetcol),
+ lwd=6
+ )
+points(
+ dc.ca, 
+ pch=21,
+ bg=c4$clr[order(c4$label)],
+ cex=2
+ )
+plot( 
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ type="none",
+ main="Forest species"
+ )
+od &lt;- ordihull(
+ dc.ca,
+ choices = c(1, 2),
+ groups=grp$com3,
+ col=c(forcol, shrcol, wetcol),
+ lwd=6
+ )
+points(
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ cex=2*dcf$forest_f,
+ bg=paste0(forcol, 80),
+ col="#00000080",
+ pch=21
+ )
+legend("topleft",
+ pch=c(21, 21),
+ pt.cex=c(2*1, 2*0.04),
+ pt.bg=paste0(forcol, 80),
+ legend=c("frequency = 1.00", "frequency = 0.04"),
+ bg="white"
+ ) 
+plot( 
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ type="none",
+ main="Shrub species"
+ )
+od &lt;- ordihull(
+ dc.ca,
+ choices = c(1, 2),
+ groups=grp$com3,
+ col=c(forcol, shrcol, wetcol),
+ lwd=6
+ )
+points(
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ cex=2*dcf$shrub_f,
+ bg=paste0(shrcol, 80),
+ col="#00000080",
+ pch=21
+ )
+legend("topleft",
+ pch=c(21, 21),
+ pt.cex=c(2*1, 2*0.04),
+ pt.bg=paste0(shrcol, 80),
+ legend=c("frequency = 1.00", "frequency = 0.04"),
+ bg="white"
+ ) 
+plot( 
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ type="none",
+ main="Wetland species"
+ )
+od &lt;- ordihull(
+ dc.ca,
+ choices = c(1, 2),
+ groups=grp$com3,
+ col=c(forcol, shrcol, wetcol),
+ lwd=6
+ )
+points(
+ dc.ca,
+ choices = c(1, 2),
+ display="sp",
+ cex=2*dcf$wetland_f,
+ bg=paste0(wetcol, 80),
+ col="#00000080",
+ pch=21
+ )
+legend("topleft",
+ pch=c(21, 21),
+ pt.cex=c(2*1, 2*0.04),
+ pt.bg=paste0(wetcol, 80),
+ legend=c("frequency = 1.00", "frequency = 0.04"),
+ bg="white"
+ ) 
+dev.off()</pre>
+
 </body></html>

@@ -234,6 +234,7 @@
     <item href="img/2019-11-26-0648_Slikok_exotics_map.png" id="id218" media-type="image/png"/>
     <item href="img/2019-11-26-1504_phylo_tree.png" id="id219" media-type="image/png"/>
     <item href="img/2019-11-27-0647_ca_1-2.png" id="id220" media-type="image/png"/>
+    <item href="2019-12.xhtml" id="id221" media-type="application/xhtml+xml"/>
   </manifest>
   <spine toc="ncx">
     <itemref idref="titlepage"/>
@@ -248,6 +249,7 @@
     <itemref idref="id161"/>
     <itemref idref="id193"/>
     <itemref idref="id205"/>
+    <itemref idref="id221"/>
     <itemref idref="id9"/>
     <itemref idref="id5"/>
     <itemref idref="id63"/>

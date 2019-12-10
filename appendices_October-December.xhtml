@@ -5149,4 +5149,396 @@ legend("topleft",
  ) 
 dev.off()</pre>
 
+<h2 id="toc_21">2019-12-09-0523_community_data.R</h2>
+
+<pre>## Trying clustering and community analysis again, this time using example of https://ourcodingclub.github.io/2017/03/21/data-clustering.html#Distance
+library(vegan)
+library(recluster)
+library(phytools)
+
+wd &lt;- "D:/projects/Slikok_watershed/data/work_space/2019-11-19_summary_analyses"
+setwd(wd)
+
+load("2019-11-27-1626_workspace.RData")
+
+dim(dc)
+[1]  40 849
+
+## This is what I had done before:
+#dis &lt;- vegdist(dc)
+#te &lt;- hclust(dis, "average")
+#plot(te)
+
+## Removing uniques.
+spp_commat_trim &lt;- dc[,which(!colSums(dc) == 1)]
+dim(spp_commat_trim)
+[1]  40 415
+## so dropped 434 species.
+
+upgma_trim &lt;- recluster.cons(spp_commat_trim, tr=100, p=0.5, method = "average")
+## That uses Simpson's for distance.
+upgma_trim_cons &lt;- upgma_trim$cons
+plot(upgma_trim_cons, direction = "downwards", cex=0.5)
+## That looked good. Same three clades I have seen before.
+
+## Multiple sources recommended using Jaccard.
+upgma_trim &lt;- recluster.cons(spp_commat_trim, tr=100, p=0.5, dist="jaccard", method = "average")
+upgma_trim_cons &lt;- upgma_trim$cons
+plot(upgma_trim_cons, direction = "downwards", cex=0.5)
+## Again, results are consistent.
+
+## Trying single linkage.
+singlelink &lt;- recluster.cons(spp_commat_trim, tr = 1, p = 0.5, dist = "jaccard", method = "single")
+singlelink_tmp &lt;- singlelink$cons  
+plot(singlelink_tmp, direction = "downwards", cex = 0.5)  
+## That is messier, but SK24 is off by itself as always.
+
+## Complete linkage.
+completelink &lt;- recluster.cons(spp_commat_trim, tr = 100, p = 0.5, dist = "jaccard", method = "complete")
+completelink_cons &lt;- completelink$cons
+plot(completelink_cons, direction = "downwards", cex = 0.5)
+## That shows the same three groups.
+
+## bootstrapping.
+upgma_trim_boot &lt;- recluster.boot(upgma_trim_cons, spp_commat_trim, tr = 100, p = 0.5, dist = "jaccard", method = "average", boot = 1000, level = 1)
+recluster.plot(upgma_trim_cons, upgma_trim_boot, direction = "downwards")
+
+## Plotting.
+pdf(file="2019-12-09-0608_phylo_tree.pdf",
+ width=6,
+ height=6
+ )
+recluster.plot(upgma_trim_cons, upgma_trim_boot, direction = "downwards")
+dev.off()
+
+## Saving here.
+save.image("2019-12-09-0613_workspace.RData")
+
+## Resuming.
+library(vegan)
+library(recluster)
+library(phytools)
+
+wd &lt;- "D:/projects/Slikok_watershed/data/work_space/2019-11-19_summary_analyses"
+setwd(wd)
+
+load("2019-12-09-0613_workspace.RData")
+
+## Looking at group membership...
+upgma_trim_cons
+
+Phylogenetic tree with 40 tips and 39 internal nodes.
+
+Tip labels:
+        SK03, MG04, SK25, MG18, MG29, MG20, ...
+
+Rooted; includes branch lengths.
+
+upgma_cons_nodi &lt;- di2multi(upgma_trim_cons)
+upgma_cons_nodi
+
+Phylogenetic tree with 40 tips and 39 internal nodes.
+
+Tip labels:
+        SK03, MG04, SK25, MG18, MG29, MG20, ...
+
+Rooted; includes branch lengths.
+
+plot(upgma_cons_nodi)
+plot(upgma_trim_cons)
+## Those looked identical.
+
+## Now for CCA.
+## Looking at example from https://ourcodingclub.github.io/2018/05/04/ordination.html
+
+dist &lt;- recluster.dist(spp_commat_trim, dist="jaccard")
+
+library(ape)
+PCOA &lt;- pcoa(dist)
+# plot the eigenvalues and interpret
+pdf("2019-12-09-0729_pca_values.pdf")
+par(mar=c(4,4,1,1))
+barplot(PCOA$values$Relative_eig[1:10],
+ ylab="Eigenvalue",
+ names.arg=1:10,
+ xlab="PCoA axes"
+ )
+dev.off()
+
+
+# Plot your results
+biplot.pcoa(PCOA)
+
+PCOAaxes &lt;- PCOA$vectors[,c(1,2)]
+
+points(
+ PCOAaxes[,1],
+ PCOAaxes[,2], 
+ pch=21,
+ bg=c4$clr[order(c4$label)],
+ cex=1.5
+ )
+
+plot(
+ PCOAaxes[,1],
+ PCOAaxes[,2], 
+ pch=21,
+ bg=c4$clr[order(c4$label)],
+ cex=1.5
+ )
+
+## I will want to reassign the plots to groups.
+## Now trying to assign these to groups.
+grp &lt;- as.data.frame(upgma_trim_cons$tip.label)
+names(grp) &lt;- "label"
+grp$grp &lt;- rep(NA, 40)
+grp$clr &lt;- rep(NA, 40)
+plot(upgma_trim_cons)
+nodelabels()
+nodes&lt;-getDescendants(upgma_trim_cons,41)
+grp$grp[nodes[nodes &lt; 41]] &lt;- "shrub"
+grp$clr[nodes[nodes &lt; 41]] &lt;- shrcol
+nodes&lt;-getDescendants(upgma_trim_cons,42)
+grp$grp[nodes[nodes &lt; 42]] &lt;- "forest"
+grp$clr[nodes[nodes &lt; 42]] &lt;- forcol
+nodes&lt;-getDescendants(upgma_trim_cons,67)
+grp$grp[nodes[nodes &lt; 67]] &lt;- "wetland"
+grp$clr[nodes[nodes &lt; 67]] &lt;- wetcol
+
+grp &lt;- grp[order(grp$label),] 
+pdf(file="2019-12-09-0905_PCoA_biplot.pdf")
+par(mar=c(4,4,1,1))
+plot(
+ PCOAaxes[,1],
+ PCOAaxes[,2], 
+ pch=21,
+ bg=grp$clr[order(grp$label)],
+ cex=1.5,
+ xlab="PCoA axis 1",
+ ylab="PCoA axis 2"
+ )
+forest_coords &lt;- PCOAaxes[grp$grp=="forest",]
+forest_hull &lt;- chull(forest_coords[,1], forest_coords[,2]) 
+polygon(
+ x=forest_coords[forest_hull,1],
+ y=forest_coords[forest_hull,2],
+ border=forcol,
+ lwd=6
+ ) 
+wetland_coords &lt;- PCOAaxes[grp$grp=="wetland",]
+wetland_hull &lt;- chull(wetland_coords[,1], wetland_coords[,2]) 
+polygon(
+ x=wetland_coords[wetland_hull,1],
+ y=wetland_coords[wetland_hull,2],
+ border=wetcol,
+ lwd=6
+ ) 
+
+points(
+ PCOAaxes[,1],
+ PCOAaxes[,2], 
+ pch=21,
+ bg=c4$clr[order(c4$label)],
+ cex=1.5
+ )
+dev.off()
+
+## Looking for examples using presence/absence data.
+## Adamidis et al. (2013) ( https://doi.org/10.1080/17550874.2013.802050 )
+## They excluded species present at less than 5% of sites, equivalent to what we did.
+## They used Bray–Curtis) distance and NMS.
+## I read up on this more and Jaccard really is more appropriate for presence-absence data.
+## NMS appears to be appropriate for presence/absence.
+
+# From https://ourcodingclub.github.io/2018/05/04/ordination.html
+NMDS.scree &lt;- function(x) { #where x is the name of the data frame variable
+  plot(rep(1, 10), replicate(10, metaMDS(x, autotransform = F, k = 1)$stress), xlim = c(1, 10),ylim = c(0, 0.30), xlab = "# of Dimensions", ylab = "Stress", main = "NMDS stress plot", xaxp=c(1,10,9))
+  for (i in 1:10) {
+    points(rep(i,10),replicate(10, metaMDS(x, autotransform = F, k = i)$stress))
+  }
+}
+
+pdf("2019-12-09-0951_stress_plot.pdf")
+par(mar=c(4,4,1,1))
+NMDS.scree(dist)
+dev.off()
+
+set.seed(2)
+
+## Setting the number of dimensions to two.
+NMDS1 &lt;- metaMDS(
+ spp_commat_trim,
+ distance="jaccard",
+ k = 2,
+ trymax = 100,
+ trace = F
+ )
+
+NMDS1
+
+Call:
+metaMDS(comm = spp_commat_trim, distance = "jaccard", k = 2,      trymax = 100, trace = F) 
+
+global Multidimensional Scaling using monoMDS
+
+Data:     spp_commat_trim 
+Distance: jaccard 
+
+Dimensions: 2 
+Stress:     0.1325064 
+Stress type 1, weak ties
+Two convergent solutions found after 20 tries
+Scaling: centring, PC rotation, halfchange scaling 
+Species: expanded scores based on ‘spp_commat_trim’ 
+
+pdf(file="2019-12-09-1011_NMDS_biplot.pdf")
+par(mar=c(4,4,1,1))
+plot( 
+ NMDS1,
+ choices = c(1, 2)#,
+ #display="sp",
+ #type="none",
+ #main="Sites"
+ )
+od &lt;- ordihull(
+ NMDS1,
+ choices = c(1, 2),
+ groups=grp$grp,
+ col=c(forcol, shrcol, wetcol),
+ lwd=6
+ )  
+points(
+ NMDS1, 
+ pch=21,
+ bg=c4$clr[order(c4$label)],
+ cex=2
+ )
+dev.off()
+ 
+## Power is back up at work. Saving here.
+save.image("2019-12-09-1014_workspace.RData")
+
+## At work.
+## In the recent tree there were two more groups, so that we could consider five clusters.
+## One was MG18, SK16, and MG12.
+
+MG18 is a very poor wetland, mostly sedges and Sphagnum.
+https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/20170607/pho_Slikok_project_site_MG18a_mbowser_080116.jpg
+
+SK16 is also a poor wetland:
+https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/20170607/pho_Slikok_project_site_SK16a_mbowser_080316.jpg
+
+MG12 is also an open, poor wetland.
+https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/20170607/pho_Slikok_project_site_MG12a_mbowser_080116.jpg
+
+So that grouping makes sense.
+
+How about MG06, MG32, and SK17, the first branch on the forest sites?
+
+MG06 looks like devils club.
+https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/20170607/pho_Slikok_project_site_MG06a_mbowser_071816.jpg
+
+MG32 is also devils club.
+https://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/20170607/pho_Slikok_project_site_MG32a_dmagness_061616.jpg
+
+SK17 is an alder/devils club patch.
+https://web.corral.tacc.utexas.edu/arctos-s3/mbowser/2019-08-19/pho_Slikok_project_site_SK17a_mbowser_072016.jpg
+
+So both of these groupings make sense.  Maybe I should split into five groups.
+
+## Resuming.
+library(vegan)
+library(recluster)
+library(phytools)
+
+wd &lt;- "D:/projects/Slikok_watershed/data/work_space/2019-11-19_summary_analyses"
+setwd(wd)
+
+load("2019-12-09-1014_workspace.RData")
+
+## How do things change if I use the 5% rule used by Adamidis et al. (2013)? Their text: "excluding from the analysis the species appearing in less than 5% of samples." Actually it is the same rule I used here. 2/40 = 5%.
+
+## Rerunning the clustering with a high number of bootstrapping.
+upgma_trim &lt;- recluster.cons(spp_commat_trim, tr=1000, p=0.5, dist="jaccard", method = "average")
+upgma_trim_cons &lt;- upgma_trim$cons
+plot(upgma_trim_cons, cex=0.5)
+upgma_trim_boot &lt;- recluster.boot(upgma_trim_cons, spp_commat_trim, tr = 1000, p = 0.5, dist = "jaccard", method = "average", boot = 1000, level = 1)
+recluster.plot(upgma_trim_cons, upgma_trim_boot)
+
+## Plotting.
+pdf(file="2019-12-09-1306_phylo_tree.pdf",
+ width=6,
+ height=6
+ )
+recluster.plot(upgma_trim_cons, upgma_trim_boot)
+dev.off()
+## So now support for those smaller clusters is less than 50%.
+
+pdf(file="2019-12-09-1308_NMDS_biplot.pdf")
+par(mar=c(4,4,1,1))
+plot( 
+ NMDS1,
+ choices = c(1, 2),
+ #display="sp",
+ type="none"#,
+ #main="Sites"
+ )
+text(
+ NMDS1, 
+ labels=grp$label
+ )
+dev.off()
+
+## MG06, MG32, and SK17 do form a nice cluster.
+## MG18, SK16, and MG12 also form a cluster, not quite as isloated as those devils club sites, though.
+
+library(dendextend)
+
+## From http://www.sthda.com/english/wiki/beautiful-dendrogram-visualizations-in-r-5-must-known-methods-unsupervised-machine-learning
+
+dend &lt;- as.dendrogram(upgma_trim_cons)
+
+dend %&gt;% set("labels_col", value = c("green", "blue"), k=5) %&gt;% plot
+
+dend %&gt;% set("branches_k_color", k = 5) %&gt;% 
+  plot(main = "Default colors")
+
+dend %&gt;% set("branches_k_color", k = 5) %&gt;% 
+  plot(main = "Default colors")
+  
+dend %&gt;% set("leaves_pch", 22) %&gt;%  # node point type
+  set("leaves_cex", 2) %&gt;%  # node point size
+  set("leaves_col", "#000000") %&gt;% # node point color
+  plot(main = "Leaves points")
+
+## Trying to color labels.  
+label &lt;- labels(dend) 
+c5 &lt;- as.data.frame(label)
+c5 &lt;- merge(x=c5, y=c4, by="label", all.x=TRUE, sort=FALSE)
+
+dend %&gt;% set("leaves_pch", 15) %&gt;%  # node point type
+  set("leaves_cex", 2) %&gt;%  # node point size
+  set("leaves_col", c5$clr) %&gt;% # node point color
+  plot(main = "Leaves points")
+
+dend %&gt;% set("branches_k_color", k = 40, value=c5$clr) %&gt;% 
+set("branches_lwd", 4) %&gt;% 
+  plot
+
+## Now for a 5 level color scheme.
+hercol &lt;- "#7CACC5"
+deccol &lt;- "#71B36B" 
+
+pdf("2019-12-09-1504_tree.pdf")
+par(mar=c(0,4,0,0))
+dend %&gt;% set("branches_k_color", k = 5, value=c(forcol, deccol, wetcol, hercol, shrcol)) %&gt;% 
+ set("branches_lwd", 4) %&gt;%
+ set("leaves_pch", 15) %&gt;%  # node point type
+  set("leaves_cex", 1.5) %&gt;%  # node point size
+  set("leaves_col", c5$clr) %&gt;% # node point color
+  plot(leaflab="none", ylab="UPGMA Jaccard distance")
+dev.off()
+
+save.image("2019-12-09-1516_workspace.RData")</pre>
+
 </body></html>

@@ -158,10 +158,6 @@
     <item href="img/2019-08-07-1142_Swan_Lake_Fire_FMH.jpg" id="id142" media-type="image/jpeg"/>
     <item href="img/2019-08-12-1424_Kenai_min_temps.jpg" id="id143" media-type="image/jpeg"/>
     <item href="img/2019-08-19_nb01.jpg" id="id144" media-type="image/jpeg"/>
-    <item href="fonts/SourceCodePro-Bold.otf" id="id145" media-type="application/vnd.ms-opentype"/>
-    <item href="fonts/SourceCodePro-BoldIt.otf" id="id146" media-type="application/vnd.ms-opentype"/>
-    <item href="fonts/SourceCodePro-It.otf" id="id147" media-type="application/vnd.ms-opentype"/>
-    <item href="fonts/SourceCodePro-Regular.otf" id="id148" media-type="application/vnd.ms-opentype"/>
     <item href="img/2019-08-21-1120_Melvin_birch_sample_map.jpg" id="id149" media-type="image/jpeg"/>
     <item href="img/2019-08-22-1418_birch_specimen_map.png" id="id150" media-type="image/png"/>
     <item href="img/2019-08-22_nb01.jpg" id="id151" media-type="image/jpeg"/>
@@ -175,7 +171,6 @@
     <item href="img/2019-08-30_nb01.jpg" id="id159" media-type="image/jpeg"/>
     <item href="img/2019-08-30_Mus.jpg" id="id160" media-type="image/jpeg"/>
     <item href="2019-09.xhtml" id="id161" media-type="application/xhtml+xml"/>
-    <item href="img/2019-09-03_nb01.jpg" id="id162" media-type="image/jpeg"/>
     <item href="img/2019-09-04_nb01.jpg" id="id163" media-type="image/jpeg"/>
     <item href="img/2019-09-04_nb02.jpg" id="id164" media-type="image/jpeg"/>
     <item href="img/2019-09-04_nb03.jpg" id="id165" media-type="image/jpeg"/>
@@ -235,6 +230,8 @@
     <item href="img/2019-11-26-1504_phylo_tree.png" id="id219" media-type="image/png"/>
     <item href="img/2019-11-27-0647_ca_1-2.png" id="id220" media-type="image/png"/>
     <item href="2019-12.xhtml" id="id221" media-type="application/xhtml+xml"/>
+    <item href="README.md" id="id145" media-type="text/x-markdown"/>
+    <item href="img/2019-12-09-1504_tree.png" id="id146" media-type="image/png"/>
   </manifest>
   <spine toc="ncx">
     <itemref idref="titlepage"/>

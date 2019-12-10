@@ -39,7 +39,7 @@ Also, I saw small feral bird cherries in a vacant lot off of Lovers Lane in Sold
     
 <p>I worked some on the Slikok dataset, looking at community data (<a href="appendices_October-December.xhtml#toc_20">R script</a>).</p>
 
-<h2>Thursday, December 5</h2>
+<h2 id="toc_2">Thursday, December 5</h2>
 
 <p>I worked on moving some species from our old checklist onto FWSpecies.</p>
 
@@ -47,11 +47,72 @@ Also, I saw small feral bird cherries in a vacant lot off of Lovers Lane in Sold
 
 <p>I attended the quarterly Kenai Peninsula CWMA meeting in the afternoon to represent the Refgue there.</p>
 
-<h2>Friday, December 6</h2>
+<h2 id="toc_3">Friday, December 6</h2>
 
 <p>David Bloom has been helping me to get all KNWR data on Arctos to be published to GBIF via <a href="http://ipt.vertnet.org/">VertNet's IPT</a>.</p>
 
+<p>Initial description of the KNWRObs:Bird collection:</p>
+
+<blockquote>The Kenai National Wildlife Refuge has been conducting avian surveys since 1957, when aerial surveys for trumpeter swans were initiated. Since that time various projects by Kenai National Wildlife Refuge staff have included or focused on bird observations including audio/visual observations and automated sound recordings. The Kenai National Wildlife Refuge Bird observations dataset includes more than 500 bird observations from the Kenai Peninsula.</blockquote>
+
+<p>Geographic coverage:
+ </p><ul>
+  <li>west: -152.073</li>
+  <li>east: -147.854</li>
+  <li>south: 59.097</li>
+  <li>north: 61.08</li>
+ </ul>
+<p></p>
+
 <p>I formatted and posted last week's and this week's <i>Refuge Notebook</i> articles.</p>
 
+<p>Reading up on ordination/classification methods (see <a href="https://ourcodingclub.github.io/2018/05/04/ordination.html">https://ourcodingclub.github.io/2018/05/04/ordination.html</a> and vegan vegdist function documentation), it looks like the Jaccard or Raup-Crick indices would be more appropriate for presence/absence data.</p>
+
+<p>From <a href="https://ourcodingclub.github.io/2017/03/21/data-clustering.html#Distance">https://ourcodingclub.github.io/2017/03/21/data-clustering.html#Distance</a>:</p>
+
+<blockquote>When working with large presence/absence datasets, it is good practice to remove “uniques”. “Uniques” are species that only have one recorded presence in only one observation/sample. The reason behind this is that such species will only bring noise (somewhat random, hard to explain variation) to the analysis and will only blur the patterns we get. Later on, for the sake of practice, we’ll compare the results we’ll get with the full presence and absence matrix with the results we’ll get with the same matrix without any “Uniques”.</blockquote>
+
+
+<p>I will try removing uniques.</p>
+
+<h2 id="toc_4">Saturday, December 7</h2>
+
+<p>David had set up the other KNWR collections on the VertNet IPT, so I edited metatdata.  For the KNWR:Inv collection:</p>
+
+<blockquote>The Kenai National Wildlife Refuge's invertebrate collection includes terrestrial and freshwater invertebrates (except for arthropods), mostly earthworms from the Kenai Peninsula.</blockquote>
+
+<p>KNWR herbarium:</p>
+
+<blockquote>The Kenai National Wildlife Refuge's herbarium includes  over 2,000 plant and fungi specimens, mostly from the Kenai Peninsula, dating from the 1950s to present.</blockquote>
+
+<p>KNWRObs:Mamm:</p>
+
+<blockquote>The Kenai National Wildlife Refuge's mammal observations dataset publishes observations and historical records of mammals on the Kenai Peninsula.</blockquote>
+
+<p>KNWRObs:Fish:</p>
+
+<blockquote>The Kenai National Wildlife Refuge's fish observations dataset publishes observations and historical records of fish from the Kenai Peninsula.</blockquote>
+
+<p>KNWR:Ento:</p>
+
+<blockquote>The Kenai National Wildlife Refuge's entomology collection includes over 8,000 terrestrial arthropod specimens, mostly from the Kenai Peninsula.</blockquote>
+
+<p>KNWRObs:Herb:</p>
+
+<blockquote>The Kenai National Wildlife Refuge has been conducting vegetation surveys since 1950. The Kenai National Wildlife Refuge's plant observation dataset includes observations and historical records of plants and fungi from the Kenai Peninsula.</blockquote>
+
+<h2 id="toc_5">Monday, December 9</h2>
+
+<p>I worked at home in the morning on reclustering the Slikok community data.</p>
+
+<p>I was all loaded up in my warmed-up car when I called the office to check if the power was out. There was apparently no power there, so I am working at home.  It is windy outside and the lights have been flickering on and off at home. I worked at home, calling in hourly.</p>
+
+<p>Power was restored later, so I drove to work.</p>
+
+<p>All of the Kenai NWR Arctos data are now on GBIF (<a href="https://www.gbif.org/publisher/3492d3bb-0ca5-4605-851a-82e4edbc6acd">https://www.gbif.org/publisher/3492d3bb-0ca5-4605-851a-82e4edbc6acd</a>).</p>
+
+<p>I left off breaking the Slikok communities into five community clusters (<a href="appendices_October-December.xhtml#toc_21">R script</a>).</p>
+
+<div class="figure"><img alt="Image" src="img/2019-12-09-1504_tree.png" /><p>UPGMA tree based on Jaccard distance showing five clusters.</p></div>
 
 </body></html>

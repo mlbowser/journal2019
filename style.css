@@ -34,16 +34,15 @@ h2 {
 }
 pre, code {
   white-space: pre-wrap;
-  /*font-family: Courier, Courier New, monospace;*/
+  /*font-family: monospace;*/
   background-color: #D8D8D8;
   /* font-size: 80%; */
   overflow-wrap: break-word;
   word-wrap: break-word;
-  font-family: Source Code Pro, Georgia, serif;
 }
 th, td {
   text-align: right;
-  font-family: Courier, Courier New, monospace;
+  /*font-family: monospace;*/
 }
 blockquote {
   /* width: 90%; */

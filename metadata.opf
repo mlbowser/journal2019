@@ -232,6 +232,8 @@
     <item href="2019-12.xhtml" id="id221" media-type="application/xhtml+xml"/>
     <item href="README.md" id="id145" media-type="text/x-markdown"/>
     <item href="img/2019-12-09-1504_tree.png" id="id146" media-type="image/png"/>
+    <item href="img/2019-12-10-0645_NMDS_biplot.png" id="id147" media-type="image/png"/>
+    <item href="img/2019-12-10-0844_phylo_tree.png" id="id148" media-type="image/png"/>
   </manifest>
   <spine toc="ncx">
     <itemref idref="titlepage"/>

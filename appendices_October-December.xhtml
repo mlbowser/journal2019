@@ -6096,4 +6096,29 @@ dev.off()
 
 save.image("2019-12-11-1500_workspace.RData")</pre>
 
+<h2 id="toc_24">2019-12-13-1133_community_data.R</h2>
+
+<pre>wd &lt;- "D:/projects/Slikok_watershed/data/work_space/2019-11-19_summary_analyses"
+setwd(wd)
+
+load("2019-12-11-1500_workspace.RData")
+
+## Should summarize communities.
+agcom &lt;- aggregate(com_mem$species, by=list(com_mem$community), length)
+agcom
+    Group.1   x
+1 deciduous 114
+2    forest  94
+3   herbwet  94
+4     shrub  35
+5   wetland  93
+agcom$Group.1 &lt;- rename
+
+                Group.1   x
+1 open deciduous forest 114
+2   upland mixed forest  94
+3       shrub-sedge bog  94
+4                willow  35
+5   black spruce forest  93</pre>
+
 </body></html>

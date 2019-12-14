@@ -1294,953 +1294,965 @@
         </navLabel>
         <content src="2019-12.xhtml#toc_8"/>
       </navPoint>
+      <navPoint id="num_215" playOrder="215">
+        <navLabel>
+          <text>Friday, December 13</text>
+        </navLabel>
+        <content src="2019-12.xhtml#toc_9"/>
+      </navPoint>
     </navPoint>
-    <navPoint id="num_215" playOrder="215">
+    <navPoint id="num_216" playOrder="216">
       <navLabel>
         <text>References</text>
       </navLabel>
       <content src="references.xhtml"/>
     </navPoint>
-    <navPoint id="num_216" playOrder="216">
+    <navPoint id="num_217" playOrder="217">
       <navLabel>
         <text>Appendices</text>
       </navLabel>
       <content src="appendices_January-March.xhtml"/>
-      <navPoint id="num_217" playOrder="217">
+      <navPoint id="num_218" playOrder="218">
         <navLabel>
           <text>2019-01-29-1116_work_on_yeti.txt</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_1"/>
       </navPoint>
-      <navPoint id="num_218" playOrder="218">
+      <navPoint id="num_219" playOrder="219">
         <navLabel>
           <text>2019-01-30-1509_looking_at_results.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_2"/>
       </navPoint>
-      <navPoint id="num_219" playOrder="219">
+      <navPoint id="num_220" playOrder="220">
         <navLabel>
           <text>2019-01-31-1116_looking_at_results.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_3"/>
       </navPoint>
-      <navPoint id="num_220" playOrder="220">
+      <navPoint id="num_221" playOrder="221">
         <navLabel>
           <text>2019-02-01-1024_looking_at_results.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_4"/>
       </navPoint>
-      <navPoint id="num_221" playOrder="221">
+      <navPoint id="num_222" playOrder="222">
         <navLabel>
           <text>2019-02-01-1128_guilds.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_5"/>
       </navPoint>
-      <navPoint id="num_222" playOrder="222">
+      <navPoint id="num_223" playOrder="223">
         <navLabel>
           <text>2019-02-11-1324_yeti_script.txt</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_6"/>
       </navPoint>
-      <navPoint id="num_223" playOrder="223">
+      <navPoint id="num_224" playOrder="224">
         <navLabel>
           <text>2019-02-11-1303_AWCCfungi_1-5.slurm</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_7"/>
       </navPoint>
-      <navPoint id="num_224" playOrder="224">
+      <navPoint id="num_225" playOrder="225">
         <navLabel>
           <text>2019-02-12-0925_yeti_script.txt</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_8"/>
       </navPoint>
-      <navPoint id="num_225" playOrder="225">
+      <navPoint id="num_226" playOrder="226">
         <navLabel>
           <text>2019-02-12-0940_AWCCfungi_2.slurm</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_9"/>
       </navPoint>
-      <navPoint id="num_226" playOrder="226">
+      <navPoint id="num_227" playOrder="227">
         <navLabel>
           <text>2019-02-12-1055_AWCCfungi_10.slurm</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_10"/>
       </navPoint>
-      <navPoint id="num_227" playOrder="227">
+      <navPoint id="num_228" playOrder="228">
         <navLabel>
           <text>2019-02-13-1006_soil_fungi_map.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_11"/>
       </navPoint>
-      <navPoint id="num_228" playOrder="228">
+      <navPoint id="num_229" playOrder="229">
         <navLabel>
           <text>2019-02-13-1244_yeti_stuff.txt</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_12"/>
       </navPoint>
-      <navPoint id="num_229" playOrder="229">
+      <navPoint id="num_230" playOrder="230">
         <navLabel>
           <text>2019-02-13-1226_AWCCfungi_finish.slurm</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_13"/>
       </navPoint>
-      <navPoint id="num_230" playOrder="230">
+      <navPoint id="num_231" playOrder="231">
         <navLabel>
           <text>2019-02-14-0939_yeti_stuff.txt</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_14"/>
       </navPoint>
-      <navPoint id="num_231" playOrder="231">
+      <navPoint id="num_232" playOrder="232">
         <navLabel>
           <text>2019-02-14-1530_seqprep.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_15"/>
       </navPoint>
-      <navPoint id="num_232" playOrder="232">
+      <navPoint id="num_233" playOrder="233">
         <navLabel>
           <text>2019-02-14-1603_funits.slurm</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_16"/>
       </navPoint>
-      <navPoint id="num_233" playOrder="233">
+      <navPoint id="num_234" playOrder="234">
         <navLabel>
           <text>2019-02-15-0753_seqprep.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_17"/>
       </navPoint>
-      <navPoint id="num_234" playOrder="234">
+      <navPoint id="num_235" playOrder="235">
         <navLabel>
           <text>2019-02-15-0806_ITSx_AWCC1.slurm</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_18"/>
       </navPoint>
-      <navPoint id="num_235" playOrder="235">
+      <navPoint id="num_236" playOrder="236">
         <navLabel>
           <text>2019-02-15-1308_difference_testing.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_19"/>
       </navPoint>
-      <navPoint id="num_236" playOrder="236">
+      <navPoint id="num_237" playOrder="237">
         <navLabel>
           <text>2019-02-18-0741_demux.txt</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_20"/>
       </navPoint>
-      <navPoint id="num_237" playOrder="237">
+      <navPoint id="num_238" playOrder="238">
         <navLabel>
           <text>2019-02-20-1433_making_R2_fastq_files.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_21"/>
       </navPoint>
-      <navPoint id="num_238" playOrder="238">
+      <navPoint id="num_239" playOrder="239">
         <navLabel>
           <text>2019-02-20-1510_pispino.slurm</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_22"/>
       </navPoint>
-      <navPoint id="num_239" playOrder="239">
+      <navPoint id="num_240" playOrder="240">
         <navLabel>
           <text>2019-02-21-0816_making_R2_fastq_files.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_23"/>
       </navPoint>
-      <navPoint id="num_240" playOrder="240">
+      <navPoint id="num_241" playOrder="241">
         <navLabel>
           <text>2019-02-21-0958_Yeti_IO.txt</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_24"/>
       </navPoint>
-      <navPoint id="num_241" playOrder="241">
+      <navPoint id="num_242" playOrder="242">
         <navLabel>
           <text>2019-02-21-1208_pipits_funits_001.slurm</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_25"/>
       </navPoint>
-      <navPoint id="num_242" playOrder="242">
+      <navPoint id="num_243" playOrder="243">
         <navLabel>
           <text>2019-02-22-0849_splitting.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_26"/>
       </navPoint>
-      <navPoint id="num_243" playOrder="243">
+      <navPoint id="num_244" playOrder="244">
         <navLabel>
           <text>2019-02-22-0846_split_script.sh</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_27"/>
       </navPoint>
-      <navPoint id="num_244" playOrder="244">
+      <navPoint id="num_245" playOrder="245">
         <navLabel>
           <text>2019-02-22-0850_pipits_funits_001.slurm</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_28"/>
       </navPoint>
-      <navPoint id="num_245" playOrder="245">
+      <navPoint id="num_246" playOrder="246">
         <navLabel>
           <text>2019-02-22-0851_split_script.sh</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_29"/>
       </navPoint>
-      <navPoint id="num_246" playOrder="246">
+      <navPoint id="num_247" playOrder="247">
         <navLabel>
           <text>2019-02-20-1531_funits-3956207.out</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_30"/>
       </navPoint>
-      <navPoint id="num_247" playOrder="247">
+      <navPoint id="num_248" playOrder="248">
         <navLabel>
           <text>2019-02-25-1233_pipits_process.slurm</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_31"/>
       </navPoint>
-      <navPoint id="num_248" playOrder="248">
+      <navPoint id="num_249" playOrder="249">
         <navLabel>
           <text>2019-02-22-0850_pipits_funits_011.slurm-3956517.out</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_32"/>
       </navPoint>
-      <navPoint id="num_249" playOrder="249">
+      <navPoint id="num_250" playOrder="250">
         <navLabel>
           <text>2019-02-25-1636_LULU_prep.slurm</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_33"/>
       </navPoint>
-      <navPoint id="num_250" playOrder="250">
+      <navPoint id="num_251" playOrder="251">
         <navLabel>
           <text>2019-02-25-1725_lulu.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_34"/>
       </navPoint>
-      <navPoint id="num_251" playOrder="251">
+      <navPoint id="num_252" playOrder="252">
         <navLabel>
           <text>2019-02-26-0945_diveristy.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_35"/>
       </navPoint>
-      <navPoint id="num_252" playOrder="252">
+      <navPoint id="num_253" playOrder="253">
         <navLabel>
           <text>2019-02-27-0951_lifescanner_uploads.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_36"/>
       </navPoint>
-      <navPoint id="num_253" playOrder="253">
+      <navPoint id="num_254" playOrder="254">
         <navLabel>
           <text>2019-02-27-2253_difference_testing.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_37"/>
       </navPoint>
-      <navPoint id="num_254" playOrder="254">
+      <navPoint id="num_255" playOrder="255">
         <navLabel>
           <text>2019-02-28-1016_difference_testing.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_38"/>
       </navPoint>
-      <navPoint id="num_255" playOrder="255">
+      <navPoint id="num_256" playOrder="256">
         <navLabel>
           <text>2019-02-28-1619_difference_testing.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_39"/>
       </navPoint>
-      <navPoint id="num_256" playOrder="256">
+      <navPoint id="num_257" playOrder="257">
         <navLabel>
           <text>2019-02-28-2045_guild_pie_chart.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_40"/>
       </navPoint>
-      <navPoint id="num_257" playOrder="257">
+      <navPoint id="num_258" playOrder="258">
         <navLabel>
           <text>2019-03-01-1007_improving_graphs.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_41"/>
       </navPoint>
-      <navPoint id="num_258" playOrder="258">
+      <navPoint id="num_259" playOrder="259">
         <navLabel>
           <text>2019-03-01-2111_scrutinizing_some_OTUs.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_42"/>
       </navPoint>
-      <navPoint id="num_259" playOrder="259">
+      <navPoint id="num_260" playOrder="260">
         <navLabel>
           <text>2019-03-05-0807_PlutoF_upload_prep.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_43"/>
       </navPoint>
-      <navPoint id="num_260" playOrder="260">
+      <navPoint id="num_261" playOrder="261">
         <navLabel>
           <text>2019-03-05-1803_soil_fungi_map.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_44"/>
       </navPoint>
-      <navPoint id="num_261" playOrder="261">
+      <navPoint id="num_262" playOrder="262">
         <navLabel>
           <text>2019-03-06-1627_PlutoF_upload_prep.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_45"/>
       </navPoint>
-      <navPoint id="num_262" playOrder="262">
+      <navPoint id="num_263" playOrder="263">
         <navLabel>
           <text>2019-03-07-0741_PlutoF_uploads.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_46"/>
       </navPoint>
-      <navPoint id="num_263" playOrder="263">
+      <navPoint id="num_264" playOrder="264">
         <navLabel>
           <text>2019-03-12-1547_importing.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_47"/>
       </navPoint>
-      <navPoint id="num_264" playOrder="264">
+      <navPoint id="num_265" playOrder="265">
         <navLabel>
           <text>2019-03-14-0828_importing.txt</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_48"/>
       </navPoint>
-      <navPoint id="num_265" playOrder="265">
+      <navPoint id="num_266" playOrder="266">
         <navLabel>
           <text>2019-03-15-0908_library_construction.txt</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_49"/>
       </navPoint>
-      <navPoint id="num_266" playOrder="266">
+      <navPoint id="num_267" playOrder="267">
         <navLabel>
           <text>2019-03-18-0933_library_work.txt</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_50"/>
       </navPoint>
-      <navPoint id="num_267" playOrder="267">
+      <navPoint id="num_268" playOrder="268">
         <navLabel>
           <text>2019-03-20-0830_library_work.txt</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_51"/>
       </navPoint>
-      <navPoint id="num_268" playOrder="268">
+      <navPoint id="num_269" playOrder="269">
         <navLabel>
           <text>2019-03-21-0830_library_work.txt</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_52"/>
       </navPoint>
-      <navPoint id="num_269" playOrder="269">
+      <navPoint id="num_270" playOrder="270">
         <navLabel>
           <text>2019-03-22_identifications_etc.txt</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_53"/>
       </navPoint>
-      <navPoint id="num_270" playOrder="270">
+      <navPoint id="num_271" playOrder="271">
         <navLabel>
           <text>2019-03-22-0923_choose_dereps.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_54"/>
       </navPoint>
-      <navPoint id="num_271" playOrder="271">
+      <navPoint id="num_272" playOrder="272">
         <navLabel>
           <text>2019-03-22-0935_choose_dereps.slurm</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_55"/>
       </navPoint>
-      <navPoint id="num_272" playOrder="272">
+      <navPoint id="num_273" playOrder="273">
         <navLabel>
           <text>2019-03-22-1203_library_work.txt</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_56"/>
       </navPoint>
-      <navPoint id="num_273" playOrder="273">
+      <navPoint id="num_274" playOrder="274">
         <navLabel>
           <text>2019-03-22-1219_choose_dereps.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_57"/>
       </navPoint>
-      <navPoint id="num_274" playOrder="274">
+      <navPoint id="num_275" playOrder="275">
         <navLabel>
           <text>2019-03-22-1219_choose_dereps.slurm</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_58"/>
       </navPoint>
-      <navPoint id="num_275" playOrder="275">
+      <navPoint id="num_276" playOrder="276">
         <navLabel>
           <text>2019-03-22-1526_library_work.txt</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_59"/>
       </navPoint>
-      <navPoint id="num_276" playOrder="276">
+      <navPoint id="num_277" playOrder="277">
         <navLabel>
           <text>2019-03-25-0726_library_prep.txt</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_60"/>
       </navPoint>
-      <navPoint id="num_277" playOrder="277">
+      <navPoint id="num_278" playOrder="278">
         <navLabel>
           <text>2019-03-25-0840_extract-reads.slurm</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_61"/>
       </navPoint>
-      <navPoint id="num_278" playOrder="278">
+      <navPoint id="num_279" playOrder="279">
         <navLabel>
           <text>2019-03-26-1444_library_work.txt</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_62"/>
       </navPoint>
-      <navPoint id="num_279" playOrder="279">
+      <navPoint id="num_280" playOrder="280">
         <navLabel>
           <text>2019-03-26-1437_train_classifier.slurm</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_63"/>
       </navPoint>
-      <navPoint id="num_280" playOrder="280">
+      <navPoint id="num_281" playOrder="281">
         <navLabel>
           <text>2019-03-26-1602_classify.slurm</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_64"/>
       </navPoint>
-      <navPoint id="num_281" playOrder="281">
+      <navPoint id="num_282" playOrder="282">
         <navLabel>
           <text>2019-03-27-1332_bold_ids.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_65"/>
       </navPoint>
-      <navPoint id="num_282" playOrder="282">
+      <navPoint id="num_283" playOrder="283">
         <navLabel>
           <text>2019-03-28-0724_examing_results.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_66"/>
       </navPoint>
-      <navPoint id="num_283" playOrder="283">
+      <navPoint id="num_284" playOrder="284">
         <navLabel>
           <text>2019-03-28-1227_assembling_results.R</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_67"/>
       </navPoint>
-      <navPoint id="num_284" playOrder="284">
+      <navPoint id="num_285" playOrder="285">
         <navLabel>
           <text>2019-03-28-1339_trees.txt</text>
         </navLabel>
         <content src="appendices_January-March.xhtml#toc_68"/>
       </navPoint>
-      <navPoint id="num_285" playOrder="285">
+      <navPoint id="num_286" playOrder="286">
         <navLabel>
           <text>2019-04-01-0942_filtering_occurrences.R</text>
         </navLabel>
         <content src="appendices_April-June.xhtml"/>
       </navPoint>
-      <navPoint id="num_286" playOrder="286">
+      <navPoint id="num_287" playOrder="287">
         <navLabel>
           <text>2019-04-05-0958_comparison.R</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_70"/>
       </navPoint>
-      <navPoint id="num_287" playOrder="287">
+      <navPoint id="num_288" playOrder="288">
         <navLabel>
           <text>2019-04-08-1440_comparison.R</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_71"/>
       </navPoint>
-      <navPoint id="num_288" playOrder="288">
+      <navPoint id="num_289" playOrder="289">
         <navLabel>
           <text>2019-04-10-1353_comparison.R</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_72"/>
       </navPoint>
-      <navPoint id="num_289" playOrder="289">
+      <navPoint id="num_290" playOrder="290">
         <navLabel>
           <text>2019-04-11-0800_comparison.R</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_73"/>
       </navPoint>
-      <navPoint id="num_290" playOrder="290">
+      <navPoint id="num_291" playOrder="291">
         <navLabel>
           <text>2019-04-12-1313_tree.txt</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_74"/>
       </navPoint>
-      <navPoint id="num_291" playOrder="291">
+      <navPoint id="num_292" playOrder="292">
         <navLabel>
           <text>2019-05-15-1104_SRA_data.csv</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_75"/>
       </navPoint>
-      <navPoint id="num_292" playOrder="292">
+      <navPoint id="num_293" playOrder="293">
         <navLabel>
           <text>2019-05-16-0956_Arctos_data_prep.R</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_76"/>
       </navPoint>
-      <navPoint id="num_293" playOrder="293">
+      <navPoint id="num_294" playOrder="294">
         <navLabel>
           <text>2019-05-21-1129_sample_frame.R</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_77"/>
       </navPoint>
-      <navPoint id="num_294" playOrder="294">
+      <navPoint id="num_295" playOrder="295">
         <navLabel>
           <text>2019-05-22-0836_sample_frame.R</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_78"/>
       </navPoint>
-      <navPoint id="num_295" playOrder="295">
+      <navPoint id="num_296" playOrder="296">
         <navLabel>
           <text>2019-05-23-1031_adding_relationships.R</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_79"/>
       </navPoint>
-      <navPoint id="num_296" playOrder="296">
+      <navPoint id="num_297" playOrder="297">
         <navLabel>
           <text>2019-05-28-0647_adding_reciprocal_relationships.R</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_1"/>
       </navPoint>
-      <navPoint id="num_297" playOrder="297">
+      <navPoint id="num_298" playOrder="298">
         <navLabel>
           <text>2019-05-30-1127_visualizations.R</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_2"/>
       </navPoint>
-      <navPoint id="num_298" playOrder="298">
+      <navPoint id="num_299" playOrder="299">
         <navLabel>
           <text>2019-06-05-0823_sample_frame.R</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_3"/>
       </navPoint>
-      <navPoint id="num_299" playOrder="299">
+      <navPoint id="num_300" playOrder="300">
         <navLabel>
           <text>2019-06-06-0838_sample_frame.R</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_4"/>
       </navPoint>
-      <navPoint id="num_300" playOrder="300">
+      <navPoint id="num_301" playOrder="301">
         <navLabel>
           <text>2019-06-07-0850_sample_frame.R</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_5"/>
       </navPoint>
-      <navPoint id="num_301" playOrder="301">
+      <navPoint id="num_302" playOrder="302">
         <navLabel>
           <text>2019-06-10-1104_map_stuff.R</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_6"/>
       </navPoint>
-      <navPoint id="num_302" playOrder="302">
+      <navPoint id="num_303" playOrder="303">
         <navLabel>
           <text>2019-06-11-1337_comparison.R</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_7"/>
       </navPoint>
-      <navPoint id="num_303" playOrder="303">
+      <navPoint id="num_304" playOrder="304">
         <navLabel>
           <text>2019-06-14-0951_updating_occurrence_plot.R</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_8"/>
       </navPoint>
-      <navPoint id="num_304" playOrder="304">
+      <navPoint id="num_305" playOrder="305">
         <navLabel>
           <text>2019-06-18-0720_starting_on_Yeti.txt</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_9"/>
       </navPoint>
-      <navPoint id="num_305" playOrder="305">
+      <navPoint id="num_306" playOrder="306">
         <navLabel>
           <text>2019-06-18-0847_stats.slurm</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_11"/>
       </navPoint>
-      <navPoint id="num_306" playOrder="306">
+      <navPoint id="num_307" playOrder="307">
         <navLabel>
           <text>2019-06-18-1056_SeqPrep.slurm</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_12"/>
       </navPoint>
-      <navPoint id="num_307" playOrder="307">
+      <navPoint id="num_308" playOrder="308">
         <navLabel>
           <text>2019-06-18-1233_cutadapt.slurm</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_13"/>
       </navPoint>
-      <navPoint id="num_308" playOrder="308">
+      <navPoint id="num_309" playOrder="309">
         <navLabel>
           <text>2019-06-19-1015_more_on_Yeti.txt</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_14"/>
       </navPoint>
-      <navPoint id="num_309" playOrder="309">
+      <navPoint id="num_310" playOrder="310">
         <navLabel>
           <text>2019-06-19-1040_derep.slurm</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_15"/>
       </navPoint>
-      <navPoint id="num_310" playOrder="310">
+      <navPoint id="num_311" playOrder="311">
         <navLabel>
           <text>2019-06-19-1101_denoise.slurm</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_16"/>
       </navPoint>
-      <navPoint id="num_311" playOrder="311">
+      <navPoint id="num_312" playOrder="312">
         <navLabel>
           <text>2019-06-19-1528_rdp_classifier.slurm</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_17"/>
       </navPoint>
-      <navPoint id="num_312" playOrder="312">
+      <navPoint id="num_313" playOrder="313">
         <navLabel>
           <text>2019-06-20-0942_more_on_Yeti.txt</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_18"/>
       </navPoint>
-      <navPoint id="num_313" playOrder="313">
+      <navPoint id="num_314" playOrder="314">
         <navLabel>
           <text>2019-06-20-1039_lulu_prep.slurm</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_19"/>
       </navPoint>
-      <navPoint id="num_314" playOrder="314">
+      <navPoint id="num_315" playOrder="315">
         <navLabel>
           <text>2019-06-20-1126_vsearch_taxonomy.slurm</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_20"/>
       </navPoint>
-      <navPoint id="num_315" playOrder="315">
+      <navPoint id="num_316" playOrder="316">
         <navLabel>
           <text>2019-06-20-1241_bold_0001-0500.R</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_21"/>
       </navPoint>
-      <navPoint id="num_316" playOrder="316">
+      <navPoint id="num_317" playOrder="317">
         <navLabel>
           <text>2019-06-20-1241_bold_0001-0500.slurm</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_22"/>
       </navPoint>
-      <navPoint id="num_317" playOrder="317">
+      <navPoint id="num_318" playOrder="318">
         <navLabel>
           <text>2019-06-21-0845_more_on_Yeti.txt</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_23"/>
       </navPoint>
-      <navPoint id="num_318" playOrder="318">
+      <navPoint id="num_319" playOrder="319">
         <navLabel>
           <text>2019-06-21-0941_bold_1001-1250.R</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_24"/>
       </navPoint>
-      <navPoint id="num_319" playOrder="319">
+      <navPoint id="num_320" playOrder="320">
         <navLabel>
           <text>2019-06-21-0944_bold_1001-1250.slurm</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_25"/>
       </navPoint>
-      <navPoint id="num_320" playOrder="320">
+      <navPoint id="num_321" playOrder="321">
         <navLabel>
           <text>2019-06-28-1020_examining_identifications.R</text>
         </navLabel>
         <content src="appendices_April-June.xhtml#toc_26"/>
       </navPoint>
-      <navPoint id="num_321" playOrder="321">
+      <navPoint id="num_322" playOrder="322">
         <navLabel>
           <text>2019-07-01-0743_rdp_classifier.slurm</text>
         </navLabel>
         <content src="appendices_July-September.xhtml"/>
       </navPoint>
-      <navPoint id="num_322" playOrder="322">
+      <navPoint id="num_323" playOrder="323">
         <navLabel>
           <text>2019-07-01-0746_rdp_test.txt</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_1"/>
       </navPoint>
-      <navPoint id="num_323" playOrder="323">
+      <navPoint id="num_324" playOrder="324">
         <navLabel>
           <text>2019-07-01-0748_improving_identifications.R</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_2"/>
       </navPoint>
-      <navPoint id="num_324" playOrder="324">
+      <navPoint id="num_325" playOrder="325">
         <navLabel>
           <text>2019-07-18-0834_tree_making.R</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_3"/>
       </navPoint>
-      <navPoint id="num_325" playOrder="325">
+      <navPoint id="num_326" playOrder="326">
         <navLabel>
           <text>2019-07-18-1249_qiime_tree.slurm</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_4"/>
       </navPoint>
-      <navPoint id="num_326" playOrder="326">
+      <navPoint id="num_327" playOrder="327">
         <navLabel>
           <text>2019-07-18-0848_yeti_io.sh</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_5"/>
       </navPoint>
-      <navPoint id="num_327" playOrder="327">
+      <navPoint id="num_328" playOrder="328">
         <navLabel>
           <text>2019-07-25-1055_fasta_for_remaining_unidentified_otus.R</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_6"/>
       </navPoint>
-      <navPoint id="num_328" playOrder="328">
+      <navPoint id="num_329" playOrder="329">
         <navLabel>
           <text>2019-07-25-1439_looking_at_IDs.R</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_7"/>
       </navPoint>
-      <navPoint id="num_329" playOrder="329">
+      <navPoint id="num_330" playOrder="330">
         <navLabel>
           <text>2019-07-25-1511_qiime_tree.slurm</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_8"/>
       </navPoint>
-      <navPoint id="num_330" playOrder="330">
+      <navPoint id="num_331" playOrder="331">
         <navLabel>
           <text>2019-08-02-1333_Melvin_stand_data.R</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_9"/>
       </navPoint>
-      <navPoint id="num_331" playOrder="331">
+      <navPoint id="num_332" playOrder="332">
         <navLabel>
           <text>2019-08-07-0931_LTEMP_plot_data.R</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_10"/>
       </navPoint>
-      <navPoint id="num_332" playOrder="332">
+      <navPoint id="num_333" playOrder="333">
         <navLabel>
           <text>2019-08-07-1122_FMH_coords.R</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_11"/>
       </navPoint>
-      <navPoint id="num_333" playOrder="333">
+      <navPoint id="num_334" playOrder="334">
         <navLabel>
           <text>2019-08-06-1535_cryptogam_Arctos_upload.R</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_12"/>
       </navPoint>
-      <navPoint id="num_334" playOrder="334">
+      <navPoint id="num_335" playOrder="335">
         <navLabel>
           <text>2019-08-14-1705_cryptogam_Arctos_upload.R</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_13"/>
       </navPoint>
-      <navPoint id="num_335" playOrder="335">
+      <navPoint id="num_336" playOrder="336">
         <navLabel>
           <text>2019-08-19-1032_cryptogam_Arctos_upload.R</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_14"/>
       </navPoint>
-      <navPoint id="num_336" playOrder="336">
+      <navPoint id="num_337" playOrder="337">
         <navLabel>
           <text>2019-08-21-1056_Melvin_birch_specimens.R</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_15"/>
       </navPoint>
-      <navPoint id="num_337" playOrder="337">
+      <navPoint id="num_338" playOrder="338">
         <navLabel>
           <text>2019-08-22-0909_eurofins_submission_data.R</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_16"/>
       </navPoint>
-      <navPoint id="num_338" playOrder="338">
+      <navPoint id="num_339" playOrder="339">
         <navLabel>
           <text>2019-08-22-1049_RADseq_specimen_map.R</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_17"/>
       </navPoint>
-      <navPoint id="num_339" playOrder="339">
+      <navPoint id="num_340" playOrder="340">
         <navLabel>
           <text>2019-08-28-1136_Melvin_samples.R</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_18"/>
       </navPoint>
-      <navPoint id="num_340" playOrder="340">
+      <navPoint id="num_341" playOrder="341">
         <navLabel>
           <text>2019-08-29-1231_sample_submission.R</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_19"/>
       </navPoint>
-      <navPoint id="num_341" playOrder="341">
+      <navPoint id="num_342" playOrder="342">
         <navLabel>
           <text>2019-08-29-1527_Arctos_upload.R</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_20"/>
       </navPoint>
-      <navPoint id="num_342" playOrder="342">
+      <navPoint id="num_343" playOrder="343">
         <navLabel>
           <text>2019-09-05-1136_Arctos_upload.R</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_21"/>
       </navPoint>
-      <navPoint id="num_343" playOrder="343">
+      <navPoint id="num_344" playOrder="344">
         <navLabel>
           <text>2019-09-05-2210_Arctos_upload.R</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_22"/>
       </navPoint>
-      <navPoint id="num_344" playOrder="344">
+      <navPoint id="num_345" playOrder="345">
         <navLabel>
           <text>2019-09-06-1153_Arctos_upload.R</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_23"/>
       </navPoint>
-      <navPoint id="num_345" playOrder="345">
+      <navPoint id="num_346" playOrder="346">
         <navLabel>
           <text>2019-09-09-0954_Arctos_upload.R</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_24"/>
       </navPoint>
-      <navPoint id="num_346" playOrder="346">
+      <navPoint id="num_347" playOrder="347">
         <navLabel>
           <text>2019-09-10-0639_adding_relationships.R</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_25"/>
       </navPoint>
-      <navPoint id="num_347" playOrder="347">
+      <navPoint id="num_348" playOrder="348">
         <navLabel>
           <text>2019-09-10-0920_uploading_media.R</text>
         </navLabel>
         <content src="appendices_July-September.xhtml#toc_26"/>
       </navPoint>
-      <navPoint id="num_348" playOrder="348">
+      <navPoint id="num_349" playOrder="349">
         <navLabel>
           <text>2019-10-24_external_links_upload_prep.R</text>
         </navLabel>
         <content src="appendices_October-December.xhtml"/>
       </navPoint>
-      <navPoint id="num_349" playOrder="349">
+      <navPoint id="num_350" playOrder="350">
         <navLabel>
           <text>2019-11-01-1341_merging_datasets.R</text>
         </navLabel>
         <content src="appendices_October-December.xhtml#toc_1"/>
       </navPoint>
-      <navPoint id="num_350" playOrder="350">
+      <navPoint id="num_351" playOrder="351">
         <navLabel>
           <text>2019-11-04-1334_records_summary.R</text>
         </navLabel>
         <content src="appendices_October-December.xhtml#toc_2"/>
       </navPoint>
-      <navPoint id="num_351" playOrder="351">
+      <navPoint id="num_352" playOrder="352">
         <navLabel>
           <text>2019-11-04-1459_new_records_table.R</text>
         </navLabel>
         <content src="appendices_October-December.xhtml#toc_3"/>
       </navPoint>
-      <navPoint id="num_352" playOrder="352">
+      <navPoint id="num_353" playOrder="353">
         <navLabel>
           <text>2019-11-05-0923_graphic_for_John.R</text>
         </navLabel>
         <content src="appendices_October-December.xhtml#toc_4"/>
       </navPoint>
-      <navPoint id="num_353" playOrder="353">
+      <navPoint id="num_354" playOrder="354">
         <navLabel>
           <text>2019-11-06-0742_graphic_for_John.R</text>
         </navLabel>
         <content src="appendices_October-December.xhtml#toc_5"/>
       </navPoint>
-      <navPoint id="num_354" playOrder="354">
+      <navPoint id="num_355" playOrder="355">
         <navLabel>
           <text>2019-11-08-0806_checking_samples.R</text>
         </navLabel>
         <content src="appendices_October-December.xhtml#toc_6"/>
       </navPoint>
-      <navPoint id="num_355" playOrder="355">
+      <navPoint id="num_356" playOrder="356">
         <navLabel>
           <text>2019-11-11-2232_Arctos_upload.R</text>
         </navLabel>
         <content src="appendices_October-December.xhtml#toc_7"/>
       </navPoint>
-      <navPoint id="num_356" playOrder="356">
+      <navPoint id="num_357" playOrder="357">
         <navLabel>
           <text>2019-11-12-0755_Arctos_upload.R</text>
         </navLabel>
         <content src="appendices_October-December.xhtml#toc_8"/>
       </navPoint>
-      <navPoint id="num_357" playOrder="357">
+      <navPoint id="num_358" playOrder="358">
         <navLabel>
           <text>2019-11-14-1137_summarizing.R</text>
         </navLabel>
         <content src="appendices_October-December.xhtml#toc_27"/>
       </navPoint>
-      <navPoint id="num_358" playOrder="358">
+      <navPoint id="num_359" playOrder="359">
         <navLabel>
           <text>2019-11-15-0837_GenBank_SRA_submission_pre.R</text>
         </navLabel>
         <content src="appendices_October-December.xhtml#toc_9"/>
       </navPoint>
-      <navPoint id="num_359" playOrder="359">
+      <navPoint id="num_360" playOrder="360">
         <navLabel>
           <text>2019-11-18-0942_Arctos_other_ids.R</text>
         </navLabel>
         <content src="appendices_October-December.xhtml#toc_10"/>
       </navPoint>
-      <navPoint id="num_360" playOrder="360">
+      <navPoint id="num_361" playOrder="361">
         <navLabel>
           <text>2019-11-19-0931_summaries.R</text>
         </navLabel>
         <content src="appendices_October-December.xhtml#toc_11"/>
       </navPoint>
-      <navPoint id="num_361" playOrder="361">
+      <navPoint id="num_362" playOrder="362">
         <navLabel>
           <text>2019-11-20-1441_clustering.R</text>
         </navLabel>
         <content src="appendices_October-December.xhtml#toc_12"/>
       </navPoint>
-      <navPoint id="num_362" playOrder="362">
+      <navPoint id="num_363" playOrder="363">
         <navLabel>
           <text>2019-11-21-0750_clustering.R</text>
         </navLabel>
         <content src="appendices_October-December.xhtml#toc_13"/>
       </navPoint>
-      <navPoint id="num_363" playOrder="363">
+      <navPoint id="num_364" playOrder="364">
         <navLabel>
           <text>2019-11-22-0942_reclustering.R</text>
         </navLabel>
         <content src="appendices_October-December.xhtml#toc_14"/>
       </navPoint>
-      <navPoint id="num_364" playOrder="364">
+      <navPoint id="num_365" playOrder="365">
         <navLabel>
           <text>2019-11-25-0611_species_accum.R</text>
         </navLabel>
         <content src="appendices_October-December.xhtml#toc_15"/>
       </navPoint>
-      <navPoint id="num_365" playOrder="365">
+      <navPoint id="num_366" playOrder="366">
         <navLabel>
           <text>2019-11-25-new_exotics_map.R</text>
         </navLabel>
         <content src="appendices_October-December.xhtml#toc_16"/>
       </navPoint>
-      <navPoint id="num_366" playOrder="366">
+      <navPoint id="num_367" playOrder="367">
         <navLabel>
           <text>2019-11-26-1317_community_data.R</text>
         </navLabel>
         <content src="appendices_October-December.xhtml#toc_17"/>
       </navPoint>
-      <navPoint id="num_367" playOrder="367">
+      <navPoint id="num_368" playOrder="368">
         <navLabel>
           <text>2019-11-27-0632_community_data.R</text>
         </navLabel>
         <content src="appendices_October-December.xhtml#toc_18"/>
       </navPoint>
-      <navPoint id="num_368" playOrder="368">
+      <navPoint id="num_369" playOrder="369">
         <navLabel>
           <text>2019-11-29-0926_fungal_summaries.R</text>
         </navLabel>
         <content src="appendices_October-December.xhtml#toc_19"/>
       </navPoint>
-      <navPoint id="num_369" playOrder="369">
+      <navPoint id="num_370" playOrder="370">
         <navLabel>
           <text>2019-12-04-1114_community_data.R</text>
         </navLabel>
         <content src="appendices_October-December.xhtml#toc_20"/>
       </navPoint>
-      <navPoint id="num_370" playOrder="370">
+      <navPoint id="num_371" playOrder="371">
         <navLabel>
           <text>2019-12-09-0523_community_data.R</text>
         </navLabel>
         <content src="appendices_October-December.xhtml#toc_21"/>
       </navPoint>
-      <navPoint id="num_371" playOrder="371">
+      <navPoint id="num_372" playOrder="372">
         <navLabel>
           <text>2019-12-10-0527_community_data.R</text>
         </navLabel>
         <content src="appendices_October-December.xhtml#toc_22"/>
       </navPoint>
-      <navPoint id="num_372" playOrder="372">
+      <navPoint id="num_373" playOrder="373">
         <navLabel>
           <text>2019-12-11-0908_community_data.R</text>
         </navLabel>
         <content src="appendices_October-December.xhtml#toc_23"/>
+      </navPoint>
+      <navPoint id="num_374" playOrder="374">
+        <navLabel>
+          <text>2019-12-13-1133_community_data.R</text>
+        </navLabel>
+        <content src="appendices_October-December.xhtml#toc_24"/>
       </navPoint>
     </navPoint>
   </navMap>

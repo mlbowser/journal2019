@@ -6121,4 +6121,80 @@ agcom$Group.1 &lt;- rename
 4                willow  35
 5   black spruce forest  93</pre>
 
+<h2 id="toc_25">2019-12-17-1002_community_diagram.R</h2>
+
+<pre>## Trying to make a community graphic.
+
+wd &lt;- "D:/projects/Slikok_watershed/data/work_space/2019-11-19_summary_analyses"
+setwd(wd)
+
+load("2019-12-11-1500_workspace.RData")
+
+com_mem$species[com_mem$community == levels(com_mem$community)[1]]
+
+library("VennDiagram")
+
+venn.diagram(
+  x = list(
+   com_mem$species[com_mem$community == levels(com_mem$community)[1]],
+   com_mem$species[com_mem$community == levels(com_mem$community)[2]],
+   com_mem$species[com_mem$community == levels(com_mem$community)[3]],
+   com_mem$species[com_mem$community == levels(com_mem$community)[4]],
+   com_mem$species[com_mem$community == levels(com_mem$community)[5]]
+   ),
+  category.names = rename,
+  height = 4000, 
+  width = 4000,
+  imagetype = "png",
+  filename = "2019-12-17-1010_venn.png",
+  output=TRUE,
+  fill=c(deccol, forcol, hercol, shrcol, wetcol),
+  margin=0.2,
+  cat.fontfamily = "sans",
+  fontfamily = "sans"
+)
+
+## Wow, what are the four species shared by all communities?
+intersect(
+intersect(
+intersect(
+intersect(
+   com_mem$species[com_mem$community == levels(com_mem$community)[1]],
+   com_mem$species[com_mem$community == levels(com_mem$community)[2]]
+   ),
+   com_mem$species[com_mem$community == levels(com_mem$community)[3]]
+   ),
+   com_mem$species[com_mem$community == levels(com_mem$community)[4]]
+   ),
+   com_mem$species[com_mem$community == levels(com_mem$community)[5]]
+   )
+[1] "Calamagrostis canadensis" "Setophaga coronata"       "Loxia leucoptera"        
+[4] "Junco hyemalis"       
+
+## Need to summarize new records.
+new_records &lt;- read.csv("2019-12-17-1541_new_records.csv")
+
+new_records_agg &lt;- aggregate(new_records$species, by=list(new_records$order), length)
+new_records_agg
+      Group.1  x
+1     Araneae  1
+2     Diptera 65
+3   Hemiptera 11
+4 Hymenoptera 14
+5 Lepidoptera  8
+6  Neuroptera  2
+7    Psocodea  1
+
+## Given as percentages
+new_records_agg$perc &lt;- round(new_records_agg$x*100/nrow(new_records))
+new_records_agg
+      Group.1  x perc
+1     Araneae  1    1
+2     Diptera 65   64
+3   Hemiptera 11   11
+4 Hymenoptera 14   14
+5 Lepidoptera  8    8
+6  Neuroptera  2    2
+7    Psocodea  1    1</pre>
+
 </body></html>

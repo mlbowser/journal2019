@@ -241,6 +241,14 @@
     <item href="img/2019-12-27_nb02.jpg" id="id225" media-type="image/jpeg"/>
     <item href="img/2019-12-27_nb03.jpg" id="id226" media-type="image/jpeg"/>
     <item href="img/2019-12-27_nb04.jpg" id="id227" media-type="image/jpeg"/>
+    <item href="img/2019-12-18_nb01.jpg" id="id228" media-type="image/jpeg"/>
+    <item href="img/2019-12-18_nb02.jpg" id="id229" media-type="image/jpeg"/>
+    <item href="img/2019-12-18_nb03.jpg" id="id230" media-type="image/jpeg"/>
+    <item href="img/2019-12-18_nb04.jpg" id="id231" media-type="image/jpeg"/>
+    <item href="img/2019-12-30_nb01.jpg" id="id234" media-type="image/jpeg"/>
+    <item href="img/2019-12-30_nb02.jpg" id="id235" media-type="image/jpeg"/>
+    <item href="img/2019-12-30_nb03.jpg" id="id236" media-type="image/jpeg"/>
+    <item href="img/2019-12-30-1012_plot_design.png" id="id232" media-type="image/png"/>
   </manifest>
   <spine toc="ncx">
     <itemref idref="titlepage"/>

@@ -6197,4 +6197,95 @@ new_records_agg
 6  Neuroptera  2    2
 7    Psocodea  1    1</pre>
 
+<h2 id="toc_26">2019-12-30_sampling_desing.R</h2>
+
+<pre>## Looking at plot designs for potential year-round sampling at one point.
+wd &lt;- "D:/projects/2020_single_point_sampling/2019-12-30_sampling_design"
+setwd(wd)
+
+library(maptools)
+library(raster)
+library(GISTools)
+
+albers &lt;- "+proj=aea +lat_1=55 +lat_2=65 +lat_0=50 +lon_0=-154 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
+
+## Coordinates for Slikok site SK03.
+x &lt;- 160681.5625
+y &lt;- 1168153.5
+label &lt;- "SK03"
+point &lt;- as.data.frame(x)
+point$y &lt;- y
+point$label &lt;- label
+coordinates(point) &lt;- c("x", "y")
+proj4string(point) &lt;- CRS(albers)
+
+nlcd &lt;- raster("D:/projects/Slikok_watershed/Slikok_project_design/geodata/NCLD_2011_Slikok.tif") 
+crs(nlcd) &lt;- albers
+
+point_extent &lt;- c(x-15, x+15, y-15, y+15)
+
+nlcd_point &lt;- crop(nlcd, point_extent)
+
+extract(nlcd, point, cellnumbers=TRUE)
+ cells NCLD_2011_Slikok
+ 23680               41
+ 
+point_extent &lt;- extent(nlcd_point)
+nlcd_poly &lt;- as(point_extent, 'SpatialPolygons')
+proj4string(nlcd_poly) &lt;- CRS(albers)
+
+plot(nlcd_poly)
+points(point)
+## That looked good.
+
+## Now for the current plot.
+library("plotrix")
+draw.circle(x=x,y=y,radius=5.64)
+
+pdf(file="2019-12-30-0930_plot_design.pdf")
+plot(point,
+ xlim=c(x-30, x+30),
+ ylim=c(y-30, y+30)
+ )
+plot(nlcd_poly, add=TRUE, border="green")
+draw.circle(x=x,y=y,radius=5.64, border="blue")
+map.scale(x=x, y=y+20, len=30, ndivs=3, units="m", subdiv=10)
+dev.off()
+
+## Now how about a 1000m2 circle?
+A &lt;- 1000
+r1000 &lt;- (A/pi)^0.5
+r1000
+[1] 17.84124
+
+pdf(file="2019-12-30-0950_plot_design.pdf")
+plot(point,
+ xlim=c(x-30, x+30),
+ ylim=c(y-30, y+30)
+ )
+plot(nlcd_poly, add=TRUE, border="green")
+draw.circle(x=x,y=y,radius=5.64, border="blue")
+draw.circle(x=x,y=y,radius=r1000, border="red")
+map.scale(x=x, y=y+20, len=30, ndivs=3, units="m", subdiv=10)
+dev.off()
+
+## Checking existing data...
+arctos1 &lt;- read.csv("oo_358153.csv", stringsAsFactors=FALSE)
+wgs84 &lt;- "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
+coordinates(arctos1) &lt;- c("DEC_LONG", "DEC_LAT")
+proj4string(arctos1) &lt;- CRS(wgs84)
+arctos_albers &lt;- spTransform(arctos1, CRS(albers))
+
+pdf(file="2019-12-30-1012_plot_design.pdf")
+plot(point,
+ xlim=c(x-30, x+30),
+ ylim=c(y-30, y+30)
+ )
+plot(nlcd_poly, add=TRUE, border="green")
+draw.circle(x=x,y=y,radius=5.64, border="blue")
+draw.circle(x=x,y=y,radius=r1000, border="red")
+points(arctos_albers)
+map.scale(x=x, y=y+25, len=30, ndivs=3, units="m", subdiv=10) 
+dev.off()</pre>
+
 </body></html>
